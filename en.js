@@ -229,22 +229,20 @@ window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 to 28/09/2026"
 });
 
-/* ── checkin.html textes manquants ── */
+/* ── wifi.html + valeurs courtes manquantes ── */
 window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
-  "Votre semaine de vacances touche à sa fin et nous sommes aussi triste de vous voir partir.": "Your holiday week is coming to an end and we're just as sad to see you go.",
-  "Si vous avez séjourné en hébergement (chalet/mobilhome/cottage), il faudra quitter l'hébergement au plus tard à": "If you stayed in an accommodation (chalet/mobile home/cottage), you must vacate it by",
-  "Nous n'effectuons pas d'état des lieux pendant votre départ.": "We do not carry out a condition check at departure.",
-  "Les équipes de ménages veilleront à ce que l'hébergement soit le même que lorsqu'il vous a été confié. En cas de problème, nous vous contacterons par téléphone.": "The cleaning teams will ensure the accommodation is in the same condition as when it was handed to you. If there is a problem, we will contact you by phone.",
-  "Nous vous demandons de rendre l'hébergement aussi propre qu'il vous a été donné.": "We ask you to leave the accommodation as clean as you found it.",
-  "Vous pouvez remettre les clés à la réception avant de partir. Dans le cas où vous souhaitez partir très tôt et que la réception n'est pas ouverte (avant 9h00), nous avons mis en place une boite en bois à l'entrée du Camping. Vous pourrez y déposer directement les clés.": "You can return the keys to reception before leaving. If you wish to leave very early and reception is not open (before 9am), we have set up a wooden box at the campsite entrance where you can drop off the keys directly.",
-  "Vous avez souscrit au forfait ménage, nous vous demandons seulement de :*": "If you have taken the cleaning package, we only ask you to:*",
-  "Vous n'avez pas souscrit au forfait ménage :": "If you have not taken the cleaning package:",
-  "Remise des clés :": "Key return:",
-  "10h00 pour les hébergements": "10:00am for accommodations",
-  "Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.": "To best support you during your stay, we gave you an envelope at reception containing all the useful information.",
-  "Un mémo \"Tri et compost\" : toutes les poubelles sont situées à l'entrée du camping. Merci de respecter les consignes, on compte sur vous pour préserver notre belle nature.": "A \"Sorting and composting\" memo: all bins are located at the campsite entrance. Please follow the instructions — we're counting on you to help preserve our beautiful nature.",
-  "Un QR code pour accéder directement à notre application et profiter de tous nos services (animations, infos pratiques, lieux à visiter…).": "A QR code to access our app directly and enjoy all our services (entertainment, practical info, places to visit…).",
-  ": il est inscrit directement sur l'enveloppe remise à votre arrivée.": ": It is written directly on the envelope given to you on arrival.",
-  ": vous n'avez pas besoin de code pour sortir du camping, un capteur est installé au sol.": ": You do not need a code to exit the campsite — a sensor is installed in the ground.",
-  ": à compléter avec les informations des participants, votre avis sur la propreté du logement, et un espace pour toute remarque à nous faire remonter.": ": To be completed with participant details, your opinion on the cleanliness of the accommodation, and a space for any comments."
+  "Connexion internet gratuite et rapide partout dans le camping.": "Fast, free internet connection throughout the campsite.",
+  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Stay connected with family and friends during your nature stay.",
+  "📋 Informations": "📋 Information",
+  "ℹ️ Conseils de Connexion": "ℹ️ Connection Tips",
+  "Gratuit pour tous les clients": "Free for all guests",
+  "24h/24": "24/7",
+  "Pas de mot de passe, accès direct": "No password required, direct access",
+  "Haut débit": "High speed",
+  "Contactez la réception en cas de souci": "Contact reception if you have any issues",
+  "Vous trouverez des machines à laver au sanitaire principal.": "You will find washing machines in the main sanitary block.",
+  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "Payment is made directly on the machines or via the WAshin app, available on Apple and Android.",
+  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "The laundry has two washing machines and a dryer. It is open 24 hours a day throughout the season.",
+  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "If you wish to pay via the app, you will need to create an account, specify the campsite and select the desired service (dryer and/or washing).",
+  "tarif réduit via l'application.": "reduced rate via the app."
 });

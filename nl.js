@@ -229,22 +229,20 @@ window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
 });
 
-/* ── checkin.html textes manquants ── */
+/* ── wifi.html + valeurs courtes manquantes ── */
 window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
-  "Votre semaine de vacances touche à sa fin et nous sommes aussi triste de vous voir partir.": "Uw vakantieweek loopt op zijn einde en wij zijn ook bedroefd u te zien vertrekken.",
-  "Si vous avez séjourné en hébergement (chalet/mobilhome/cottage), il faudra quitter l'hébergement au plus tard à": "Als u in een accommodatie (chalet/stacaravan/cottage) heeft verbleven, dient u deze te verlaten uiterlijk om",
-  "Nous n'effectuons pas d'état des lieux pendant votre départ.": "Wij voeren geen toestandscontrole uit bij uw vertrek.",
-  "Les équipes de ménages veilleront à ce que l'hébergement soit le même que lorsqu'il vous a été confié. En cas de problème, nous vous contacterons par téléphone.": "De schoonmaakteams zorgen ervoor dat de accommodatie in dezelfde staat is als bij de overdracht. Bij problemen nemen wij telefonisch contact met u op.",
-  "Nous vous demandons de rendre l'hébergement aussi propre qu'il vous a été donné.": "Wij vragen u de accommodatie even schoon achter te laten als u haar heeft ontvangen.",
-  "Vous pouvez remettre les clés à la réception avant de partir. Dans le cas où vous souhaitez partir très tôt et que la réception n'est pas ouverte (avant 9h00), nous avons mis en place une boite en bois à l'entrée du Camping. Vous pourrez y déposer directement les clés.": "U kunt de sleutels voor vertrek inleveren bij de receptie. Als u zeer vroeg wilt vertrekken en de receptie niet open is (voor 9u00), hebben wij een houten box bij de ingang geplaatst waar u de sleutels direct kunt achterlaten.",
-  "Vous avez souscrit au forfait ménage, nous vous demandons seulement de :*": "Als u het schoonmaakpakket heeft geboekt, vragen wij u alleen:*",
-  "Vous n'avez pas souscrit au forfait ménage :": "Als u geen schoonmaakpakket heeft geboekt:",
-  "Remise des clés :": "Sleutelinlevering:",
-  "10h00 pour les hébergements": "10u00 voor accommodaties",
-  "Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.": "Om u zo goed mogelijk te begeleiden tijdens uw verblijf, hebben wij u bij de receptie een envelop overhandigd met alle nuttige informatie.",
-  "Un mémo \"Tri et compost\" : toutes les poubelles sont situées à l'entrée du camping. Merci de respecter les consignes, on compte sur vous pour préserver notre belle nature.": "Een memo \"Afvalscheiding en compost\": alle vuilnisbakken bevinden zich bij de ingang van de camping. Volg de instructies — wij rekenen op u!",
-  "Un QR code pour accéder directement à notre application et profiter de tous nos services (animations, infos pratiques, lieux à visiter…).": "Een QR-code voor directe toegang tot onze app en alle diensten (animatie, praktische info, bezienswaardigheden…).",
-  ": il est inscrit directement sur l'enveloppe remise à votre arrivée.": ": Hij staat direct op de envelop die u bij aankomst heeft ontvangen.",
-  ": vous n'avez pas besoin de code pour sortir du camping, un capteur est installé au sol.": ": U heeft geen code nodig om de camping te verlaten — er is een sensor in de grond ingebouwd.",
-  ": à compléter avec les informations des participants, votre avis sur la propreté du logement, et un espace pour toute remarque à nous faire remonter.": ": In te vullen met gegevens van deelnemers, uw mening over de netheid van de accommodatie en een ruimte voor opmerkingen."
+  "Connexion internet gratuite et rapide partout dans le camping.": "Gratis en snel internet overal op de camping.",
+  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Blijf verbonden met familie en vrienden tijdens uw verblijf in de natuur.",
+  "📋 Informations": "📋 Informatie",
+  "ℹ️ Conseils de Connexion": "ℹ️ Verbindingstips",
+  "Gratuit pour tous les clients": "Gratis voor alle gasten",
+  "24h/24": "24/24u",
+  "Pas de mot de passe, accès direct": "Geen wachtwoord, directe toegang",
+  "Haut débit": "Hoge snelheid",
+  "Contactez la réception en cas de souci": "Neem contact op met de receptie bij problemen",
+  "Vous trouverez des machines à laver au sanitaire principal.": "U vindt wasmachines in het hoofdsanitairblok.",
+  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "Betaling geschiedt direct op de machines of via de WAshin-app (beschikbaar voor Apple en Android).",
+  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "De wasruimte bestaat uit twee wasmachines en een droger. Ze is 24 uur per dag open gedurende het hele seizoen.",
+  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "Als u via de app wilt betalen, moet u een account aanmaken, de camping opgeven en de gewenste service selecteren (droger en/of wassen).",
+  "tarif réduit via l'application.": "gereduceerd tarief via de app."
 });

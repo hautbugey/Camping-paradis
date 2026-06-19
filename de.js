@@ -229,22 +229,20 @@ window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Geöffnet: 30.04.2026 bis 28.09.2026"
 });
 
-/* ── checkin.html textes manquants ── */
+/* ── wifi.html + valeurs courtes manquantes ── */
 window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
-  "Votre semaine de vacances touche à sa fin et nous sommes aussi triste de vous voir partir.": "Ihre Urlaubswoche neigt sich dem Ende und wir sind traurig, Sie gehen zu sehen.",
-  "Si vous avez séjourné en hébergement (chalet/mobilhome/cottage), il faudra quitter l'hébergement au plus tard à": "Wenn Sie in einer Unterkunft (Chalet/Mobilheim/Cottage) übernachtet haben, müssen Sie diese spätestens um",
-  "Nous n'effectuons pas d'état des lieux pendant votre départ.": "Wir führen bei Ihrer Abreise keine Zustandsprüfung durch.",
-  "Les équipes de ménages veilleront à ce que l'hébergement soit le même que lorsqu'il vous a été confié. En cas de problème, nous vous contacterons par téléphone.": "Die Reinigungsteams werden dafür sorgen, dass die Unterkunft in demselben Zustand ist wie bei der Übergabe. Bei Problemen werden wir Sie telefonisch kontaktieren.",
-  "Nous vous demandons de rendre l'hébergement aussi propre qu'il vous a été donné.": "Wir bitten Sie, die Unterkunft so sauber zu hinterlassen, wie Sie sie erhalten haben.",
-  "Vous pouvez remettre les clés à la réception avant de partir. Dans le cas où vous souhaitez partir très tôt et que la réception n'est pas ouverte (avant 9h00), nous avons mis en place une boite en bois à l'entrée du Camping. Vous pourrez y déposer directement les clés.": "Sie können die Schlüssel vor Ihrer Abreise an der Rezeption abgeben. Wenn Sie sehr früh abreisen und die Rezeption nicht geöffnet ist (vor 9:00 Uhr), haben wir am Eingang des Campingplatzes eine Holzbox aufgestellt, in der Sie die Schlüssel direkt hinterlegen können.",
-  "Vous avez souscrit au forfait ménage, nous vous demandons seulement de :*": "Wenn Sie das Reinigungspaket gebucht haben, bitten wir Sie lediglich:*",
-  "Vous n'avez pas souscrit au forfait ménage :": "Wenn Sie kein Reinigungspaket gebucht haben:",
-  "Remise des clés :": "Schlüsselrückgabe:",
-  "10h00 pour les hébergements": "10:00 Uhr für Unterkünfte",
-  "Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.": "Um Ihnen während Ihres Aufenthalts bestmöglich zu helfen, haben wir Ihnen an der Rezeption einen Umschlag mit allen nützlichen Informationen überreicht.",
-  "Un mémo \"Tri et compost\" : toutes les poubelles sont situées à l'entrée du camping. Merci de respecter les consignes, on compte sur vous pour préserver notre belle nature.": "Ein Memo \"Mülltrennung und Kompost\": Alle Mülltonnen befinden sich am Eingang des Campingplatzes. Bitte befolgen Sie die Anweisungen — wir zählen auf Sie!",
-  "Un QR code pour accéder directement à notre application et profiter de tous nos services (animations, infos pratiques, lieux à visiter…).": "Ein QR-Code für den direkten Zugang zu unserer App mit allen Services (Animation, praktische Infos, Ausflugsziele…).",
-  ": il est inscrit directement sur l'enveloppe remise à votre arrivée.": ": Er steht direkt auf dem Umschlag, den Sie bei Ihrer Ankunft erhalten haben.",
-  ": vous n'avez pas besoin de code pour sortir du camping, un capteur est installé au sol.": ": Sie benötigen keinen Code zum Verlassen des Campingplatzes — ein Sensor ist im Boden eingebaut.",
-  ": à compléter avec les informations des participants, votre avis sur la propreté du logement, et un espace pour toute remarque à nous faire remonter.": ": Bitte ausfüllen mit den Angaben der Teilnehmer, Ihrer Meinung zur Sauberkeit der Unterkunft und einem Bereich für Anmerkungen."
+  "Connexion internet gratuite et rapide partout dans le camping.": "Kostenloses und schnelles Internet überall auf dem Campingplatz.",
+  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Bleiben Sie während Ihres Aufenthalts in der Natur mit Familie und Freunden in Verbindung.",
+  "📋 Informations": "📋 Informationen",
+  "ℹ️ Conseils de Connexion": "ℹ️ Verbindungstipps",
+  "Gratuit pour tous les clients": "Kostenlos für alle Gäste",
+  "24h/24": "24/24h",
+  "Pas de mot de passe, accès direct": "Kein Passwort, direkter Zugang",
+  "Haut débit": "Breitband",
+  "Contactez la réception en cas de souci": "Bei Problemen die Rezeption kontaktieren",
+  "Vous trouverez des machines à laver au sanitaire principal.": "Sie finden Waschmaschinen im Hauptsanitärblock.",
+  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "Die Bezahlung erfolgt direkt an den Maschinen oder über die App WAshin (für Apple und Android).",
+  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "Die Waschküche besteht aus zwei Waschmaschinen und einem Trockner. Sie ist 24 Stunden am Tag während der gesamten Saison geöffnet.",
+  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "Wenn Sie über die App bezahlen möchten, müssen Sie ein Konto erstellen, den Campingplatz angeben und den gewünschten Service auswählen (Trockner und/oder Waschen).",
+  "tarif réduit via l'application.": "ermäßigter Preis über die App."
 });
