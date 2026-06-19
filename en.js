@@ -229,8 +229,13 @@ window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 to 28/09/2026"
 });
 
-/* ── club-enfants.html ── */
+/* ── barriere.html ── */
 window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
-  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "The children won't be bored: games, entertainment, mini-disco, activities… the days are packed!",
-  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "They'll love taking part in the many activities of the Piki Club (ages 6–12)."
+  "Barrière": "Barrier",
+  "Vitesse de circulation": "Speed limit",
+  "La barrière est ouverte de 8h00 à 23h00 tous les jours.": "The barrier is open every day from 8am to 11pm.",
+  "Pour entrer dans le camping, utilisez le code indiqué sur votre enveloppe d'accueil.": "To enter the campsite, use the code on your welcome envelope.",
+  "En cas d'arrivée nocturne (fermeture de la barrière) : Vous pouvez stationner votre voiture sur le parking visiteurs devant le camping et rejoindre votre emplacement à pied.": "If you arrive at night (barrier closed): you can park in the visitor car park in front of the campsite and walk to your pitch.",
+  "8h00 - 23h00": "8am - 11pm",
+  "La vitesse maximale autorisée dans le camping est de 10 km/h. Nous vous prions de bien vouloir respecter cette vitesse de circulation pour le respect de tout le monde et éviter tous risque d'accident.": "The maximum speed allowed on the campsite is 10 km/h. Please respect this limit for everyone's safety and to avoid any risk of accident."
 });

@@ -229,8 +229,13 @@ window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Geöffnet: 30.04.2026 bis 28.09.2026"
 });
 
-/* ── club-enfants.html ── */
+/* ── barriere.html ── */
 window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
-  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "Die Kinder werden sich nicht langweilen: Spiele, Animation, Mini-Disco, Aktivitäten… die Tage sind gut gefüllt!",
-  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "Sie werden mit Begeisterung an den vielen Aktivitäten des Piki Club (6–12 Jahre) teilnehmen."
+  "Barrière": "Schranke",
+  "Vitesse de circulation": "Geschwindigkeitsbegrenzung",
+  "La barrière est ouverte de 8h00 à 23h00 tous les jours.": "Die Schranke ist täglich von 8:00 bis 23:00 Uhr geöffnet.",
+  "Pour entrer dans le camping, utilisez le code indiqué sur votre enveloppe d'accueil.": "Um den Campingplatz zu betreten, verwenden Sie den Code auf Ihrem Willkommensumschlag.",
+  "En cas d'arrivée nocturne (fermeture de la barrière) : Vous pouvez stationner votre voiture sur le parking visiteurs devant le camping et rejoindre votre emplacement à pied.": "Bei Nachtankunft (Schranke geschlossen): Sie können auf dem Besucherparkplatz vor dem Campingplatz parken und zu Fuß zu Ihrem Stellplatz gehen.",
+  "8h00 - 23h00": "8:00 - 23:00 Uhr",
+  "La vitesse maximale autorisée dans le camping est de 10 km/h. Nous vous prions de bien vouloir respecter cette vitesse de circulation pour le respect de tout le monde et éviter tous risque d'accident.": "Die Höchstgeschwindigkeit auf dem Campingplatz beträgt 10 km/h. Bitte halten Sie diese ein, um alle zu respektieren und Unfälle zu vermeiden."
 });

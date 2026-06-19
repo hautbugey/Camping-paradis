@@ -229,8 +229,13 @@ window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
 });
 
-/* ── club-enfants.html ── */
+/* ── barriere.html ── */
 window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
-  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "De kinderen zullen zich niet vervelen: spelletjes, animatie, mini-disco, activiteiten… de dagen zijn goed gevuld!",
-  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "Ze zullen met plezier deelnemen aan de vele activiteiten van de Piki Club (6–12 jaar)."
+  "Barrière": "Slagboom",
+  "Vitesse de circulation": "Snelheidslimiet",
+  "La barrière est ouverte de 8h00 à 23h00 tous les jours.": "De slagboom is elke dag open van 8:00 tot 23:00 uur.",
+  "Pour entrer dans le camping, utilisez le code indiqué sur votre enveloppe d'accueil.": "Gebruik de code op uw welkomstenvelope om de camping binnen te komen.",
+  "En cas d'arrivée nocturne (fermeture de la barrière) : Vous pouvez stationner votre voiture sur le parking visiteurs devant le camping et rejoindre votre emplacement à pied.": "Bij nachtelijke aankomst (slagboom gesloten): u kunt parkeren op de bezoekersparkeerplaats voor de camping en te voet naar uw standplaats lopen.",
+  "8h00 - 23h00": "8:00 - 23:00 uur",
+  "La vitesse maximale autorisée dans le camping est de 10 km/h. Nous vous prions de bien vouloir respecter cette vitesse de circulation pour le respect de tout le monde et éviter tous risque d'accident.": "De maximumsnelheid op de camping bedraagt 10 km/u. Gelieve deze limiet te respecteren voor ieders veiligheid."
 });
