@@ -229,20 +229,23 @@ window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
 });
 
-/* ── wifi.html + valeurs courtes manquantes ── */
+/* ── bar.html + snack.html manquants ── */
 window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
-  "Connexion internet gratuite et rapide partout dans le camping.": "Gratis en snel internet overal op de camping.",
-  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Blijf verbonden met familie en vrienden tijdens uw verblijf in de natuur.",
-  "📋 Informations": "📋 Informatie",
-  "ℹ️ Conseils de Connexion": "ℹ️ Verbindingstips",
-  "Gratuit pour tous les clients": "Gratis voor alle gasten",
-  "24h/24": "24/24u",
-  "Pas de mot de passe, accès direct": "Geen wachtwoord, directe toegang",
-  "Haut débit": "Hoge snelheid",
-  "Contactez la réception en cas de souci": "Neem contact op met de receptie bij problemen",
-  "Vous trouverez des machines à laver au sanitaire principal.": "U vindt wasmachines in het hoofdsanitairblok.",
-  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "Betaling geschiedt direct op de machines of via de WAshin-app (beschikbaar voor Apple en Android).",
-  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "De wasruimte bestaat uit twee wasmachines en een droger. Ze is 24 uur per dag open gedurende het hele seizoen.",
-  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "Als u via de app wilt betalen, moet u een account aanmaken, de camping opgeven en de gewenste service selecteren (droger en/of wassen).",
-  "tarif réduit via l'application.": "gereduceerd tarief via de app."
+  "🍹 Notre Bar": "🍹 Onze Bar",
+  "🔗 Accès Rapide": "🔗 Snelle toegang",
+  "Notre bar": "Onze bar",
+  "Un lieu convivial au cœur du camping": "Een gezellige plek in het hart van de camping",
+  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Onze bar staat voor u klaar om een drankje te delen met familie, vrienden en nieuwe kennissen te maken.",
+  "Cocktails maisons & bières de la région": "Huiscocktails & streekbieren",
+  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "Kom onze heerlijke huiscocktails en streekbieren proeven!",
+  "Période d'ouverture": "Openingsperiode",
+  "HORAIRES BAR / SNACK": "OPENINGSTIJDEN BAR / SNACK",
+  "CARTE BAR / SNACK": "KAART BAR / SNACK",
+  "🍕 Notre Snack": "🍕 Onze Snackbar",
+  "Ouverture": "Openingstijden",
+  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Elke dag behalve woensdag — van 15 mei tot 15 september 2026",
+  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Thema-avonden (alleen juli/augustus)",
+  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
+  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Kipnuggets met friet, gefrituurde calamaringen, gefrituurde mozzarellasticks, seizoenssalade, gourmandschotel, Fish & Chips",
+  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "Met meer dan 30 artiesten is Paradis des Stars het evenement van de zomer: musicals, boybands, girlbands, tv-zangers… artiesten die u kent van televisie of radio!"
 });

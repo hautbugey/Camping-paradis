@@ -229,20 +229,23 @@ window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Apertura: 30/04/2026 al 28/09/2026"
 });
 
-/* ── wifi.html + valeurs courtes manquantes ── */
+/* ── bar.html + snack.html manquants ── */
 window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
-  "Connexion internet gratuite et rapide partout dans le camping.": "Conexión a internet gratuita y rápida en todo el camping.",
-  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Permanezca conectado con familia y amigos durante su estancia en plena naturaleza.",
-  "📋 Informations": "📋 Información",
-  "ℹ️ Conseils de Connexion": "ℹ️ Consejos de conexión",
-  "Gratuit pour tous les clients": "Gratuito para todos los clientes",
-  "24h/24": "24h/24",
-  "Pas de mot de passe, accès direct": "Sin contraseña, acceso directo",
-  "Haut débit": "Alta velocidad",
-  "Contactez la réception en cas de souci": "Contacte con recepción si tiene algún problema",
-  "Vous trouverez des machines à laver au sanitaire principal.": "Encontrará lavadoras en el bloque sanitario principal.",
-  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "El pago se realiza directamente en las máquinas o a través de la app WAshin, disponible en Apple y Android.",
-  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "La lavandería consta de dos lavadoras y una secadora. Está abierta las 24 horas durante toda la temporada.",
-  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "Si desea pagar mediante la app, deberá crear una cuenta, indicar el camping y seleccionar el servicio deseado (secadora y/o lavado).",
-  "tarif réduit via l'application.": "tarifa reducida mediante la app."
+  "🍹 Notre Bar": "🍹 Nuestro Bar",
+  "🔗 Accès Rapide": "🔗 Acceso rápido",
+  "Notre bar": "Nuestro bar",
+  "Un lieu convivial au cœur du camping": "Un lugar acogedor en el corazón del camping",
+  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Nuestro bar está a su disposición para compartir una copa en familia, entre amigos y conocer a gente nueva.",
+  "Cocktails maisons & bières de la région": "Cócteles artesanales y cervezas de la región",
+  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "¡Venga a degustar nuestros deliciosos cócteles artesanales y cervezas de la región!",
+  "Période d'ouverture": "Período de apertura",
+  "HORAIRES BAR / SNACK": "HORARIOS BAR / SNACK",
+  "CARTE BAR / SNACK": "CARTA BAR / SNACK",
+  "🍕 Notre Snack": "🍕 Nuestro Snack",
+  "Ouverture": "Horario de apertura",
+  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Todos los días excepto el miércoles — del 15 de mayo al 15 de septiembre de 2026",
+  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Noches Temáticas (solo julio/agosto)",
+  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
+  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Nuggets con patatas, calamares rebozados, palitos de mozzarella fritos, ensalada de temporada, plato gourmet, Fish & Chips",
+  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "Con más de 30 artistas, Paradis des Stars es el evento del verano: musicales, boys bands, girls bands, cantantes de TV… ¡artistas que ha visto en la tele o escuchado en la radio!"
 });

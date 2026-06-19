@@ -229,20 +229,23 @@ window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 to 28/09/2026"
 });
 
-/* ── wifi.html + valeurs courtes manquantes ── */
+/* ── bar.html + snack.html manquants ── */
 window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
-  "Connexion internet gratuite et rapide partout dans le camping.": "Fast, free internet connection throughout the campsite.",
-  "Restez connectés avec famille et amis durant votre séjour en pleine nature.": "Stay connected with family and friends during your nature stay.",
-  "📋 Informations": "📋 Information",
-  "ℹ️ Conseils de Connexion": "ℹ️ Connection Tips",
-  "Gratuit pour tous les clients": "Free for all guests",
-  "24h/24": "24/7",
-  "Pas de mot de passe, accès direct": "No password required, direct access",
-  "Haut débit": "High speed",
-  "Contactez la réception en cas de souci": "Contact reception if you have any issues",
-  "Vous trouverez des machines à laver au sanitaire principal.": "You will find washing machines in the main sanitary block.",
-  "Le paiement s'effectue directement sur les machines ou sur l'application WAshin téléchargeable sur Apple et Android.": "Payment is made directly on the machines or via the WAshin app, available on Apple and Android.",
-  "La laverie est composée de deux machines à laver et d'un sèche-linge. Elle est ouverte 24h/24 pendant toute la saison.": "The laundry has two washing machines and a dryer. It is open 24 hours a day throughout the season.",
-  "Si vous souhaitez payer via l'application, il faudra vous créer un compte en précisant l'établissement dans lequel vous êtes et sélectionner le service souhaité (sèche-linge et/ou lavage)": "If you wish to pay via the app, you will need to create an account, specify the campsite and select the desired service (dryer and/or washing).",
-  "tarif réduit via l'application.": "reduced rate via the app."
+  "🍹 Notre Bar": "🍹 Our Bar",
+  "🔗 Accès Rapide": "🔗 Quick Access",
+  "Notre bar": "Our bar",
+  "Un lieu convivial au cœur du camping": "A friendly place in the heart of the campsite",
+  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Our bar is at your disposal to share a drink with family, friends and make new acquaintances.",
+  "Cocktails maisons & bières de la région": "House cocktails & local beers",
+  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "Come and taste our delicious house cocktails and local beers!",
+  "Période d'ouverture": "Opening period",
+  "HORAIRES BAR / SNACK": "BAR / SNACK OPENING HOURS",
+  "CARTE BAR / SNACK": "BAR / SNACK MENU",
+  "🍕 Notre Snack": "🍕 Our Snack Bar",
+  "Ouverture": "Opening hours",
+  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Every day except Wednesday — from 15 May to 15 September 2026",
+  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Themed Evenings (July/August only)",
+  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
+  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Chicken nuggets and fries, fried calamari, fried mozzarella sticks, seasonal salad, gourmet platter, Fish & Chips",
+  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "With over 30 artists, Paradis des Stars is the event of the summer: musicals, boy bands, girl bands, TV singers… artists you've seen on TV or heard on the radio!"
 });
