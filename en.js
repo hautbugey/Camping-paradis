@@ -229,23 +229,8 @@ window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 to 28/09/2026"
 });
 
-/* ── bar.html + snack.html manquants ── */
+/* ── club-enfants.html ── */
 window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
-  "🍹 Notre Bar": "🍹 Our Bar",
-  "🔗 Accès Rapide": "🔗 Quick Access",
-  "Notre bar": "Our bar",
-  "Un lieu convivial au cœur du camping": "A friendly place in the heart of the campsite",
-  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Our bar is at your disposal to share a drink with family, friends and make new acquaintances.",
-  "Cocktails maisons & bières de la région": "House cocktails & local beers",
-  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "Come and taste our delicious house cocktails and local beers!",
-  "Période d'ouverture": "Opening period",
-  "HORAIRES BAR / SNACK": "BAR / SNACK OPENING HOURS",
-  "CARTE BAR / SNACK": "BAR / SNACK MENU",
-  "🍕 Notre Snack": "🍕 Our Snack Bar",
-  "Ouverture": "Opening hours",
-  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Every day except Wednesday — from 15 May to 15 September 2026",
-  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Themed Evenings (July/August only)",
-  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
-  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Chicken nuggets and fries, fried calamari, fried mozzarella sticks, seasonal salad, gourmet platter, Fish & Chips",
-  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "With over 30 artists, Paradis des Stars is the event of the summer: musicals, boy bands, girl bands, TV singers… artists you've seen on TV or heard on the radio!"
+  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "The children won't be bored: games, entertainment, mini-disco, activities… the days are packed!",
+  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "They'll love taking part in the many activities of the Piki Club (ages 6–12)."
 });

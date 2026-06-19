@@ -229,23 +229,8 @@ window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
 });
 
-/* ── bar.html + snack.html manquants ── */
+/* ── club-enfants.html ── */
 window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
-  "🍹 Notre Bar": "🍹 Onze Bar",
-  "🔗 Accès Rapide": "🔗 Snelle toegang",
-  "Notre bar": "Onze bar",
-  "Un lieu convivial au cœur du camping": "Een gezellige plek in het hart van de camping",
-  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Onze bar staat voor u klaar om een drankje te delen met familie, vrienden en nieuwe kennissen te maken.",
-  "Cocktails maisons & bières de la région": "Huiscocktails & streekbieren",
-  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "Kom onze heerlijke huiscocktails en streekbieren proeven!",
-  "Période d'ouverture": "Openingsperiode",
-  "HORAIRES BAR / SNACK": "OPENINGSTIJDEN BAR / SNACK",
-  "CARTE BAR / SNACK": "KAART BAR / SNACK",
-  "🍕 Notre Snack": "🍕 Onze Snackbar",
-  "Ouverture": "Openingstijden",
-  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Elke dag behalve woensdag — van 15 mei tot 15 september 2026",
-  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Thema-avonden (alleen juli/augustus)",
-  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
-  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Kipnuggets met friet, gefrituurde calamaringen, gefrituurde mozzarellasticks, seizoenssalade, gourmandschotel, Fish & Chips",
-  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "Met meer dan 30 artiesten is Paradis des Stars het evenement van de zomer: musicals, boybands, girlbands, tv-zangers… artiesten die u kent van televisie of radio!"
+  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "De kinderen zullen zich niet vervelen: spelletjes, animatie, mini-disco, activiteiten… de dagen zijn goed gevuld!",
+  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "Ze zullen met plezier deelnemen aan de vele activiteiten van de Piki Club (6–12 jaar)."
 });

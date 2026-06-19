@@ -229,28 +229,8 @@ window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Geöffnet: 30.04.2026 bis 28.09.2026"
 });
 
-/* ── bar.html + snack.html manquants ── */
+/* ── club-enfants.html ── */
 window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
-  "🍹 Notre Bar": "🍹 Unsere Bar",
-  "🔗 Accès Rapide": "🔗 Schnellzugriff",
-  "Notre bar": "Unsere Bar",
-  "Un lieu convivial au cœur du camping": "Ein geselliger Ort im Herzen des Campingplatzes",
-  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Unsere Bar steht Ihnen zur Verfügung, um mit der Familie oder Freunden ein Glas zu trinken und neue Bekanntschaften zu schließen.",
-  "Cocktails maisons & bières de la région": "Hausgemachte Cocktails & regionale Biere",
-  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "Kommen Sie und genießen Sie unsere köstlichen hausgemachten Cocktails und regionalen Biere!",
-  "Période d'ouverture": "Öffnungszeitraum",
-  "HORAIRES BAR / SNACK": "ÖFFNUNGSZEITEN BAR / SNACK",
-  "CARTE BAR / SNACK": "KARTE BAR / SNACK",
-  "🍕 Notre Snack": "🍕 Unser Snack",
-  "Ouverture": "Öffnungszeiten",
-  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Täglich außer mittwochs — vom 15. Mai bis 15. September 2026",
-  "À la carte": "À la carte",
-  "Sans réservation, sauf pour les soirées à thème": "Ohne Reservierung, außer für Themenabende",
-  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Themenabende (nur Juli/August)",
-  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
-  "Spectacles & concerts en haute saison": "Shows & Konzerte in der Hochsaison",
-  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Chicken Nuggets mit Pommes, frittierte Calamariringe, frittierte Mozzarellastäbchen, Saisonsalat, Gourmandteller, Fish & Chips",
-  "Réservation": "Reservierung",
-  "Sans réservation, sauf pour les soirées à thème": "Ohne Reservierung, außer für Themenabende",
-  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "Mit über 30 Künstlern ist das Paradis des Stars das Event des Sommers: Musicals, Boybands, Girlbands, TV-Sänger… Künstler, die Sie aus dem Fernsehen oder Radio kennen!"
+  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "Die Kinder werden sich nicht langweilen: Spiele, Animation, Mini-Disco, Aktivitäten… die Tage sind gut gefüllt!",
+  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "Sie werden mit Begeisterung an den vielen Aktivitäten des Piki Club (6–12 Jahre) teilnehmen."
 });

@@ -229,23 +229,8 @@ window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Apertura: 30/04/2026 al 28/09/2026"
 });
 
-/* ── bar.html + snack.html manquants ── */
+/* ── club-enfants.html ── */
 window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
-  "🍹 Notre Bar": "🍹 Nuestro Bar",
-  "🔗 Accès Rapide": "🔗 Acceso rápido",
-  "Notre bar": "Nuestro bar",
-  "Un lieu convivial au cœur du camping": "Un lugar acogedor en el corazón del camping",
-  "Notre bar est à votre disposition pour partager un verre en famille, entre amis et faire de nouvelles rencontres.": "Nuestro bar está a su disposición para compartir una copa en familia, entre amigos y conocer a gente nueva.",
-  "Cocktails maisons & bières de la région": "Cócteles artesanales y cervezas de la región",
-  "Venez déguster nos délicieux cocktails maisons et bières de la région !": "¡Venga a degustar nuestros deliciosos cócteles artesanales y cervezas de la región!",
-  "Période d'ouverture": "Período de apertura",
-  "HORAIRES BAR / SNACK": "HORARIOS BAR / SNACK",
-  "CARTE BAR / SNACK": "CARTA BAR / SNACK",
-  "🍕 Notre Snack": "🍕 Nuestro Snack",
-  "Ouverture": "Horario de apertura",
-  "Tous les jours sauf le mercredi — du 15 mai au 15 septembre 2026": "Todos los días excepto el miércoles — del 15 de mayo al 15 de septiembre de 2026",
-  "🌙 Soirées à Thème (uniquement juillet/août)": "🌙 Noches Temáticas (solo julio/agosto)",
-  "🌟 Paradis des Stars": "🌟 Paradis des Stars",
-  "Nuggets frites, beignets de calamars frits, Bâtonnets de mozza frits, Salade de saison, assiette gourmande, Fish & Chips": "Nuggets con patatas, calamares rebozados, palitos de mozzarella fritos, ensalada de temporada, plato gourmet, Fish & Chips",
-  "Avec plus de 30 artistes, le Paradis des Stars est l'événement de l'été : comédies musicales, Boys Band, Girls Band, chanteurs issus des émissions TV… des artistes que vous avez vus à la télé ou entendus à la radio !": "Con más de 30 artistas, Paradis des Stars es el evento del verano: musicales, boys bands, girls bands, cantantes de TV… ¡artistas que ha visto en la tele o escuchado en la radio!"
+  "Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies !": "¡Los niños no se aburrirán: juegos, animaciones, mini-disco, actividades… los días están muy llenos!",
+  "Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).": "Disfrutarán participando en las numerosas actividades del Piki Club (6–12 años)."
 });
