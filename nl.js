@@ -229,21 +229,22 @@ window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
 });
 
-/* ── Plan + textes manquants ── */
+/* ── checkin.html textes manquants ── */
 window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
-  "Retrouvez facilement votre emplacement, les sanitaires, la piscine, le snack-bar et tous les équipements du camping grâce au plan ci-dessous. Zoomez pour voir les numéros d'emplacements en détail.": "Vind eenvoudig uw standplaats, de sanitaire voorzieningen, het zwembad, de snackbar en alle campingfaciliteiten op de onderstaande plattegrond. Zoom in voor de standplaatsnummers.",
-  "Plan du camping": "Plattegrond van de camping",
-  "Besoin d'aide pour vous repérer ?": "Hulp nodig bij het oriënteren?",
-  "N'hésitez pas à passer à la réception, notre équipe vous indiquera le chemin avec plaisir !": "Kom gerust langs bij de receptie — ons team helpt u graag de weg!",
-  "🔍 Pincez ou utilisez les boutons pour zoomer": "🔍 Knijp of gebruik de knoppen om in te zoomen",
-  "Sensations fortes garanties ! Découvrez les gorges, cascades et falaises du Haut-Bugey avec des professionnels diplômés.": "Gegarandeerde spanning! Ontdek de kloven, watervallen en kliffen van de Haut-Bugey met gediplomeerde professionals.",
-  "Site web": "Website",
-  "Dates": "Data",
-  "Voir tarif sur le site": "Zie prijs op de website",
-  "Voir tarifs sur le site": "Zie prijzen op de website",
-  "Fermeture en cas de mauvaises conditions météo.": "Gesloten bij slecht weer.",
-  "Attention :": "Let op:",
-  "réservations uniquement pour les groupes et le matin uniquement.": "reserveringen alleen voor groepen en alleen 's ochtends.",
-  "Aucune réservation après 12 heures.": "Geen reserveringen na 12 uur.",
-  "Le kiosque ne propose pas la location de bateaux à moteur.": "Het kiosk verhuurt geen motorboten."
+  "Votre semaine de vacances touche à sa fin et nous sommes aussi triste de vous voir partir.": "Uw vakantieweek loopt op zijn einde en wij zijn ook bedroefd u te zien vertrekken.",
+  "Si vous avez séjourné en hébergement (chalet/mobilhome/cottage), il faudra quitter l'hébergement au plus tard à": "Als u in een accommodatie (chalet/stacaravan/cottage) heeft verbleven, dient u deze te verlaten uiterlijk om",
+  "Nous n'effectuons pas d'état des lieux pendant votre départ.": "Wij voeren geen toestandscontrole uit bij uw vertrek.",
+  "Les équipes de ménages veilleront à ce que l'hébergement soit le même que lorsqu'il vous a été confié. En cas de problème, nous vous contacterons par téléphone.": "De schoonmaakteams zorgen ervoor dat de accommodatie in dezelfde staat is als bij de overdracht. Bij problemen nemen wij telefonisch contact met u op.",
+  "Nous vous demandons de rendre l'hébergement aussi propre qu'il vous a été donné.": "Wij vragen u de accommodatie even schoon achter te laten als u haar heeft ontvangen.",
+  "Vous pouvez remettre les clés à la réception avant de partir. Dans le cas où vous souhaitez partir très tôt et que la réception n'est pas ouverte (avant 9h00), nous avons mis en place une boite en bois à l'entrée du Camping. Vous pourrez y déposer directement les clés.": "U kunt de sleutels voor vertrek inleveren bij de receptie. Als u zeer vroeg wilt vertrekken en de receptie niet open is (voor 9u00), hebben wij een houten box bij de ingang geplaatst waar u de sleutels direct kunt achterlaten.",
+  "Vous avez souscrit au forfait ménage, nous vous demandons seulement de :*": "Als u het schoonmaakpakket heeft geboekt, vragen wij u alleen:*",
+  "Vous n'avez pas souscrit au forfait ménage :": "Als u geen schoonmaakpakket heeft geboekt:",
+  "Remise des clés :": "Sleutelinlevering:",
+  "10h00 pour les hébergements": "10u00 voor accommodaties",
+  "Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.": "Om u zo goed mogelijk te begeleiden tijdens uw verblijf, hebben wij u bij de receptie een envelop overhandigd met alle nuttige informatie.",
+  "Un mémo \"Tri et compost\" : toutes les poubelles sont situées à l'entrée du camping. Merci de respecter les consignes, on compte sur vous pour préserver notre belle nature.": "Een memo \"Afvalscheiding en compost\": alle vuilnisbakken bevinden zich bij de ingang van de camping. Volg de instructies — wij rekenen op u!",
+  "Un QR code pour accéder directement à notre application et profiter de tous nos services (animations, infos pratiques, lieux à visiter…).": "Een QR-code voor directe toegang tot onze app en alle diensten (animatie, praktische info, bezienswaardigheden…).",
+  ": il est inscrit directement sur l'enveloppe remise à votre arrivée.": ": Hij staat direct op de envelop die u bij aankomst heeft ontvangen.",
+  ": vous n'avez pas besoin de code pour sortir du camping, un capteur est installé au sol.": ": U heeft geen code nodig om de camping te verlaten — er is een sensor in de grond ingebouwd.",
+  ": à compléter avec les informations des participants, votre avis sur la propreté du logement, et un espace pour toute remarque à nous faire remonter.": ": In te vullen met gegevens van deelnemers, uw mening over de netheid van de accommodatie en een ruimte voor opmerkingen."
 });

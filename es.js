@@ -229,21 +229,22 @@ window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
   "Ouverture : 30/04/2026 au 28/09/2026": "Apertura: 30/04/2026 al 28/09/2026"
 });
 
-/* ── Plan + textes manquants ── */
+/* ── checkin.html textes manquants ── */
 window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
-  "Retrouvez facilement votre emplacement, les sanitaires, la piscine, le snack-bar et tous les équipements du camping grâce au plan ci-dessous. Zoomez pour voir les numéros d'emplacements en détail.": "Encuentre fácilmente su parcela, los sanitarios, la piscina, el snack y todas las instalaciones en el plano de abajo. Haga zoom para ver los números de parcela en detalle.",
-  "Plan du camping": "Plano del camping",
-  "Besoin d'aide pour vous repérer ?": "¿Necesita ayuda para orientarse?",
-  "N'hésitez pas à passer à la réception, notre équipe vous indiquera le chemin avec plaisir !": "No dude en pasar por recepción — ¡nuestro equipo le indicará el camino con mucho gusto!",
-  "🔍 Pincez ou utilisez les boutons pour zoomer": "🔍 Pellizque o use los botones para hacer zoom",
-  "Sensations fortes garanties ! Découvrez les gorges, cascades et falaises du Haut-Bugey avec des professionnels diplômés.": "¡Emociones garantizadas! Descubra los barrancos, cascadas y acantilados del Haut-Bugey con profesionales titulados.",
-  "Site web": "Sitio web",
-  "Dates": "Fechas",
-  "Voir tarif sur le site": "Ver precio en el sitio web",
-  "Voir tarifs sur le site": "Ver precios en el sitio web",
-  "Fermeture en cas de mauvaises conditions météo.": "Cerrado en caso de mal tiempo.",
-  "Attention :": "Atención:",
-  "réservations uniquement pour les groupes et le matin uniquement.": "reservas solo para grupos y solo por la mañana.",
-  "Aucune réservation après 12 heures.": "Sin reservas después de las 12h.",
-  "Le kiosque ne propose pas la location de bateaux à moteur.": "El quiosco no ofrece alquiler de lanchas a motor."
+  "Votre semaine de vacances touche à sa fin et nous sommes aussi triste de vous voir partir.": "Su semana de vacaciones llega a su fin y nosotros también estamos tristes de verle partir.",
+  "Si vous avez séjourné en hébergement (chalet/mobilhome/cottage), il faudra quitter l'hébergement au plus tard à": "Si ha alojado en un alojamiento (cabaña/mobile home/cottage), deberá abandonarlo a más tardar a las",
+  "Nous n'effectuons pas d'état des lieux pendant votre départ.": "No realizamos una inspección del estado en el momento de su salida.",
+  "Les équipes de ménages veilleront à ce que l'hébergement soit le même que lorsqu'il vous a été confié. En cas de problème, nous vous contacterons par téléphone.": "Los equipos de limpieza se asegurarán de que el alojamiento esté en el mismo estado que cuando se le entregó. En caso de problema, nos pondremos en contacto por teléfono.",
+  "Nous vous demandons de rendre l'hébergement aussi propre qu'il vous a été donné.": "Le pedimos que devuelva el alojamiento tan limpio como lo recibió.",
+  "Vous pouvez remettre les clés à la réception avant de partir. Dans le cas où vous souhaitez partir très tôt et que la réception n'est pas ouverte (avant 9h00), nous avons mis en place une boite en bois à l'entrée du Camping. Vous pourrez y déposer directement les clés.": "Puede devolver las llaves en recepción antes de partir. Si desea marcharse muy temprano y la recepción no está abierta (antes de las 9h), hemos instalado una caja de madera a la entrada del camping donde puede dejar las llaves directamente.",
+  "Vous avez souscrit au forfait ménage, nous vous demandons seulement de :*": "Si ha contratado el forfait de limpieza, solo le pedimos que:*",
+  "Vous n'avez pas souscrit au forfait ménage :": "Si no ha contratado el forfait de limpieza:",
+  "Remise des clés :": "Entrega de llaves:",
+  "10h00 pour les hébergements": "10h00 para los alojamientos",
+  "Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.": "Para acompañarle lo mejor posible durante su estancia, le hemos entregado en recepción un sobre con toda la información útil.",
+  "Un mémo \"Tri et compost\" : toutes les poubelles sont situées à l'entrée du camping. Merci de respecter les consignes, on compte sur vous pour préserver notre belle nature.": "Un memo \"Reciclaje y compost\": todos los contenedores están en la entrada del camping. Por favor, siga las instrucciones — ¡contamos con usted!",
+  "Un QR code pour accéder directement à notre application et profiter de tous nos services (animations, infos pratiques, lieux à visiter…).": "Un código QR para acceder directamente a nuestra app y disfrutar de todos nuestros servicios (animaciones, info práctica, lugares de visita…).",
+  ": il est inscrit directement sur l'enveloppe remise à votre arrivée.": ": Está escrito directamente en el sobre entregado a su llegada.",
+  ": vous n'avez pas besoin de code pour sortir du camping, un capteur est installé au sol.": ": No necesita código para salir del camping — hay un sensor instalado en el suelo.",
+  ": à compléter avec les informations des participants, votre avis sur la propreté du logement, et un espace pour toute remarque à nous faire remonter.": ": A rellenar con los datos de los participantes, su opinión sobre la limpieza del alojamiento y un espacio para cualquier comentario."
 });
