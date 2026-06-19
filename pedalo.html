@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pédalo – Camping Paradis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#34BDEF">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #34BDEF;
+            --accent-orange: #FF8C00;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
+
+        header { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 20px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+        .back-button { background: rgba(255,255,255,0.2); border: none; color: white; font-size: 22px; cursor: pointer; padding: 8px 14px; border-radius: 6px; transition: background 0.3s; text-decoration: none; }
+        .back-button:hover { background: rgba(255,255,255,0.35); }
+        header h1 { font-size: 24px; font-weight: 700; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+        .activity-name { font-size: 24px; font-weight: 700; color: var(--primary-blue); margin-bottom: 10px; }
+        .activity-desc { font-size: 14px; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; }
+        .activity-desc p { margin-bottom: 10px; }
+
+        .conseil-box { background: #fff8f0; border-left: 4px solid var(--accent-orange); border-radius: 0 10px 10px 0; padding: 12px 14px; margin: 16px 0; font-size: 13px; color: var(--text-dark); line-height: 1.6; }
+        .conseil-box strong { color: var(--accent-orange); }
+
+        .info-block { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; margin-top: 20px; }
+        .info-row { display: flex; gap: 16px; align-items: flex-start; padding: 15px 20px; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 36px; height: 36px; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+        .info-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #999; margin-bottom: 4px; }
+        .info-value { font-size: 14px; color: var(--text-dark); line-height: 1.6; }
+        .info-value a { color: var(--primary-blue); text-decoration: none; }
+        .info-value a:hover { text-decoration: underline; }
+
+        footer { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 35px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 14px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="nautiques.html">←</a>
+            <h1>Pédalo</h1>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="activity-name">Pédal'eau sur le lac de Nantua</div>
+        <div class="activity-desc">
+            <p>Location d'embarcations à pédales 4 ou 5 places à la demi-heure ou à l'heure. Promenade sur la grande étendue vert émeraude du lac de Nantua dans un cadre montagneux. Laissez-vous bercer par le clapotis des vagues ou faites la course entre amis !</p>
+        </div>
+        <div class="conseil-box">
+            <strong>Attention :</strong> réservations uniquement pour les groupes et le matin uniquement.<br>
+            Aucune réservation après 12 heures.<br>
+            Le kiosque ne propose pas la location de bateaux à moteur.
+        </div>
+        <div class="info-block">
+            <div class="info-row">
+                <div class="info-icon">🏷️</div>
+                <div class="info-content">
+                    <div class="info-label">Prix</div>
+                    <div class="info-value">Voir tarif sur le site</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📅</div>
+                <div class="info-content">
+                    <div class="info-label">Dates</div>
+                    <div class="info-value">Ouvert tous les jours du 1er juin au 31 août (de 10h jusqu'à la nuit ; fermé en cas de météo défavorable).</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🌐</div>
+                <div class="info-content">
+                    <div class="info-label">Site web</div>
+                    <div class="info-value"><a href="https://www.hautbugey-tourisme.com/activite/pedaleau-sur-le-lac-de-nantua/" target="_blank" rel="noopener">www.hautbugey-tourisme.com</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Paradis - Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> | <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top:15px; opacity:0.8; font-size:12px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
