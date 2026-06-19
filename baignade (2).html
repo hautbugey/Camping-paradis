@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baignade – Camping Paradis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#34BDEF">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #34BDEF;
+            --primary-green: #2d5016;
+            --accent-orange: #FF8C00;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
+
+        header { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 20px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+        .back-button { background: rgba(255,255,255,0.2); border: none; color: white; font-size: 22px; cursor: pointer; padding: 8px 14px; border-radius: 6px; transition: background 0.3s; text-decoration: none; }
+        .back-button:hover { background: rgba(255,255,255,0.35); }
+        header h1 { font-size: 24px; font-weight: 700; }
+
+        .tabs-wrapper { background: white; border-bottom: 1px solid #e0e0e0; position: sticky; top: 64px; z-index: 99; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .tabs { max-width: 900px; margin: 0 auto; padding: 12px 20px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+        .tabs::-webkit-scrollbar { display: none; }
+        .tab { background: none; border: 1.5px solid #ddd; color: var(--text-dark); padding: 7px 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 500; white-space: nowrap; transition: all 0.2s; font-family: 'Segoe UI', sans-serif; }
+        .tab:hover { border-color: var(--primary-blue); color: var(--primary-blue); }
+        .tab.active { background: var(--primary-blue); border-color: var(--primary-blue); color: white; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+        .activity { display: none; }
+        .activity.active { display: block; }
+
+        .activity-image { width: 100%; height: 280px; object-fit: cover; border-radius: 14px; box-shadow: 0 6px 20px rgba(0,0,0,0.12); margin-bottom: 20px; background-size: cover; background-position: center; background-color: #e0e0e0; }
+        .activity-name { font-size: 24px; font-weight: 700; color: var(--primary-blue); margin-bottom: 10px; }
+        .activity-desc { font-size: 14px; color: var(--text-light); line-height: 1.8; margin-bottom: 20px; }
+        .activity-desc p { margin-bottom: 10px; }
+
+        .cta-button { display: inline-block; background: var(--accent-orange); color: white; padding: 11px 30px; border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; margin-right: 8px; transition: all 0.3s; border: 2px solid var(--accent-orange); }
+        .cta-button:hover { background: #e07a00; border-color: #e07a00; }
+        .cta-buttons { margin-bottom: 20px; display: flex; flex-direction: column; gap: 10px; }
+
+        .conseil-box { background: #fff8f0; border-left: 4px solid var(--accent-orange); border-radius: 0 10px 10px 0; padding: 12px 14px; margin: 16px 0; font-size: 13px; color: var(--text-dark); line-height: 1.6; }
+        .conseil-box strong { color: var(--accent-orange); }
+
+        .info-block { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; margin-top: 20px; }
+        .info-row { display: flex; gap: 16px; align-items: flex-start; padding: 15px 20px; border-bottom: 1px solid #f0f0f0; }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 36px; height: 36px; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; margin-top: 2px; }
+        .info-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #999; margin-bottom: 4px; }
+        .info-value { font-size: 14px; color: var(--text-dark); line-height: 1.6; }
+        .info-value a { color: var(--primary-blue); text-decoration: none; }
+        .info-value a:hover { text-decoration: underline; }
+
+        footer { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 35px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 14px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="nautiques.html">←</a>
+            <h1>Baignade</h1>
+        </div>
+    </header>
+
+    <div class="tabs-wrapper">
+        <div class="tabs">
+            <button class="tab active" onclick="showActivity(0)">Lac de Vouglans</button>
+            <button class="tab"        onclick="showActivity(1)">Lac Génin</button>
+            <button class="tab"        onclick="showActivity(2)">Lac de Nantua</button>
+            <button class="tab"        onclick="showActivity(3)">Baignade en plein air</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- 1. LAC DE VOUGLANS -->
+        <div class="activity active" id="act-0">
+            <div class="activity-name">Baignade au Lac de Vouglans</div>
+            <div class="activity-desc">
+                <p>Pour se baigner au lac de Vouglans, plusieurs « spots » sont possibles : la plage de la Mercantine, la plage de Bellecin et la plage de Surchauffant.</p>
+                <p>Il est possible de louer des pédalos, canoës, kayak ou « stand up paddles » depuis les plages de la Mercantine et de Bellecin.</p>
+                <p>Des excursions sont aussi organisées autour du lac, pour du canyoning, de la spéléo, du tir à l'arc, de l'escalade ou du VTT via le centre sportif de Bellecin.</p>
+                <p>À proximité de la plage du Surchauffant, vous retrouverez aussi le Port du Meix où s'organise du Jet Ski et du ski nautique. Vous pourrez également profiter d'une croisière à bord du Louisiana et pourquoi pas réserver une table pour y manger le midi.</p>
+                <p>Vous pouvez aussi louer des voiliers habitables, ainsi que des bateaux électriques sans permis dans les trois ports du lac que sont : Saisse, le Meix et la Mercantine.</p>
+            </div>
+            <div class="cta-buttons">
+                <a class="cta-button" href="https://www.bellecin.com" target="_blank" rel="noopener">Contacter le Centre Sportif de Bellecin</a>
+                <a class="cta-button" href="https://www.port-du-meix.com" target="_blank" rel="noopener">Découvrir le Port du Meix</a>
+                <a class="cta-button" href="https://www.vouglans.com" target="_blank" rel="noopener">Location de bateaux</a>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">🏊</div>
+                    <div class="info-content">
+                        <div class="info-label">Plages</div>
+                        <div class="info-value">Plage de la Mercantine · Plage de Bellecin · Plage de Surchauffant</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🚣</div>
+                    <div class="info-content">
+                        <div class="info-label">Activités nautiques</div>
+                        <div class="info-value">Pédalo · Canoë · Kayak · Stand-up paddle · Jet Ski · Ski nautique · Voiliers · Bateaux électriques</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Lac+de+Vouglans+39260" target="_blank">Lac de Vouglans, 39260</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🚗</div>
+                    <div class="info-content">
+                        <div class="info-label">Trajet</div>
+                        <div class="info-value">Environ 45 minutes du camping en voiture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. LAC GÉNIN -->
+        <div class="activity" id="act-1">
+            <div class="activity-name">Baignade au Lac Génin</div>
+            <div class="activity-desc">
+                <p>Le petit lac de montagne situé dans une clairière entourée de sapins à 830 mètres d'altitude est surnommé <strong style="color:#333;">« le Petit Canada du Haut-Bugey »</strong>. Destination familiale pour les loisirs d'été, on y pratique le patinage sur glace et la plongée sous glace en hiver.</p>
+                <p>Si vous souhaitez passer une bonne journée en famille, le lac Génin est la destination idéale. À seulement 3 km du lac se trouve le parc d'accrobranche <strong style="color:#333;">Oyoxygène</strong> avec plus de 10 parcours et de nombreuses autres activités sur le site.</p>
+                <p>Ensuite, vous pouvez vous restaurer à l'auberge du Lac Génin (à réserver à l'avance). Spécialités grillades au feu de bois dans une ambiance apaisante et conviviale.</p>
+                <p>Pour terminer votre journée, vous pourrez vous baigner au lac Génin (baignade surveillée). Avec sa plage aménagée, vous pouvez être sûr de passer un agréable moment de détente.</p>
+            </div>
+            <div class="conseil-box"><strong>Testé et approuvé par la direction !</strong></div>
+            <div class="cta-buttons">
+                <a class="cta-button" href="https://www.oyoxygene.com" target="_blank" rel="noopener">Découvrir Oyoxygène</a>
+                <a class="cta-button" href="https://www.auberge-lac-genin.fr" target="_blank" rel="noopener">L'Auberge du Lac Génin</a>
+                <a class="cta-button" href="https://www.lac-genin.fr" target="_blank" rel="noopener">Le Lac Génin</a>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Lac+Genin+01130+Charix" target="_blank">Lac Génin, 01130 Charix</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🚗</div>
+                    <div class="info-content">
+                        <div class="info-label">Trajet</div>
+                        <div class="info-value">Environ 25 minutes du camping en voiture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. LAC DE NANTUA -->
+        <div class="activity" id="act-2">
+            <div class="activity-name">Baignade au Lac de Nantua</div>
+            <div class="activity-desc">
+                <p>Le lac de Nantua, situé en plein cœur de la ville, offre une plage surveillée idéale pour les familles. L'accès à la baignade est gratuit et les installations sont bien aménagées.</p>
+                <p>Le lac est entouré de montagnes et offre un cadre naturel exceptionnel. Différentes activités nautiques y sont proposées selon les saisons.</p>
+            </div>
+            <div class="conseil-box"><strong>Conseil :</strong> Profitez-en pour visiter la ville de Nantua et son célèbre marché.</div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Lac+de+Nantua+01130" target="_blank">Lac de Nantua, 01130 Nantua</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🚗</div>
+                    <div class="info-content">
+                        <div class="info-label">Trajet</div>
+                        <div class="info-value">Environ 15 minutes du camping en voiture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. BAIGNADE EN PLEIN AIR À CHAMPDOR -->
+        <div class="activity" id="act-3">
+            <div class="activity-name">Baignade en plein air à Champdor</div>
+            <div class="activity-desc">
+                <p>L'espace baignade surveillée et en plein air comporte un bassin de <strong style="color:#333;">2 200 m²</strong> de 10 cm à 1,70 m de profondeur, une plage aménagée, des jeux d'eau, la vente de glaces, bonbons, un toboggan, une cascade, la location de parasols…</p>
+                <p>Tiralo et hippocampe sont à disposition pour personnes à mobilité réduite.</p>
+                <p>Terrain de beach volley, aire de jeu pour les enfants (jeux à ressort, cabane) sur la plage, toboggan, terrain de pétanque. Toilettes et douches accessibles aux personnes à mobilité réduite.</p>
+                <p>Le petit + : tables de pique-nique au bord de l'étang en face, terrain de tennis et city stade à proximité.</p>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Ouverture</div>
+                        <div class="info-value">Du 01/07 au 31/08 de 13h30 à 19h45</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🏷️</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value">Adulte : 3 € · Enfant : 1 € (moins de 6 ans)</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=01110+Champdor-Corcelles" target="_blank">01110 Champdor-Corcelles, France</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🚗</div>
+                    <div class="info-content">
+                        <div class="info-label">Trajet</div>
+                        <div class="info-value">41 minutes du camping en voiture</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Paradis - Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> | <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top:15px; opacity:0.8; font-size:12px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function showActivity(index) {
+            document.querySelectorAll('.activity').forEach(a => a.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('act-' + index).classList.add('active');
+            document.querySelectorAll('.tab')[index].classList.add('active');
+            document.querySelectorAll('.tab')[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+    <script src="i18n.js" defer></script>
+</body>
+</html>
