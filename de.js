@@ -192,3 +192,39 @@ window.CP_I18N['de'] = {
   "Lun, Mar, Jeu–Sam : 6h–19h · Dim : 6h–13h · Fermé le mercredi": "Mo, Di, Do–Sa: 6:00–19:00 · So: 6:00–13:00 · Mittwochs geschlossen",
   "Lun–Sam : 6h30–12h30 / 15h–19h · Dim : 7h–12h30": "Mo–Sa: 6:30–12:30 / 15:00–19:00 · So: 7:00–12:30"
 };
+
+/* ── Horaires ── */
+window.CP_I18N['de'] = Object.assign(window.CP_I18N['de'], {
+  "Horaires": "Öffnungszeiten",
+  "Réception": "Rezeption",
+  "Snack": "Snackbar",
+  "Bar": "Bar",
+  "Espace Aquatique": "Schwimmbereich",
+  "Notre équipe est à votre disposition à l'accueil pour répondre à toutes vos questions !": "Unser Team steht Ihnen an der Rezeption für alle Fragen zur Verfügung!",
+  "Basse Saison (Mai, Juin, Septembre)": "Nebensaison (Mai, Juni, September)",
+  "Haute Saison (Juillet - Août)": "Hochsaison (Juli - August)",
+  "Dimanche - Vendredi": "Sonntag - Freitag",
+  "Samedi": "Samstag",
+  "Lundi - Vendredi": "Montag - Freitag",
+  "Samedi & Dimanche": "Samstag & Sonntag",
+  "Services :": "Leistungen:",
+  "Planche de charcuteries et de fromages locales | Commande à la carte du bar/snack sans réservation | Soirée à thème sur réservation (uniquement en juillet/août)": "Wurst- und Käseplatte | À-la-carte-Bestellung ohne Reservierung | Themenabend auf Reservierung (nur Juli/August)",
+  "Du 15 mai au 15 septembre 2026": "Vom 15. Mai bis 15. September 2026",
+  "Cocktails à la carte | Boissons alcoolisées, soft, bières, vins | Vente de glaces | Dépôt de pain à partir de 8h00": "À-la-carte-Cocktails | Alkoholische Getränke, Softdrinks, Bier, Wein | Eisverkauf | Brot ab 8:00 Uhr erhältlich",
+  "Pain & Viennoiseries :": "Brot & Gebäck:",
+  "Commande au plus tard la veille avant 18h pour le lendemain": "Bestellung bis spätestens 18:00 Uhr am Vortag für den nächsten Morgen",
+  "Baignade surveillée l'après-midi uniquement en haute saison.": "Beaufsichtigtes Schwimmen nur nachmittags in der Hochsaison.",
+  "Horaires :": "Öffnungszeiten:",
+  "De 10h00 à 19h00": "Von 10:00 bis 19:00 Uhr",
+  "Prix :": "Preis:",
+  "Gratuit pour la clientèle du camping": "Kostenlos für Campinggäste",
+  "Règles d'accès :": "Zugangsregeln:",
+  "- Bracelets obligatoires": "- Armbänder erforderlich",
+  "- Short de bain interdit": "- Badeshorts nicht erlaubt",
+  "- Chaussures à laisser à l'entrée avant le pédiluve": "- Schuhe am Eingang vor dem Fußbad lassen",
+  "- Tongs autorisées": "- Flipflops erlaubt",
+  "Info :": "Info:",
+  "Messieurs, vous avez oublié votre maillot de bain ? On en vend à la réception à 15€.": "Herren, Badehose vergessen? Wir verkaufen sie an der Rezeption für 15€.",
+  "Du 23 mai au 15 septembre 2026": "Vom 23. Mai bis 15. September 2026",
+  "Ouverture : 30/04/2026 au 28/09/2026": "Geöffnet: 30.04.2026 bis 28.09.2026"
+});

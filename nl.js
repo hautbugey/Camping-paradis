@@ -192,3 +192,39 @@ window.CP_I18N['nl'] = {
   "Lun, Mar, Jeu–Sam : 6h–19h · Dim : 6h–13h · Fermé le mercredi": "Ma, di, do–za: 6.00–19.00 · Zo: 6.00–13.00 · Woensdag gesloten",
   "Lun–Sam : 6h30–12h30 / 15h–19h · Dim : 7h–12h30": "Ma–za: 6.30–12.30 / 15.00–19.00 · Zo: 7.00–12.30"
 };
+
+/* ── Horaires ── */
+window.CP_I18N['nl'] = Object.assign(window.CP_I18N['nl'], {
+  "Horaires": "Openingstijden",
+  "Réception": "Receptie",
+  "Snack": "Snackbar",
+  "Bar": "Bar",
+  "Espace Aquatique": "Zwemgebied",
+  "Notre équipe est à votre disposition à l'accueil pour répondre à toutes vos questions !": "Ons team staat voor u klaar bij de receptie om al uw vragen te beantwoorden!",
+  "Basse Saison (Mai, Juin, Septembre)": "Laagseizoen (mei, juni, september)",
+  "Haute Saison (Juillet - Août)": "Hoogseizoen (juli - augustus)",
+  "Dimanche - Vendredi": "Zondag - Vrijdag",
+  "Samedi": "Zaterdag",
+  "Lundi - Vendredi": "Maandag - Vrijdag",
+  "Samedi & Dimanche": "Zaterdag & Zondag",
+  "Services :": "Diensten:",
+  "Planche de charcuteries et de fromages locales | Commande à la carte du bar/snack sans réservation | Soirée à thème sur réservation (uniquement en juillet/août)": "Vleeswaren- en kaasplank | À la carte bestellen zonder reservering | Thema-avond op reservering (alleen juli/augustus)",
+  "Du 15 mai au 15 septembre 2026": "Van 15 mei tot 15 september 2026",
+  "Cocktails à la carte | Boissons alcoolisées, soft, bières, vins | Vente de glaces | Dépôt de pain à partir de 8h00": "À la carte cocktails | Alcoholische dranken, frisdrank, bier, wijn | IJsverkoop | Brood beschikbaar vanaf 8:00",
+  "Pain & Viennoiseries :": "Brood & Gebak:",
+  "Commande au plus tard la veille avant 18h pour le lendemain": "Bestelling uiterlijk de dag ervoor vóór 18:00 voor de volgende ochtend",
+  "Baignade surveillée l'après-midi uniquement en haute saison.": "Toezicht op zwemmen alleen 's middags in het hoogseizoen.",
+  "Horaires :": "Openingstijden:",
+  "De 10h00 à 19h00": "Van 10:00 tot 19:00",
+  "Prix :": "Prijs:",
+  "Gratuit pour la clientèle du camping": "Gratis voor campinggasten",
+  "Règles d'accès :": "Toegangsregels:",
+  "- Bracelets obligatoires": "- Polsbandjes verplicht",
+  "- Short de bain interdit": "- Zwembroeken niet toegestaan",
+  "- Chaussures à laisser à l'entrée avant le pédiluve": "- Schoenen achterlaten bij de ingang vóór het voetbad",
+  "- Tongs autorisées": "- Slippers toegestaan",
+  "Info :": "Info:",
+  "Messieurs, vous avez oublié votre maillot de bain ? On en vend à la réception à 15€.": "Heren, zwembroek vergeten? We verkopen ze bij de receptie voor €15.",
+  "Du 23 mai au 15 septembre 2026": "Van 23 mei tot 15 september 2026",
+  "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 t/m 28/09/2026"
+});

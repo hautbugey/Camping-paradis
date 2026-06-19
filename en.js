@@ -192,3 +192,39 @@ window.CP_I18N['en'] = {
   "Lun, Mar, Jeu–Sam : 6h–19h · Dim : 6h–13h · Fermé le mercredi": "Mon, Tue, Thu–Sat: 6am–7pm · Sun: 6am–1pm · Closed on Wednesdays",
   "Lun–Sam : 6h30–12h30 / 15h–19h · Dim : 7h–12h30": "Mon–Sat: 6:30am–12:30pm / 3–7pm · Sun: 7am–12:30pm"
 };
+
+/* ── Horaires ── */
+window.CP_I18N['en'] = Object.assign(window.CP_I18N['en'], {
+  "Horaires": "Opening hours",
+  "Réception": "Reception",
+  "Snack": "Snack bar",
+  "Bar": "Bar",
+  "Espace Aquatique": "Swimming area",
+  "Notre équipe est à votre disposition à l'accueil pour répondre à toutes vos questions !": "Our team is available at reception to answer all your questions!",
+  "Basse Saison (Mai, Juin, Septembre)": "Low season (May, June, September)",
+  "Haute Saison (Juillet - Août)": "High season (July - August)",
+  "Dimanche - Vendredi": "Sunday - Friday",
+  "Samedi": "Saturday",
+  "Lundi - Vendredi": "Monday - Friday",
+  "Samedi & Dimanche": "Saturday & Sunday",
+  "Services :": "Services:",
+  "Planche de charcuteries et de fromages locales | Commande à la carte du bar/snack sans réservation | Soirée à thème sur réservation (uniquement en juillet/août)": "Local charcuterie and cheese board | À la carte bar/snack orders without reservation | Themed evenings by reservation (July/August only)",
+  "Du 15 mai au 15 septembre 2026": "From 15 May to 15 September 2026",
+  "Cocktails à la carte | Boissons alcoolisées, soft, bières, vins | Vente de glaces | Dépôt de pain à partir de 8h00": "À la carte cocktails | Alcoholic drinks, soft drinks, beers, wines | Ice cream sales | Bread available from 8:00am",
+  "Pain & Viennoiseries :": "Bread & Pastries:",
+  "Commande au plus tard la veille avant 18h pour le lendemain": "Order by 6pm the day before for the next morning",
+  "Baignade surveillée l'après-midi uniquement en haute saison.": "Supervised swimming in the afternoon only during high season.",
+  "Horaires :": "Opening hours:",
+  "De 10h00 à 19h00": "From 10:00am to 7:00pm",
+  "Prix :": "Price:",
+  "Gratuit pour la clientèle du camping": "Free for campsite guests",
+  "Règles d'accès :": "Access rules:",
+  "- Bracelets obligatoires": "- Wristbands required",
+  "- Short de bain interdit": "- Board shorts not allowed",
+  "- Chaussures à laisser à l'entrée avant le pédiluve": "- Leave shoes at the entrance before the foot bath",
+  "- Tongs autorisées": "- Flip-flops allowed",
+  "Info :": "Info:",
+  "Messieurs, vous avez oublié votre maillot de bain ? On en vend à la réception à 15€.": "Gentlemen, forgotten your swimming trunks? We sell them at reception for €15.",
+  "Du 23 mai au 15 septembre 2026": "From 23 May to 15 September 2026",
+  "Ouverture : 30/04/2026 au 28/09/2026": "Open: 30/04/2026 to 28/09/2026"
+});

@@ -192,3 +192,39 @@ window.CP_I18N['es'] = {
   "Lun, Mar, Jeu–Sam : 6h–19h · Dim : 6h–13h · Fermé le mercredi": "Lun, Mar, Jue–Sáb: 6:00–19:00 · Dom: 6:00–13:00 · Cerrado los miércoles",
   "Lun–Sam : 6h30–12h30 / 15h–19h · Dim : 7h–12h30": "Lun–Sáb: 6:30–12:30 / 15:00–19:00 · Dom: 7:00–12:30"
 };
+
+/* ── Horaires ── */
+window.CP_I18N['es'] = Object.assign(window.CP_I18N['es'], {
+  "Horaires": "Horarios",
+  "Réception": "Recepción",
+  "Snack": "Snack",
+  "Bar": "Bar",
+  "Espace Aquatique": "Zona Acuática",
+  "Notre équipe est à votre disposition à l'accueil pour répondre à toutes vos questions !": "Nuestro equipo está a tu disposición en recepción para responder a todas tus preguntas.",
+  "Basse Saison (Mai, Juin, Septembre)": "Temporada baja (mayo, junio, septiembre)",
+  "Haute Saison (Juillet - Août)": "Temporada alta (julio - agosto)",
+  "Dimanche - Vendredi": "Domingo - Viernes",
+  "Samedi": "Sábado",
+  "Lundi - Vendredi": "Lunes - Viernes",
+  "Samedi & Dimanche": "Sábado y Domingo",
+  "Services :": "Servicios:",
+  "Planche de charcuteries et de fromages locales | Commande à la carte du bar/snack sans réservation | Soirée à thème sur réservation (uniquement en juillet/août)": "Tabla de embutidos y quesos locales | Pedido a la carta del bar/snack sin reserva | Noche temática con reserva (solo en julio/agosto)",
+  "Du 15 mai au 15 septembre 2026": "Del 15 de mayo al 15 de septiembre de 2026",
+  "Cocktails à la carte | Boissons alcoolisées, soft, bières, vins | Vente de glaces | Dépôt de pain à partir de 8h00": "Cócteles a la carta | Bebidas alcohólicas, refrescos, cervezas, vinos | Venta de helados | Depósito de pan a partir de las 8h",
+  "Pain & Viennoiseries :": "Pan y bollería:",
+  "Commande au plus tard la veille avant 18h pour le lendemain": "Pedido antes de las 18h del día anterior",
+  "Baignade surveillée l'après-midi uniquement en haute saison.": "Baño vigilado solo por las tardes en temporada alta.",
+  "Horaires :": "Horarios:",
+  "De 10h00 à 19h00": "De 10:00 a 19:00",
+  "Prix :": "Precio:",
+  "Gratuit pour la clientèle du camping": "Gratuito para los clientes del camping",
+  "Règles d'accès :": "Normas de acceso:",
+  "- Bracelets obligatoires": "- Pulseras obligatorias",
+  "- Short de bain interdit": "- Bermudas de baño prohibidos",
+  "- Chaussures à laisser à l'entrée avant le pédiluve": "- Dejar el calzado a la entrada antes del pediluvio",
+  "- Tongs autorisées": "- Se permiten chanclas",
+  "Info :": "Información:",
+  "Messieurs, vous avez oublié votre maillot de bain ? On en vend à la réception à 15€.": "Caballeros, ¿han olvidado el bañador? Los vendemos en recepción por 15€.",
+  "Du 23 mai au 15 septembre 2026": "Del 23 de mayo al 15 de septiembre de 2026",
+  "Ouverture : 30/04/2026 au 28/09/2026": "Apertura: 30/04/2026 al 28/09/2026"
+});
