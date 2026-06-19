@@ -73,7 +73,7 @@
 
 <header>
     <div class="header-container">
-        <a class="back-button" href="index.html">←</a>
+        <a class="back-button" href="#" onclick="history.back(); return false;">←</a>
         <h1>Météo</h1>
         <div class="unit-toggle">
             <button class="unit-btn active" id="btn-c" onclick="setUnit('C')">°C</button>
@@ -243,5 +243,6 @@
 
     fetchWeather();
 </script>
+    <script src="i18n.js" defer></script>
 </body>
 </html>
