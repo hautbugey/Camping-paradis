@@ -1,7 +1,7 @@
 {
-  "actif": false,
+  "actif": true,
   "emoji": "🎭",
-  "texte": "Festival de Pérouges ce week-end ! Village médiéval à 45 min du camping — à ne pas manquer.",
-  "badge": "Ce week-end",
-  "couleur": "violet"
+  "texte": "Fête de la musique à Thoirette le 20 juin de 19h00 à 2h00 - à ne pas manquer.",
+  "badge": "Ce soir",
+  "couleur": "rose"
 }
