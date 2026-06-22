@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronos Coupe du Monde 2026 – Camping Paradis</title>
+    <meta name="theme-color" content="#34BDEF">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --blue: #34BDEF; --navy: #1C3557; --gold: #FFB800; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f8fb; color: #1a2a3a; min-height: 100vh; }
+
+        .header { background: linear-gradient(135deg, #34BDEF 0%, #1C3557 100%); padding: 20px 20px 60px; text-align: center; position: relative; overflow: hidden; }
+        .header::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 50px; background: #f4f8fb; border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
+        .header-back { position: absolute; top: 16px; left: 16px; background: rgba(255,255,255,0.2); border: none; border-radius: 50%; width: 38px; height: 38px; font-size: 20px; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; text-decoration: none; line-height: 1; }
+        .header-logo { font-size: 56px; margin-bottom: 8px; }
+        .header-title { font-size: 26px; font-weight: 800; color: white; line-height: 1.2; }
+        .header-sub { font-size: 14px; color: rgba(255,255,255,0.85); margin-top: 6px; }
+
+        /* RÈGLE */
+        .regle-card { background: var(--navy); margin: -10px 16px 0; border-radius: 16px; padding: 16px 20px; box-shadow: 0 4px 20px rgba(28,53,87,0.25); position: relative; z-index: 2; }
+        .regle-title { font-size: 14px; font-weight: 800; color: var(--gold); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .regle-steps { display: flex; flex-direction: column; gap: 8px; }
+        .regle-step { display: flex; align-items: flex-start; gap: 10px; }
+        .regle-num { background: var(--blue); color: white; font-size: 11px; font-weight: 800; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+        .regle-text { font-size: 13px; color: rgba(255,255,255,0.9); line-height: 1.4; }
+        .regle-highlight { color: var(--gold); font-weight: 800; }
+
+        /* MATCH CARD */
+        .section { padding: 24px 16px 0; }
+        .match-card { background: white; border-radius: 16px; margin-bottom: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); overflow: hidden; }
+        .match-header { background: var(--navy); padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+        .match-date { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.85); }
+        .match-badge-open { background: var(--gold); color: var(--navy); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; white-space: nowrap; }
+        .match-body { padding: 16px; }
+        .match-teams { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 16px; }
+        .team { text-align: center; flex: 1; }
+        .team-flag { font-size: 48px; line-height: 1; }
+        .team-name { font-size: 14px; font-weight: 700; color: var(--navy); margin-top: 5px; }
+        .vs-badge { background: #f0f4f8; color: var(--navy); font-size: 13px; font-weight: 800; padding: 6px 14px; border-radius: 20px; flex-shrink: 0; }
+
+        /* SCORE INPUTS */
+        .prono-label { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 12px; }
+        .score-inputs { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 18px; }
+        .score-col { text-align: center; }
+        .score-team-label { font-size: 11px; font-weight: 700; color: #888; margin-bottom: 6px; }
+        .score-field { width: 80px; height: 80px; border: 2.5px solid #e0eaf3; border-radius: 16px; font-size: 36px; font-weight: 800; text-align: center; color: var(--navy); background: #f8faff; font-family: inherit; -moz-appearance: textfield; display: block; }
+        .score-field::-webkit-inner-spin-button, .score-field::-webkit-outer-spin-button { -webkit-appearance: none; }
+        .score-field:focus { outline: none; border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(52,189,239,0.15); }
+        .score-sep { font-size: 30px; font-weight: 800; color: var(--navy); margin-top: 22px; }
+
+        /* FORM */
+        .form-field { margin-bottom: 12px; }
+        .form-label { font-size: 12px; font-weight: 700; color: #6b7a8d; margin-bottom: 5px; display: block; }
+        .form-input { width: 100%; padding: 12px 14px; border: 2px solid #e0eaf3; border-radius: 12px; font-size: 15px; font-family: inherit; color: var(--navy); background: #f8faff; transition: border-color .2s; }
+        .form-input:focus { outline: none; border-color: var(--blue); background: white; box-shadow: 0 0 0 3px rgba(52,189,239,0.12); }
+
+        .btn-submit { width: 100%; padding: 15px; background: linear-gradient(135deg, #34BDEF, #1C3557); color: white; border: none; border-radius: 14px; font-size: 16px; font-weight: 800; cursor: pointer; font-family: inherit; transition: opacity .2s, transform .1s; }
+        .btn-submit:active { transform: scale(0.98); opacity: 0.9; }
+        .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* SUCCESS */
+        .success-box { display: none; text-align: center; padding: 24px 16px 16px; }
+        .success-icon { font-size: 64px; margin-bottom: 12px; }
+        .success-title { font-size: 22px; font-weight: 800; color: var(--navy); margin-bottom: 8px; }
+        .success-text { font-size: 14px; color: #6b7a8d; line-height: 1.6; }
+        .success-score { display: inline-block; background: linear-gradient(135deg, #1C3557, #34BDEF); color: white; font-size: 20px; font-weight: 800; padding: 8px 24px; border-radius: 12px; margin: 12px 0; }
+
+        .footer-space { height: 60px; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <a href="index.html" class="header-back">&#8249;</a>
+        <div class="header-logo">&#9917;</div>
+        <div class="header-title">Prono du match</div>
+        <div class="header-sub">Vendredi 26 juin &middot; France vs Norv&egrave;ge</div>
+    </div>
+
+    <!-- RÈGLE DU JEU -->
+    <div class="regle-card">
+        <div class="regle-title">&#127942; Comment gagner ?</div>
+        <div class="regle-steps">
+            <div class="regle-step">
+                <div class="regle-num">1</div>
+                <div class="regle-text">Pronostiquez le <span class="regle-highlight">score exact</span> du match France vs Norv&egrave;ge</div>
+            </div>
+            <div class="regle-step">
+                <div class="regle-num">2</div>
+                <div class="regle-text">Si vous trouvez le bon score, venez le signaler &agrave; la r&eacute;ception apr&egrave;s le match</div>
+            </div>
+            <div class="regle-step">
+                <div class="regle-num">3</div>
+                <div class="regle-text">En cas de <span class="regle-highlight">plusieurs gagnants</span>, un tirage au sort d&eacute;signera le vainqueur &#127881;</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATCH -->
+    <div class="section">
+        <div class="match-card">
+            <div class="match-header">
+                <div class="match-date">&#128197; Vendredi 26 juin &middot; 21h00 &middot; Boston</div>
+                <span class="match-badge-open">&#128993; Pronos ouverts</span>
+            </div>
+            <div class="match-body">
+                <div class="match-teams">
+                    <div class="team">
+                        <div class="team-flag">&#127467;&#127479;</div>
+                        <div class="team-name">France</div>
+                    </div>
+                    <div class="vs-badge">VS</div>
+                    <div class="team">
+                        <div class="team-flag">&#127475;&#127476;</div>
+                        <div class="team-name">Norv&egrave;ge</div>
+                    </div>
+                </div>
+
+                <div id="form-wrap">
+                    <div class="prono-label">&#9917; Votre pronostic :</div>
+                    <div class="score-inputs">
+                        <div class="score-col">
+                            <div class="score-team-label">France</div>
+                            <input type="number" class="score-field" id="score-fr" min="0" max="20" placeholder="–">
+                        </div>
+                        <div class="score-sep">&ndash;</div>
+                        <div class="score-col">
+                            <div class="score-team-label">Norv&egrave;ge</div>
+                            <input type="number" class="score-field" id="score-no" min="0" max="20" placeholder="–">
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label class="form-label">Votre pr&eacute;nom *</label>
+                        <input type="text" class="form-input" id="prenom" placeholder="Ex : Marie">
+                    </div>
+                    <div class="form-field">
+                        <label class="form-label">N&deg; d&rsquo;emplacement ou nom du chalet *</label>
+                        <input type="text" class="form-input" id="empl" placeholder="Ex : 42 ou Chalet Soleil">
+                    </div>
+
+                    <button class="btn-submit" id="btn-send" onclick="submitProno()">
+                        &#9917;&nbsp; Envoyer mon pronostic
+                    </button>
+                </div>
+
+                <div class="success-box" id="success-box">
+                    <div class="success-icon">&#127881;</div>
+                    <div class="success-title">Pronostic envoy&eacute; !</div>
+                    <div class="success-score" id="success-score"></div>
+                    <div class="success-text">
+                        Bonne chance ! Si vous avez le score exact, venez nous le dire &agrave; la r&eacute;ception apr&egrave;s le match.<br><br>
+                        En cas de plusieurs gagnants, un tirage au sort d&eacute;signera le vainqueur &#127942;
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-space"></div>
+
+    <script>
+    async function submitProno() {
+        const scoreFr = document.getElementById('score-fr').value;
+        const scoreNo = document.getElementById('score-no').value;
+        const prenom  = document.getElementById('prenom').value.trim();
+        const empl    = document.getElementById('empl').value.trim();
+
+        if (!prenom || !empl) {
+            alert('Merci de renseigner votre prénom et emplacement.');
+            return;
+        }
+        if (scoreFr === '' || scoreNo === '') {
+            alert('Merci d\'entrer un score pour les deux équipes.');
+            return;
+        }
+
+        const btn = document.getElementById('btn-send');
+        btn.textContent = 'Envoi…';
+        btn.disabled = true;
+
+        const scoreLabel = 'France ' + scoreFr + ' - ' + scoreNo + ' Norvège';
+
+        try {
+            const fd = new FormData();
+            fd.append('_subject',  '⚽ Pronostic – France vs Norvège – 26 juin');
+            fd.append('_template', 'table');
+            fd.append('_captcha',  'false');
+            fd.append('Match',        'France vs Norvège – 26 juin 2026 – 21h00');
+            fd.append('Pronostic',    scoreLabel);
+            fd.append('Prenom',       prenom);
+            fd.append('Emplacement',  empl);
+            fd.append('Heure envoi',  new Date().toLocaleString('fr-FR'));
+            await fetch('https://formsubmit.co/info@camping-lesgorgesduhautbugey.fr', {
+                method: 'POST', body: fd, headers: { 'Accept': 'application/json' }
+            });
+        } catch(e) {}
+
+        // Affichage succès
+        document.getElementById('form-wrap').style.display = 'none';
+        document.getElementById('success-score').textContent = 'France ' + scoreFr + ' – ' + scoreNo + ' Norvège';
+        document.getElementById('success-box').style.display = 'block';
+    }
+    </script>
+</body>
+</html>
