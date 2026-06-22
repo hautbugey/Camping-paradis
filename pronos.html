@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pronostics Coupe du Monde 2026 | Camping Les Gorges du Haut-Bugey</title>
+    <style>
+        :root {
+            --primary-blue: #34BDEF;
+            --primary-green: #2d5016;
+            --secondary-green: #1a7a3a;
+            --accent-orange: #FF8C00;
+            --france-blue: #002395;
+            --france-white: #FFFFFF;
+            --france-red: #ED2939;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8ec 100%);
+        }
+        .container { max-width: 600px; margin: 0 auto; }
+        
+        /* Drapeau français header */
+        .header-banner {
+            background: linear-gradient(to right, var(--france-blue) 33%, var(--france-white) 33%, var(--france-white) 66%, var(--france-red) 66%);
+            padding: 8px 0;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+        
+        .hero-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+            margin-bottom: 20px;
+        }
+        .hero-image {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--france-blue) 100%);
+            padding: 40px 20px 30px;
+            text-align: center;
+            position: relative;
+        }
+        .hero-image::before {
+            content: '⚽🏆';
+            font-size: 60px;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .hero-image h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 5px;
+        }
+        .hero-image p {
+            color: rgba(255,255,255,0.9);
+            font-size: 15px;
+        }
+        .form-section { padding: 30px 25px; }
+        
+        .info-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 25px;
+            border-left: 4px solid var(--accent-orange);
+        }
+        .info-box h3 {
+            margin: 0 0 10px 0;
+            color: #e65100;
+            font-size: 16px;
+        }
+        .info-box p {
+            margin: 0;
+            font-size: 14px;
+            color: #5d4037;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            background: white;
+        }
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-blue);
+        }
+        
+        .score-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+        .score-row .form-group { flex: 1; }
+        .score-row .score-vs {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            padding-top: 22px;
+        }
+        .score-input {
+            text-align: center;
+            font-size: 20px !important;
+            font-weight: 700;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #ff6600 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,140,0,0.4);
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .success-message .success-icon { font-size: 70px; margin-bottom: 15px; }
+        .success-message h2 {
+            color: var(--primary-green);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .success-message p { color: var(--text-light); font-size: 15px; }
+        
+        .match-list {
+            max-height: 250px;
+            overflow-y: auto;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .match-item {
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .match-item:hover { background: #e3f2fd; }
+        .match-item.selected {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--france-blue) 100%);
+            color: white;
+        }
+        .match-item .flag { font-size: 20px; margin-right: 8px; }
+        .match-item .match-info { font-size: 13px; opacity: 0.8; }
+        
+        .footer-note {
+            text-align: center;
+            padding: 15px;
+            color: var(--text-light);
+            font-size: 12px;
+        }
+        
+        .flag-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .flag-row span { font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-banner"></div>
+        
+        <div class="hero-card">
+            <div class="hero-image">
+                <h1>🏆 Pronostics CDM 2026</h1>
+                <p>Phase Finale - Équipe de France</p>
+            </div>
+            
+            <form id="pronoForm" class="form-section" action="https://formsubmit.co/pronos@camping-lesgorgesduhautbugey.fr" method="POST">
+                <input type="hidden" name="_subject" value="Nouveau prono CDM 2026">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="info-box">
+                    <h3>📋 Comment participer ?</h3>
+                    <p>Gagnez des surprises هدايا surprises pour chaque bon prono ! Pronostiquez le score exact du match de la France 🇫🇷</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hebergement">🏠 Nom de l'hébergement</label>
+                    <input type="text" id="hebergement" name="hebergement" placeholder="Ex: Mobil-home Azur, Chalet Emerald..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="match">⚽ Sélectionnez le match</label>
+                    <div class="match-list" id="matchList">
+                        <!-- Phase groupes -->
+                        <div class="match-item" data-match="france-perou" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> Pérou
+                            <div class="match-info">📅 Phase de groupes - 11 juin</div>
+                        </div>
+                        <div class="match-item" data-match="france-paraguay" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> Paraguay
+                            <div class="match-info">📅 Phase de groupes - 16 juin</div>
+                        </div>
+                        <div class="match-item" data-match="france-algerie" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> Algérie
+                            <div class="match-info">📅 Phase de groupes - 21 juin</div>
+                        </div>
+                        <!-- Phase finale -->
+                        <div class="match-item" data-match="france-quart1" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> 8ème de finale
+                            <div class="match-info">📅 8ème de finale - 30 juin</div>
+                        </div>
+                        <div class="match-item" data-match="france-quart2" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> Quart de finale
+                            <div class="match-info">📅 Quart de finale - 4 juillet</div>
+                        </div>
+                        <div class="match-item" data-match="france-demi" onclick="selectMatch(this)">
+                            <span class="flag">🇫🇷</span> France <span class="vs">vs</span> Demi-finale
+                            <div class="match-info">📅 Demi-finale - 9 juillet</div>
+                        </div>
+                        <div class="match-item" data-match="france-finale" onclick="selectMatch(this)">
+                            <span class="flag">🏆</span> France <span class="vs">vs</span> Finale
+                            <div class="match-info">📅 Grande Finale - 14 juillet</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="match" name="match" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>📊 Votre pronostic - Score exact</label>
+                    <div class="score-row">
+                        <div class="form-group">
+                            <label for="score_france">🇫🇷 France</label>
+                            <input type="number" id="score_france" name="score_france" min="0" max="15" class="score-input" placeholder="0" required>
+                        </div>
+                        <div class="score-vs">⚽</div>
+                        <div class="form-group">
+                            <label for="score_adversaire" id="adversaire_label">Adversaire</label>
+                            <input type="number" id="score_adversaire" name="score_adversaire" min="0" max="15" class="score-input" placeholder="0" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">📧 Email (optionnel - pour vous prévenir)</label>
+                    <input type="email" id="email" name="email" placeholder="votre@email.com">
+                </div>
+                
+                <button type="submit" class="submit-btn">🏆 Envoyer mon prono</button>
+            </form>
+            
+            <div id="successMessage" class="success-message">
+                <div class="success-icon">🎉</div>
+                <h2>Prono enregistré !</h2>
+                <p> Bonne chance ! Les résultats seront annoncés après chaque match. 🏆</p>
+            </div>
+        </div>
+        
+        <div class="footer-note">
+            ⚽ Camping Les Gorges du Haut-Bugey - Coupe du Monde FIFA 2026
+        </div>
+    </div>
+    
+    <script>
+        let selectedMatch = null;
+        
+        function selectMatch(element) {
+            document.querySelectorAll('.match-item').forEach(item => item.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedMatch = element.dataset.match;
+            document.getElementById('match').value = selectedMatch;
+            
+            // Update adversaire label
+            const adversaireLabel = document.getElementById('adversaire_label');
+            const matchName = element.textContent.split('vs')[1].trim().split('\n')[0].trim();
+            adversaireLabel.textContent = matchName.split(' ')[0] + ' ' + (matchName.split(' ')[1] || '');
+        }
+        
+        document.getElementById('pronoForm').addEventListener('submit', function(e) {
+            if (!selectedMatch) {
+                e.preventDefault();
+                alert('Veuillez sélectionner un match');
+                return;
+            }
+            
+            // Show success after a brief delay
+            setTimeout(() => {
+                document.getElementById('pronoForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            }, 100);
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"8607d2a720d14b038279025b2b5a82e5","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
