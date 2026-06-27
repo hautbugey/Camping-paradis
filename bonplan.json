@@ -1,7 +1,7 @@
 {
-  "actif": false,
-  "emoji": "🎭",
-  "texte": "The Australian Pink Floyd Show à Pérouges",
-  "badge": "Ce soir à 21h30",
-  "couleur": "rose"
+  "actif": true,
+  "emoji": "🏉",
+  "texte": "Diffusion finale du TOP 14",
+  "badge": "Ce soir à 21h00",
+  "couleur": "vert"
 }
