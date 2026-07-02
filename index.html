@@ -1074,10 +1074,19 @@
         // Récupération du programme : on cherche d'abord la date exacte du jour (ex. "2026-07-06"),
         // puis on retombe sur le jour générique (ex. "lundi") si aucune date précise n'est renseignée.
         fetch('programme.json?t=' + Date.now())
-            .then(function (r) { if (!r.ok) throw new Error('programme.json introuvable'); return r.json(); })
-            .then(function (data) {
-                var dateISO = obtenirDateISO();
+            .then(function (r) {
+                if (!r.ok) { var e = new Error('introuvable'); e.type = 'introuvable'; throw e; }
+                return r.text();
+            })
+            .then(function (texte) {
+                var data;
+                try {
+                    data = JSON.parse(texte);
+                } catch (erreurParsing) {
+                    var e = new Error('invalide'); e.type = 'invalide'; throw e;
+                }
 
+                var dateISO = obtenirDateISO();
                 var jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
                 var jourDuJour = jours[new Date(dateISO + 'T12:00:00').getDay()];
 
@@ -1093,10 +1102,13 @@
                     : 'programme de secours (rien de prévu ce jour dans programme.json)');
                 appliquerFiltre();
             })
-            .catch(function () {
+            .catch(function (erreur) {
                 var dateISO = obtenirDateISO();
                 toutesLesActivites = PROGRAMME_DEFAUT;
-                afficherDateAffichee(dateISO, '⚠️ programme.json introuvable, vérifie qu\'il est bien en ligne');
+                var message = (erreur && erreur.type === 'invalide')
+                    ? '⚠️ programme.json trouvé mais invalide (erreur de syntaxe JSON)'
+                    : '⚠️ programme.json introuvable, vérifie qu\'il est bien en ligne';
+                afficherDateAffichee(dateISO, message);
                 appliquerFiltre();
             });
     })();
