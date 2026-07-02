@@ -1,0 +1,37 @@
+{
+  "lundi": [
+    { "icone": "🏓", "heure": "10h00", "titre": "Tournoi de ping-pong", "description": "Inscriptions sur place, en simple ou en double.", "lieu": "Terrasse club" },
+    { "icone": "🎨", "heure": "14h30", "titre": "Atelier peinture sur galets", "description": "Activité créative et relaxante pour petits et grands.", "lieu": "Terrasse club" },
+    { "icone": "🏊", "heure": "16h00", "titre": "Aquagym", "description": "Séance dynamique en musique dans la piscine principale.", "lieu": "Piscine" },
+    { "icone": "🎲", "heure": "21h00", "titre": "Soirée jeux de société", "description": "Ambiance conviviale autour de grands jeux en bois.", "lieu": "Bar du camping" }
+  ],
+  "mardi": [
+    { "icone": "🏹", "heure": "10h30", "titre": "Initiation tir à l'arc", "description": "Encadré par l'équipe d'animation, dès 6 ans.", "lieu": "Espace enfants" },
+    { "icone": "🚴", "heure": "15h00", "titre": "Balade à vélo en famille", "description": "Parcours facile autour du camping, casques fournis.", "lieu": "Accueil" },
+    { "icone": "🍹", "heure": "18h30", "titre": "Apéro découverte", "description": "Dégustation de produits locaux au bar.", "lieu": "Bar du camping" }
+  ],
+  "mercredi": [
+    { "icone": "🏴‍☠️", "heure": "10h00", "titre": "Chasse au trésor pirate", "description": "Une aventure palpitante pour retrouver le trésor du capitaine.", "lieu": "Espace enfants", "badge": "Nouveau" },
+    { "icone": "🏐", "heure": "11h00", "titre": "Tournoi de beach-volley", "description": "Inscriptions sur place, par équipes de 4.", "lieu": "Terrain de sport" },
+    { "icone": "🎭", "heure": "21h00", "titre": "Spectacle des pirates", "description": "Le grand show de la semaine préparé par toute l'équipe d'animation.", "lieu": "Scène principale", "badge": "Soirée" }
+  ],
+  "jeudi": [
+    { "icone": "🧗", "heure": "10h00", "titre": "Mini accrobranche", "description": "Parcours adapté aux enfants, encadré et sécurisé.", "lieu": "Espace enfants" },
+    { "icone": "🎣", "heure": "14h00", "titre": "Initiation pêche", "description": "Matériel fourni, sur réservation à l'accueil.", "lieu": "Étang" },
+    { "icone": "🎬", "heure": "21h30", "titre": "Cinéma en plein air", "description": "Séance familiale sous les étoiles, plaids bienvenus.", "lieu": "Terrasse club" }
+  ],
+  "vendredi": [
+    { "icone": "🎪", "heure": "10h30", "titre": "Grand jeu collectif", "description": "Défis et énigmes en équipes, pour toute la famille.", "lieu": "Terrain de sport" },
+    { "icone": "🍕", "heure": "19h00", "titre": "Soirée pizza", "description": "Pizzas cuites au feu de bois par notre chef.", "lieu": "Snack" },
+    { "icone": "🎤", "heure": "21h00", "titre": "Karaoké géant", "description": "Show final de la semaine, ambiance garantie.", "lieu": "Scène principale", "badge": "Soirée" }
+  ],
+  "samedi": [
+    { "icone": "👋", "heure": "18h00", "titre": "Pot d'accueil", "description": "Rencontrez l'équipe et les nouveaux arrivants autour d'un verre.", "lieu": "Bar du camping", "badge": "Nouveau" },
+    { "icone": "🎶", "heure": "21h00", "titre": "Soirée musicale", "description": "Concert live pour bien démarrer la semaine.", "lieu": "Scène principale" }
+  ],
+  "dimanche": [
+    { "icone": "🥐", "heure": "08h30", "titre": "Marché des producteurs", "description": "Fruits, fromages et spécialités locales devant l'accueil.", "lieu": "Accueil" },
+    { "icone": "🧘", "heure": "10h00", "titre": "Réveil en douceur", "description": "Séance de stretching et respiration face au lac.", "lieu": "Terrasse club" },
+    { "icone": "🎉", "heure": "17h00", "titre": "Goûter animé", "description": "Jeux et musique pour bien terminer le week-end.", "lieu": "Espace enfants" }
+  ]
+}
