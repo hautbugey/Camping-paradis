@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pronos Coupe du Monde 2026 – Camping Paradis</title>
+    <title>Pronos Coupe du Monde 2026 – France vs Paraguay – Camping Paradis</title>
     <meta name="theme-color" content="#34BDEF">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -75,7 +75,7 @@
         <a href="index.html" class="header-back">&#8249;</a>
         <div class="header-logo">&#9917;</div>
         <div class="header-title">Prono du match</div>
-        <div class="header-sub">Vendredi 26 juin &middot; France vs Norv&egrave;ge</div>
+        <div class="header-sub">Samedi 4 juillet &middot; France vs Paraguay</div>
     </div>
 
     <!-- RÈGLE DU JEU -->
@@ -84,7 +84,7 @@
         <div class="regle-steps">
             <div class="regle-step">
                 <div class="regle-num">1</div>
-                <div class="regle-text">Pronostiquez le <span class="regle-highlight">score exact</span> du match France vs Norv&egrave;ge</div>
+                <div class="regle-text">Pronostiquez le <span class="regle-highlight">score exact</span> du match France vs Paraguay</div>
             </div>
             <div class="regle-step">
                 <div class="regle-num">2</div>
@@ -101,7 +101,7 @@
     <div class="section">
         <div class="match-card">
             <div class="match-header">
-                <div class="match-date">&#128197; Vendredi 26 juin &middot; 21h00 &middot; Boston</div>
+                <div class="match-date">&#128197; Samedi 4 juillet &middot; 23h00</div>
                 <span class="match-badge-open">&#128993; Pronos ouverts</span>
             </div>
             <div class="match-body">
@@ -112,8 +112,8 @@
                     </div>
                     <div class="vs-badge">VS</div>
                     <div class="team">
-                        <div class="team-flag">&#127475;&#127476;</div>
-                        <div class="team-name">Norv&egrave;ge</div>
+                        <div class="team-flag">&#127477;&#127486;</div>
+                        <div class="team-name">Paraguay</div>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
                         </div>
                         <div class="score-sep">&ndash;</div>
                         <div class="score-col">
-                            <div class="score-team-label">Norv&egrave;ge</div>
+                            <div class="score-team-label">Paraguay</div>
                             <input type="number" class="score-field" id="score-no" min="0" max="20" placeholder="–">
                         </div>
                     </div>
@@ -180,14 +180,14 @@
         btn.textContent = 'Envoi…';
         btn.disabled = true;
 
-        const scoreLabel = 'France ' + scoreFr + ' - ' + scoreNo + ' Norvège';
+        const scoreLabel = 'France ' + scoreFr + ' - ' + scoreNo + ' Paraguay';
 
         try {
             const fd = new FormData();
-            fd.append('_subject',  '⚽ Pronostic – France vs Norvège – 26 juin');
+            fd.append('_subject',  '⚽ Pronostic – France vs Paraguay – 4 juillet');
             fd.append('_template', 'table');
             fd.append('_captcha',  'false');
-            fd.append('Match',        'France vs Norvège – 26 juin 2026 – 21h00');
+            fd.append('Match',        'France vs Paraguay – 4 juillet 2026 – 23h00');
             fd.append('Pronostic',    scoreLabel);
             fd.append('Prenom',       prenom);
             fd.append('Emplacement',  empl);
@@ -199,7 +199,7 @@
 
         // Affichage succès
         document.getElementById('form-wrap').style.display = 'none';
-        document.getElementById('success-score').textContent = 'France ' + scoreFr + ' – ' + scoreNo + ' Norvège';
+        document.getElementById('success-score').textContent = 'France ' + scoreFr + ' – ' + scoreNo + ' Paraguay';
         document.getElementById('success-box').style.display = 'block';
     }
     </script>
