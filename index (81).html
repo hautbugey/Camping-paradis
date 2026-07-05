@@ -1,0 +1,2351 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camping Paradis - Les Gorges du Haut Bugey</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#34BDEF">
+
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+    <meta name="description" content="Application officielle du Camping Paradis. Accès aux services, horaires, kayak, laverie et bien plus !">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Camping Paradis">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%2334BDEF' width='180' height='180'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='80' fill='white' font-family='Arial'>🏕️</text></svg>">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --primary-blue: #34BDEF;
+            --primary-green: #2d5016;
+            --secondary-green: #1a7a3a;
+            --accent-orange: #FF8C00;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #ffffff;
+            --white: #ffffff;
+        }
+
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-dark); line-height: 1.6; background: #ffffff; }
+
+        .hero {
+            background: white;
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+        /* hero decorative removed */
+        .hero-photo {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            object-position: center 65%;
+            display: block;
+            border-radius: 16px;
+        }
+        .hero {
+            padding: 16px 20px 0;
+            background: white;
+        }
+        .hero-identity {
+            background: white;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .hero-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .hero-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            line-height: 1.3;
+        }
+        
+        
+        
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 60px 0; border-bottom: 1px solid #f0f0f0; }
+        section:last-child { border-bottom: none; }
+        .section-title { font-size: 32px; font-weight: 700; margin-bottom: 40px; color: var(--primary-blue); text-align: center; }
+
+        .welcome-box { background: white; padding: 40px; border-radius: 12px; border-left: 5px solid var(--primary-blue); box-shadow: 0 4px 15px rgba(0,0,0,0.08); margin-bottom: 40px; text-align: center; }
+        .welcome-box h3 { color: var(--primary-green); margin-bottom: 15px; font-size: 24px; }
+        .welcome-box p { color: var(--text-light); font-size: 15px; line-height: 1.7; margin-bottom: 10px; }
+        .welcome-box p strong { color: var(--primary-blue); font-weight: 600; }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+        .card-image { width: 100%; height: 180px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; font-size: 60px; color: white; position: relative; overflow: hidden; }
+        .card-content { padding: 25px; }
+        .card-title { font-size: 18px; font-weight: 600; color: var(--text-dark); margin-bottom: 10px; }
+        .card-description { font-size: 14px; color: var(--text-light); line-height: 1.6; }
+
+        .bubble-section { margin-top: 60px; }
+        .bubble-subtitle { font-size: 20px; font-weight: 700; color: var(--primary-blue); margin-bottom: 25px; margin-top: 40px; }
+
+        .carousel-wrapper { margin-bottom: 0; }
+        .bubble-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .bubble { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: all 0.3s ease; cursor: pointer; text-decoration: none; color: inherit; display: block; min-width: 0; }
+        .bubble:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+        .bubble-image { width: 100%; height: 180px; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; color: white; overflow: hidden; position: relative; }
+        .bubble-image-content { position: relative; z-index: 1; font-size: 50px; }
+        .bubble-title { font-size: 18px; font-weight: 600; color: var(--text-dark); padding: 25px 25px 0; }
+        .bubble-desc { font-size: 14px; color: var(--text-light); padding: 10px 25px 25px; line-height: 1.6; }
+
+        #install-app-btn { display: none; position: fixed; bottom: 20px; right: 20px; background: var(--accent-orange); color: white; padding: 12px 25px; border: none; border-radius: 50px; cursor: pointer; font-weight: 600; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 999; }
+        #install-app-btn:hover { background: #ff7c00; transform: translateY(-2px); }
+
+        footer { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 40px 20px; text-align: center; }
+        footer p { margin-bottom: 10px; font-size: 14px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        @media (max-width: 768px) {
+
+        /* ── Espacement sections mobile ── */
+        .bubble-section,
+        .cards-section,
+        section.container {
+            margin-top: 32px !important;
+            padding-top: 8px !important;
+        }
+        .section-title {
+            margin-bottom: 16px !important;
+        }
+        hr, .section-divider {
+            margin: 24px 0 !important;
+        }
+
+        /* ── Carousel horizontal ── */
+        .bubble-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 12px !important;
+            padding: 4px 4px 12px !important;
+            scrollbar-width: none !important;
+            margin: 0 -20px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        .bubble-grid::-webkit-scrollbar { display: none !important; }
+        .bubble-grid .bubble {
+            flex: 0 0 160px !important;
+            width: 160px !important;
+            min-width: 160px !important;
+            scroll-snap-align: start !important;
+        }
+        .bubble-grid .bubble .bubble-image {
+            height: 130px !important;
+        }
+        .cards-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 12px !important;
+            padding: 4px 4px 12px !important;
+            scrollbar-width: none !important;
+            margin: 0 -20px !important;
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+        .cards-grid::-webkit-scrollbar { display: none !important; }
+        .cards-grid .card {
+            flex: 0 0 220px !important;
+            width: 220px !important;
+            min-width: 220px !important;
+            scroll-snap-align: start !important;
+        }
+        .cards-grid .card .card-image {
+            height: 140px !important;
+        }
+        /* ── Carousel scroll horizontal sur mobile ── */
+        .bubble-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 14px !important;
+            padding-bottom: 8px !important;
+            scrollbar-width: none !important;
+        }
+        .bubble-grid::-webkit-scrollbar { display: none !important; }
+        .bubble-grid .bubble {
+            flex: 0 0 72vw !important;
+            max-width: 280px !important;
+            scroll-snap-align: start !important;
+        }
+        .cards-grid {
+            display: flex !important;
+            flex-direction: row !important;
+            overflow-x: auto !important;
+            scroll-snap-type: x mandatory !important;
+            -webkit-overflow-scrolling: touch !important;
+            gap: 14px !important;
+            padding-bottom: 8px !important;
+            scrollbar-width: none !important;
+        }
+        .cards-grid::-webkit-scrollbar { display: none !important; }
+        .cards-grid .card {
+            flex: 0 0 80vw !important;
+            max-width: 300px !important;
+            scroll-snap-align: start !important;
+        }
+        
+            
+            .section-title { font-size: 24px; }
+            .cards-grid { grid-template-columns: 1fr; }
+            .bubble-image { height: 150px; }
+            .bubble-image-content { font-size: 40px; }
+        }
+
+        .card { animation: slideInUp 0.6s ease-out forwards; }
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+    
+    /* ── BOUTON FLOTTANT RÉCEPTION ─────────────────────────────────── */
+    .btn-float {
+        position: fixed;
+        bottom: 24px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        text-decoration: none;
+        filter: drop-shadow(0 4px 16px rgba(52,189,239,0.5));
+        animation: float-pulse 2.5s ease-in-out infinite;
+    }
+    .btn-float-circle {
+        width: 62px;
+        height: 62px;
+        background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 26px;
+        transition: transform 0.2s;
+    }
+    .btn-float:active .btn-float-circle {
+        transform: scale(0.93);
+    }
+    .btn-float-label {
+        background: #2a9ec4;
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        padding: 3px 10px 4px;
+        border-radius: 0 0 10px 10px;
+        letter-spacing: 0.3px;
+        white-space: nowrap;
+        margin-top: -2px;
+    }
+    @keyframes float-pulse {
+        0%, 100% { transform: translateY(0px); }
+        50%       { transform: translateY(-6px); }
+    }
+    /* Évite que le bouton cache le contenu en bas */
+    .footer { padding-bottom: 90px !important; }
+
+
+
+    
+    /* ── POP-UP INSTALLATION ────────────────────────────────────────── */
+    #install-popup {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(4px);
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0 0 20px;
+    }
+    #install-popup.show { display: flex; }
+    .install-card {
+        background: white;
+        border-radius: 24px 24px 16px 16px;
+        padding: 28px 24px 24px;
+        max-width: 420px;
+        width: 92%;
+        text-align: center;
+        box-shadow: 0 -4px 40px rgba(0,0,0,0.2);
+        animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(100px); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+    }
+    .install-icon { font-size: 52px; margin-bottom: 12px; }
+    .install-title {
+        font-size: 20px;
+        font-weight: 800;
+        color: #1a2a3a;
+        margin-bottom: 8px;
+    }
+    .install-subtitle {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+    .install-steps {
+        background: #f0f8ff;
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 18px;
+        text-align: left;
+    }
+    .install-step {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 8px;
+    }
+    .install-step:last-child { margin-bottom: 0; }
+    .install-step-num {
+        background: #34BDEF;
+        color: white;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+    .install-btn-primary {
+        display: block;
+        background: linear-gradient(135deg, #34BDEF, #2a9ec4);
+        color: white;
+        border: none;
+        border-radius: 14px;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 700;
+        width: 100%;
+        cursor: pointer;
+        margin-bottom: 10px;
+    }
+    .install-btn-skip {
+        background: none;
+        border: none;
+        color: #999;
+        font-size: 13px;
+        cursor: pointer;
+        padding: 6px;
+    }
+
+    
+    /* ── SECTION SIGNALEMENT ─────────────────────────────────────────── */
+    .signalement-section {
+        background: linear-gradient(135deg, #f8faff 0%, #eef4ff 100%);
+        border-top: 1px solid #e0e8f5;
+        padding: 48px 20px 56px;
+    }
+    .signalement-inner {
+        max-width: 580px;
+        margin: 0 auto;
+    }
+    .signalement-header {
+        text-align: center;
+        margin-bottom: 32px;
+    }
+    .signalement-icon {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, #34BDEF, #2a9ec4);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        margin: 0 auto 16px;
+        box-shadow: 0 8px 24px rgba(52,189,239,0.3);
+    }
+    .signalement-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a2a3a;
+        margin-bottom: 6px;
+    }
+    .signalement-subtitle {
+        font-size: 14px;
+        color: #6b7a8d;
+        line-height: 1.5;
+    }
+    .signalement-form {
+        background: white;
+        border-radius: 20px;
+        padding: 28px 24px;
+        box-shadow: 0 8px 32px rgba(52,189,239,0.1);
+        border: 1px solid rgba(52,189,239,0.15);
+    }
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        margin-bottom: 14px;
+    }
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+        font-size: 12px;
+        font-weight: 700;
+        color: #34BDEF;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .form-input,
+    .form-select,
+    .form-textarea {
+        border: 1.5px solid #e0e8f5;
+        border-radius: 10px;
+        padding: 12px 14px;
+        font-size: 15px;
+        font-family: inherit;
+        color: #1a2a3a;
+        background: #f8faff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        outline: none;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+        border-color: #34BDEF;
+        box-shadow: 0 0 0 3px rgba(52,189,239,0.15);
+        background: white;
+    }
+    .form-select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%2334BDEF' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
+        padding-right: 36px;
+        cursor: pointer;
+    }
+    .form-textarea {
+        resize: none;
+        height: 100px;
+        line-height: 1.5;
+    }
+    .form-submit {
+        width: 100%;
+        background: linear-gradient(135deg, #34BDEF, #2a9ec4);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        margin-top: 6px;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 16px rgba(52,189,239,0.35);
+        letter-spacing: 0.2px;
+    }
+    .form-submit:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(52,189,239,0.45); }
+    .form-submit:active { transform: translateY(0); }
+    .form-success {
+        display: none;
+        text-align: center;
+        padding: 32px 20px;
+    }
+    .form-success-icon { font-size: 52px; margin-bottom: 14px; }
+    .form-success-title { font-size: 20px; font-weight: 700; color: #1a2a3a; margin-bottom: 8px; }
+    .form-success-text { font-size: 14px; color: #6b7a8d; line-height: 1.6; }
+    @media (max-width: 480px) {
+        .form-row { grid-template-columns: 1fr; }
+    }
+
+    
+    /* ── HINT SCROLL MOBILE ─────────────────────────────────────────── */
+    @media (max-width: 768px) {
+        .bubble-section, .cards-section {
+            overflow: hidden;
+        }
+        .section-title::after {
+            content: ' ›';
+            color: var(--primary-blue);
+            font-size: 20px;
+            opacity: 0.5;
+        }
+    }
+
+    
+    /* ── BANNIÈRE MÉNAGE FIN DE SÉJOUR ──────────────────────────────── */
+    .menage-banner {
+        background: linear-gradient(135deg, #1a2a3a 0%, #2a3f55 100%);
+        border-radius: 18px;
+        padding: 24px 24px 24px 20px;
+        margin: 0 0 4px;
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 20px rgba(26,42,58,0.2);
+        text-decoration: none;
+    }
+    .menage-banner:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(26,42,58,0.3); }
+    .menage-ico {
+        font-size: 42px;
+        flex-shrink: 0;
+        background: rgba(255,255,255,0.1);
+        width: 64px;
+        height: 64px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .menage-content { flex: 1; }
+    .menage-tag {
+        font-size: 10px;
+        font-weight: 800;
+        color: #34BDEF;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+    }
+    .menage-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: white;
+        line-height: 1.3;
+        margin-bottom: 4px;
+    }
+    .menage-desc {
+        font-size: 13px;
+        color: rgba(255,255,255,0.65);
+        line-height: 1.4;
+    }
+    .menage-arrow {
+        background: #34BDEF;
+        color: white;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        flex-shrink: 0;
+        font-weight: 700;
+    }
+    /* Modal ménage */
+    .menage-modal {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(4px);
+        align-items: flex-end;
+        justify-content: center;
+        padding-bottom: 20px;
+    }
+    .menage-modal.open { display: flex; }
+    .menage-card {
+        background: white;
+        border-radius: 24px 24px 16px 16px;
+        padding: 28px 24px 24px;
+        max-width: 440px;
+        width: 92%;
+        box-shadow: 0 -4px 40px rgba(0,0,0,0.2);
+        animation: slideUp 0.35s ease;
+    }
+    @keyframes slideUp {
+        from { transform: translateY(80px); opacity: 0; }
+        to   { transform: translateY(0);    opacity: 1; }
+    }
+    .menage-card-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+    .menage-card-ico {
+        font-size: 36px;
+        background: #f0f8ff;
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+    .menage-card-title { font-size: 20px; font-weight: 800; color: #1a2a3a; }
+    .menage-card-sub   { font-size: 13px; color: #6b7a8d; margin-top: 2px; }
+    .menage-price-box {
+        background: linear-gradient(135deg, #f0f8ff, #e8f4ff);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .menage-price { font-size: 28px; font-weight: 800; color: #1a2a3a; }
+    .menage-price-label { font-size: 12px; color: #6b7a8d; }
+    .menage-includes { margin-bottom: 20px; }
+    .menage-includes-title { font-size: 12px; font-weight: 800; color: #34BDEF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+    .menage-item { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #333; margin-bottom: 7px; }
+    .menage-item::before { content: '✓'; color: #34BDEF; font-weight: 800; flex-shrink: 0; }
+    .menage-form-label { font-size: 12px; font-weight: 700; color: #34BDEF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; display: block; }
+    .menage-form-input {
+        width: 100%;
+        border: 1.5px solid #e0e8f5;
+        border-radius: 10px;
+        padding: 11px 14px;
+        font-size: 15px;
+        font-family: inherit;
+        color: #1a2a3a;
+        background: #f8faff;
+        margin-bottom: 14px;
+        outline: none;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+    }
+    .menage-form-input:focus { border-color: #34BDEF; background: white; }
+    .menage-submit {
+        width: 100%;
+        background: linear-gradient(135deg, #1a2a3a, #2a3f55);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        box-shadow: 0 4px 16px rgba(26,42,58,0.3);
+        transition: transform 0.2s;
+    }
+    .menage-submit:hover { transform: translateY(-2px); }
+    .menage-close {
+        background: none;
+        border: none;
+        color: #999;
+        font-size: 13px;
+        cursor: pointer;
+        display: block;
+        margin: 10px auto 0;
+        font-family: inherit;
+    }
+    .menage-success { display: none; text-align: center; padding: 24px 0; }
+    .menage-success-ico { font-size: 52px; margin-bottom: 12px; }
+    .menage-success-title { font-size: 20px; font-weight: 800; color: #1a2a3a; margin-bottom: 8px; }
+    .menage-success-text { font-size: 14px; color: #6b7a8d; line-height: 1.6; }
+
+    /* ══ CARROUSEL "AUJOURD'HUI" ══════════════════════════════════ */
+    .prog-jour-section { padding-top: 16px; padding-bottom: 4px; }
+    .prog-jour-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:14px; }
+    .prog-jour-titre { font-size:20px; font-weight:800; color:#1a2a3a; display:flex; align-items:center; gap:8px; }
+    .prog-jour-date { font-size:12.5px; color:#8a97a5; font-weight:600; text-transform:capitalize; }
+    .prog-jour-lien { font-size:12.5px; font-weight:700; color: var(--primary-blue); text-decoration:none; flex-shrink:0; }
+
+    .prog-jour-tabs { display:flex; gap:8px; overflow-x:auto; padding-bottom:12px; -ms-overflow-style:none; scrollbar-width:none; }
+    .prog-jour-tabs::-webkit-scrollbar { display:none; }
+    .prog-onglet {
+        flex-shrink:0; border:1.5px solid #e3e8ee; background:#fff; color:#5b6875;
+        font-size:12.5px; font-weight:700; padding:7px 15px; border-radius:20px;
+        cursor:pointer; transition: all .2s ease; white-space:nowrap;
+    }
+    .prog-onglet.actif { background:#1a2a3a; border-color:#1a2a3a; color:#fff; }
+
+    .prog-jour-scroll {
+        display:flex; gap:14px; overflow-x:auto; scroll-snap-type:x proximity;
+        padding: 4px 4px 10px; -ms-overflow-style:none; scrollbar-width:none; cursor:grab;
+    }
+    .prog-jour-scroll::-webkit-scrollbar { display:none; }
+    .prog-jour-scroll.dragging { cursor:grabbing; scroll-snap-type:none; user-select:none; }
+
+    .prog-card {
+        scroll-snap-align:start; flex-shrink:0; width:210px; min-height:150px;
+        border-radius:18px; padding:16px 16px 15px; text-decoration:none;
+        display:flex; flex-direction:column; gap:8px; position:relative; overflow:hidden;
+        color:#fff; background: linear-gradient(150deg, var(--cat-c1,#34BDEF), var(--cat-c2,#1a7fae));
+        box-shadow: 0 8px 20px -6px rgba(20,40,60,0.35);
+        transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .prog-card::before {
+        content:''; position:absolute; inset:0;
+        background: radial-gradient(circle at 85% -10%, rgba(255,255,255,0.35), transparent 55%);
+        pointer-events:none;
+    }
+    .prog-card:active { transform: scale(0.97); }
+    .prog-card-cat { font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.5px; opacity:.92; display:flex; align-items:center; gap:5px; }
+    .prog-card-heure { font-size:19px; font-weight:800; line-height:1.15; }
+    .prog-card-titre { font-size:14px; font-weight:700; line-height:1.35; margin-top:auto; }
+    .prog-card-lieu { font-size:11.5px; opacity:.85; font-weight:600; display:flex; align-items:center; gap:4px; }
+    .prog-card-live {
+        position:absolute; top:12px; right:12px; background:rgba(255,255,255,0.25);
+        border:1px solid rgba(255,255,255,0.55); font-size:9.5px; font-weight:800;
+        padding:3px 8px; border-radius:20px; display:flex; align-items:center; gap:4px;
+        text-transform:uppercase; letter-spacing:.4px;
+    }
+    .prog-card-live .dot { width:6px; height:6px; border-radius:50%; background:#4CFF6B; animation: livepulse 1.4s ease-in-out infinite; }
+    @keyframes livepulse { 0%,100% {opacity:1;} 50% {opacity:.35;} }
+
+    .prog-jour-vide {
+        width:100%; text-align:center; padding:26px 16px; color:#8a97a5; font-size:13.5px;
+        background:#f5f7f9; border-radius:16px;
+    }
+
+    @media (min-width: 769px) {
+        .prog-card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px -8px rgba(20,40,60,0.4); }
+    }
+    </style>
+</head>
+<body>
+
+    <!-- ── POP-UP INSTALLATION ── -->
+    <div id="install-popup">
+      <div class="install-card">
+        <div class="install-icon">🏕️</div>
+        <div class="install-title">Installer l'application</div>
+        <div class="install-subtitle">Accédez à toutes les infos du camping en un clic, même sans connexion !</div>
+        <div class="install-steps" id="install-steps-ios">
+          <div class="install-step"><div class="install-step-num">1</div><span>Appuie sur le bouton <strong>Partager</strong> ⬆️ en bas de Safari</span></div>
+          <div class="install-step"><div class="install-step-num">2</div><span>Sélectionne <strong>"Sur l'écran d'accueil"</strong></span></div>
+          <div class="install-step"><div class="install-step-num">3</div><span>Appuie sur <strong>"Ajouter"</strong> en haut à droite</span></div>
+        </div>
+        <div class="install-steps" id="install-steps-android" style="display:none;">
+          <div class="install-step"><div class="install-step-num">1</div><span>Appuie sur le menu <strong>⋮</strong> en haut à droite</span></div>
+          <div class="install-step"><div class="install-step-num">2</div><span>Sélectionne <strong>"Ajouter à l'écran d'accueil"</strong></span></div>
+          <div class="install-step"><div class="install-step-num">3</div><span>Confirme en appuyant sur <strong>"Ajouter"</strong></span></div>
+        </div>
+        <button class="install-btn-primary" onclick="closeInstallPopup()">✓ J'ai compris !</button>
+        <button class="install-btn-skip" onclick="closeInstallPopup()">Continuer sans installer</button>
+      </div>
+    </div>
+
+
+    <button id="install-app-btn">📱 Installer l'App</button>
+
+    <section class="hero">
+        <img class="hero-photo" src="images/camping-hero%20(3).jpg" alt="Camping Paradis">
+        <div class="hero-identity">
+            <div class="hero-logo">🏕️</div>
+            <div class="hero-name">Camping Paradis Les Gorges du Haut Bugey</div>
+        </div>
+    </section>
+
+    <!-- ══ AUJOURD'HUI — CARROUSEL DES ANIMATIONS DU JOUR ══════════════ -->
+    <section class="container prog-jour-section">
+        <div class="prog-jour-head">
+            <div class="prog-jour-titre">📅 Aujourd'hui</div>
+            <a href="programme.html" class="prog-jour-lien">Programme complet →</a>
+        </div>
+        <div class="prog-jour-date" id="prog-jour-date" style="margin-bottom:12px;"></div>
+        <div class="prog-jour-tabs" id="prog-jour-tabs"></div>
+        <div class="prog-jour-scroll" id="prog-jour-scroll"></div>
+    </section>
+
+    <!-- ══ MÉTÉO EN DIRECT ══════════════════════════════════════════ -->
+    <section class="container" style="padding-top:12px; padding-bottom:0;">
+        <div id="meteo-widget" style="
+            background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%);
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            box-shadow: 0 4px 16px rgba(52,189,239,0.3);
+            gap: 12px;
+        ">
+            <div style="display:flex; align-items:center; gap:12px; flex:1;">
+                <div id="meteo-icon" style="font-size:40px; line-height:1;">⛅</div>
+                <div>
+                    <div style="font-size:11px; font-weight:700; opacity:0.85; text-transform:uppercase; letter-spacing:0.5px;">Matafelon-Granges · Aujourd'hui</div>
+                    <div style="display:flex; align-items:baseline; gap:6px; margin-top:2px;">
+                        <span id="meteo-temp" style="font-size:32px; font-weight:800; line-height:1;">--°</span>
+                        <span id="meteo-desc" style="font-size:13px; opacity:0.9;">Chargement...</span>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:right; flex-shrink:0;">
+                <div style="font-size:11px; opacity:0.8; margin-bottom:4px;">Min / Max</div>
+                <div id="meteo-minmax" style="font-size:14px; font-weight:700;">-- / --</div>
+                <div id="meteo-vent" style="font-size:11px; opacity:0.8; margin-top:2px;">💨 --</div>
+            </div>
+            <a href="meteo.html" style="
+                background: rgba(255,255,255,0.2);
+                color: white;
+                text-decoration: none;
+                padding: 8px 14px;
+                border-radius: 20px;
+                font-size: 12px;
+                font-weight: 700;
+                flex-shrink: 0;
+                border: 1px solid rgba(255,255,255,0.3);
+            ">Voir plus →</a>
+        </div>
+    </section>
+
+    <!-- ── BON PLAN DU JOUR ─────────────────────────────────────────── -->
+    <section class="container" style="padding-top:12px; padding-bottom:0;">
+        <div id="bonplan-container" style="display:none; margin-bottom:0;">
+            <div id="bonplan-banner" style="
+                border-radius: 14px;
+                padding: 14px 18px;
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                background: linear-gradient(135deg, #FF8C00, #FFB347);
+            ">
+                <div id="bonplan-emoji" style="font-size:28px; flex-shrink:0;">🎉</div>
+                <div style="flex:1; min-width:0;">
+                    <div style="font-size:10px; font-weight:800; color:rgba(255,255,255,0.8); text-transform:uppercase; letter-spacing:1px; margin-bottom:2px;">Bon plan du moment</div>
+                    <div id="bonplan-texte" style="font-size:14px; font-weight:700; color:white; line-height:1.3;"></div>
+                </div>
+                <div id="bonplan-badge" style="background:rgba(255,255,255,0.25); color:white; font-size:11px; font-weight:700; padding:4px 10px; border-radius:20px; flex-shrink:0; border:1px solid rgba(255,255,255,0.3); white-space:nowrap;">Aujourd'hui</div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- ══ BARRE DE RECHERCHE ══════════════════════════════════════ -->
+    <style>
+        .search-section { padding-top: 14px; padding-bottom: 0; }
+        .search-box { position: relative; }
+        .search-input {
+            width: 100%;
+            padding: 14px 44px 14px 46px;
+            border: 1.5px solid #e0e0e0;
+            border-radius: 14px;
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--text-dark, #333);
+            background: #fff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: border-color .2s, box-shadow .2s;
+        }
+        .search-input::placeholder { color: #9aa6b1; }
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-blue, #34BDEF);
+            box-shadow: 0 4px 16px rgba(52,189,239,0.20);
+        }
+        .search-ico {
+            position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+            font-size: 17px; opacity: .55; pointer-events: none;
+        }
+        .search-clear {
+            position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+            width: 26px; height: 26px; border: none; border-radius: 50%;
+            background: #eef1f4; color: #66727d; font-size: 15px; cursor: pointer;
+            display: none; align-items: center; justify-content: center; line-height: 1;
+        }
+        .search-clear.show { display: flex; }
+        .search-results {
+            margin-top: 10px; background: #fff; border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(20,40,60,0.12); overflow: hidden; display: none;
+        }
+        .search-results.open { display: block; }
+        .search-result {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; text-decoration: none;
+            color: var(--text-dark, #333); border-bottom: 1px solid #f0f0f0;
+        }
+        .search-result:last-child { border-bottom: none; }
+        .search-result:hover, .search-result.active { background: #f0f8ff; }
+        .sr-dot {
+            width: 8px; height: 8px; border-radius: 50%;
+            background: var(--primary-blue, #34BDEF); flex-shrink: 0;
+        }
+        .sr-body { flex: 1; min-width: 0; }
+        .sr-title { font-weight: 600; font-size: 14.5px; }
+        .sr-desc {
+            font-size: 12.5px; color: var(--text-light, #666);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .sr-chevron { color: #c2ccd4; font-size: 18px; flex-shrink: 0; }
+        .search-empty { padding: 16px; text-align: center; color: var(--text-light, #666); font-size: 13.5px; }
+        /* Mode nuit */
+
+    </style>
+    <section class="container search-section">
+        <div class="search-box">
+            <span class="search-ico">🔍</span>
+            <input type="text" id="app-search" class="search-input" placeholder="Rechercher une page, un service, une activité…" autocomplete="off" aria-label="Rechercher dans l'application">
+            <button class="search-clear" id="search-clear" aria-label="Effacer">✕</button>
+            <div class="search-results" id="search-results"></div>
+        </div>
+    </section>
+
+    <section class="container bubble-section">
+        <div class="section-title">Vie au camping</div>
+        <div class="carousel-wrapper"><div class="bubble-grid" id="carousel0">
+                <a href="horaires.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/horaires.jpg');"></div>
+                    <div class="bubble-title">Horaires du Camping</div>
+                    <div class="bubble-desc">Réception, piscine, animations et services</div>
+                </a>
+                <a href="plan.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/plan.jpg');"></div>
+                    <div class="bubble-title">Plan du camping</div>
+                    <div class="bubble-desc">Retrouvez votre emplacement et les équipements</div>
+                </a>
+                <a href="checkin.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/checkin.jpg');"></div>
+                    <div class="bubble-title">Check-in / Check-out</div>
+                    <div class="bubble-desc">Tout savoir pour votre arrivée et départ</div>
+                </a>
+                <a href="pot-accueil.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/potaccueil.jpg');"></div>
+                    <div class="bubble-title">Pot d'accueil</div>
+                    <div class="bubble-desc">Rejoignez-nous pour un verre de bienvenue</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── MÉNAGE FIN DE SÉJOUR ──────────────────────────────────────── -->
+    <section class="container" style="padding-top:0; padding-bottom:4px;">
+        <div class="menage-banner" onclick="document.getElementById('menage-modal').classList.add('open')">
+            <div class="menage-ico">🧹</div>
+            <div class="menage-content">
+                <div class="menage-tag">Service optionnel</div>
+                <div class="menage-title">Ménage fin de séjour</div>
+                <div class="menage-desc">Partez l'esprit libre — on s'occupe de tout</div>
+            </div>
+            <div class="menage-arrow">›</div>
+        </div>
+    </section>
+
+    <!-- Modal ménage -->
+    <div class="menage-modal" id="menage-modal">
+        <div class="menage-card">
+            <div class="menage-card-header">
+                <div class="menage-card-ico">🧹</div>
+                <div>
+                    <div class="menage-card-title">Ménage fin de séjour</div>
+                    <div class="menage-card-sub">Service disponible sur demande</div>
+                </div>
+            </div>
+
+            <div style="margin-bottom:20px;">
+                <div style="font-size:12px; font-weight:800; color:#34BDEF; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px;">Tarifs forfaitaires</div>
+                <div style="display:flex; gap:12px;">
+                    <div style="flex:1; background:#f0f8ff; border-radius:12px; padding:14px 10px; text-align:center; border:1.5px solid #e0f0fa;">
+                        <div style="font-size:12px; color:#6b7a8d; font-weight:600; margin-bottom:4px;">Mobil-home 2 ch.</div>
+                        <div style="font-size:28px; font-weight:800; color:#1a2a3a;">70€</div>
+                    </div>
+                    <div style="flex:1; background:#f0f8ff; border-radius:12px; padding:14px 10px; text-align:center; border:1.5px solid #e0f0fa;">
+                        <div style="font-size:12px; color:#6b7a8d; font-weight:600; margin-bottom:4px;">Mobil-home 3 ch.</div>
+                        <div style="font-size:28px; font-weight:800; color:#1a2a3a;">80€</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menage-includes">
+                <div class="menage-includes-title">Inclus dans la prestation</div>
+                <div class="menage-item">Nettoyage intégral du logement (hors poubelles et vaisselle)</div>
+            </div>
+
+            <div id="menage-form-wrap">
+                <form action="https://formsubmit.co/info@camping-lesgorgesduhautbugey.fr"
+                      method="POST"
+                      onsubmit="submitMenage(event)">
+                    <input type="hidden" name="_subject" value="🧹 Demande ménage fin de séjour">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+
+                    <label class="menage-form-label">N° d'emplacement *</label>
+                    <input type="text" name="Emplacement" class="menage-form-input"
+                           placeholder="Ex : 42" required pattern="[0-9]+">
+
+                    <label class="menage-form-label">Date de départ *</label>
+                    <input type="date" name="Date de départ" class="menage-form-input" required>
+
+                    <label class="menage-form-label">Téléphone (optionnel)</label>
+                    <input type="tel" name="Téléphone" class="menage-form-input"
+                           placeholder="Pour confirmation">
+
+                    <button type="submit" class="menage-submit">
+                        Demander le ménage →
+                    </button>
+                </form>
+                <button class="menage-close" onclick="document.getElementById('menage-modal').classList.remove('open')">
+                    Annuler
+                </button>
+            </div>
+
+            <div class="menage-success" id="menage-success">
+                <div class="menage-success-ico">✅</div>
+                <div class="menage-success-title">Demande envoyée !</div>
+                <div class="menage-success-text">Notre équipe a bien reçu votre demande.<br>Nous vous confirmons le tarif exact selon votre emplacement.</div>
+                <button class="menage-close" onclick="document.getElementById('menage-modal').classList.remove('open'); document.getElementById('menage-success').style.display='none'; document.getElementById('menage-form-wrap').style.display='block';">
+                    Fermer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <section class="container">
+        <div class="section-title">Nos Services</div>
+        <div class="cards-grid">
+            <a href="kayak.html" class="card">
+                <div class="card-image" style="background-image: url('images/kayak.jpg');"></div>
+                <div class="card-content"><div class="card-title">Kayak</div><div class="card-description">Explorez le lac du Val d'Oignin en kayak</div></div>
+            </a>
+            <a href="laverie.html" class="card">
+                <div class="card-image" style="background-image: url('images/laverie.jpg');"></div>
+                <div class="card-content"><div class="card-title">Laverie</div><div class="card-description">Service de laverie disponible 24h/24</div></div>
+            </a>
+            <a href="locations.html" class="card">
+                <div class="card-image" style="background-image: url('images/barbecue.jpg');"></div>
+                <div class="card-content"><div class="card-title">Locations Diverses</div><div class="card-description">Barbecue, draps, kit bébé, linge de toilettes</div></div>
+            </a>
+            <a href="wifi.html" class="card">
+                <div class="card-image" style="background-image: url('images/wifi.jpg');"></div>
+                <div class="card-content"><div class="card-title">WiFi</div><div class="card-description">Connexion internet gratuite</div></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="section-title">Restauration & Bar</div>
+        <div class="cards-grid">
+            <a href="snack.html" class="card">
+                <div class="card-image" style="background-image: url('images/restaurant_bar.jpg');"></div>
+                <div class="card-content"><div class="card-title">Snack</div><div class="card-description">Burgers, salades et plats du jour</div></div>
+            </a>
+            <a href="bar.html" class="card">
+                <div class="card-image" style="background-image: url('images/restaurant.jpg');"></div>
+                <div class="card-content"><div class="card-title">Bar</div><div class="card-description">Cocktails, bières et boissons fraîches</div></div>
+            </a>
+            <a href="epicerie.html" class="card">
+                <div class="card-image" style="background-image: url('images/epicerie.jpg');"></div>
+                <div class="card-content"><div class="card-title">Épicerie</div><div class="card-description">Produits essentiels</div></div>
+            </a>
+            <a href="petit-dejeuner.html" class="card">
+                <div class="card-image" style="background-image: url('images/petit-d%C3%A9jeuner.jpg');"></div>
+                <div class="card-content"><div class="card-title">Petit-Déjeuner</div><div class="card-description">Pain frais et viennoiseries chaque matin</div></div>
+            </a>
+        </div>
+    </section>
+
+    <section class="container bubble-section">
+        <div class="section-title">Autour du camping</div>
+
+        <div class="carousel-wrapper"><div class="bubble-grid" id="carousel1">
+                <a href="activites.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/activites.jpg');"></div>
+                    <div class="bubble-title">Activités à faire</div>
+                    <div class="bubble-desc">Kayak, randonnées, sports et loisirs en plein air</div>
+                </a>
+                <a href="restaurant.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/restaurant.jpg');"></div>
+                    <div class="bubble-title">Restaurants</div>
+                    <div class="bubble-desc">Les meilleures tables autour du camping</div>
+                </a>
+                <a href="gorges-ain.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/a%20visiter.jpg');"></div>
+                    <div class="bubble-title">À visiter</div>
+                    <div class="bubble-desc">Gorges de l'Ain, viaduc, cascade et villages</div>
+                </a>
+                <a href="randonnees.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/randonnee.jpg');"></div>
+                    <div class="bubble-title">Randonnées et Balades</div>
+                    <div class="bubble-desc">Sentiers balisés pour tous les niveaux</div>
+                </a>
+                <a href="marches.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/marche.jpg');"></div>
+                    <div class="bubble-title">Marchés</div>
+                    <div class="bubble-desc">Producteurs locaux et marchés de la région</div>
+                </a>
+                <a href="commerces.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/commerces.jpg');"></div>
+                    <div class="bubble-title">Commerces</div>
+                    <div class="bubble-desc">Supermarchés et commerces à proximité</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container bubble-section">
+        <div class="section-title">Animations</div>
+        <div class="carousel-wrapper"><div class="bubble-grid" id="carousel3">
+                <a href="programme.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/proganimations.jpg');"></div>
+                    <div class="bubble-title">Programme de la semaine</div>
+                    <div class="bubble-desc">Activités, soirées et événements à ne pas manquer</div>
+                </a>
+                <a href="club-enfants.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/clubenfants.jpg');"></div>
+                    <div class="bubble-title">Club enfants</div>
+                    <div class="bubble-desc">Ateliers et aventures pour les 6-12 ans</div>
+                </a>
+                <a href="#" class="bubble" style="opacity:0.5;pointer-events:none;">
+                    <div class="bubble-image" style="background-image: url('images/paradis.jpg');"></div>
+                    <div class="bubble-title">Paradis des stars</div>
+                    <div class="bubble-desc">Montez sur scène et brillez devant tout le camping !</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="container bubble-section">
+        <div class="section-title">Circulation</div>
+        <div class="carousel-wrapper"><div class="bubble-grid" id="carousel4">
+                <a href="barriere.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/barriere.jpg');"></div>
+                    <div class="bubble-title">Horaires de la barrière</div>
+                    <div class="bubble-desc">Entrées et sorties du camping : plages horaires</div>
+                </a>
+                <a href="vehicule-electrique.html" class="bubble">
+                    <div class="bubble-image" style="background-image: url('images/electrique.jpg');"></div>
+                    <div class="bubble-title">Véhicule électrique</div>
+                    <div class="bubble-desc">Recharge disponible aux alentours du camping</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ── SECTION SIGNALEMENT ─────────────────────────────────────── -->
+    <section class="signalement-section">
+        <div class="signalement-inner">
+            <div class="signalement-header">
+                <div class="signalement-icon">🔧</div>
+                <div class="signalement-title">Signaler un problème</div>
+                <div class="signalement-subtitle">Notre équipe intervient dans les plus brefs délais.<br>Décrivez votre situation et nous revenons vers vous rapidement.</div>
+            </div>
+
+            <div class="signalement-form" id="signalement-form-wrap">
+                <form
+                    action="https://formsubmit.co/direction@camping-lesgorgesduhautbugey.fr"
+                    method="POST"
+                    onsubmit="handleSignalement(event)"
+                >
+                    <!-- FormSubmit config -->
+                    <input type="hidden" name="_subject" value="🔧 Nouveau signalement — Camping Paradis">
+                    <input type="hidden" name="_template" value="table">
+                    <input type="hidden" name="_captcha" value="false">
+                    <input type="hidden" name="_next" value="">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">N° d'emplacement *</label>
+                            <input
+                                type="text"
+                                name="Emplacement"
+                                class="form-input"
+                                placeholder="Ex : 42"
+                                required
+                                pattern="[0-9]+"
+                                title="Numéro uniquement"
+                            >
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Type de problème *</label>
+                            <select name="Type de problème" class="form-select" required>
+                                <option value="" disabled selected>Choisir...</option>
+                                <option>🚿 Sanitaires</option>
+                                <option>🔌 Électricité / Eau</option>
+                                <option>🔊 Nuisances sonores</option>
+                                <option>🗑️ Propreté</option>
+                                <option>🌿 Végétation / Terrain</option>
+                                <option>🚗 Circulation / Barrière</option>
+                                <option>🍽️ Restaurant / Épicerie</option>
+                                <option>🏊 Piscine</option>
+                                <option>📶 WiFi</option>
+                                <option>❓ Autre</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label class="form-label">Description *</label>
+                            <textarea
+                                name="Description"
+                                class="form-textarea"
+                                placeholder="Décrivez votre problème en quelques mots..."
+                                required
+                                minlength="10"
+                            ></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label class="form-label">Téléphone (optionnel)</label>
+                            <input
+                                type="tel"
+                                name="Téléphone"
+                                class="form-input"
+                                placeholder="Pour qu'on vous rappelle si besoin"
+                            >
+                        </div>
+                    </div>
+
+                    <button type="submit" class="form-submit">
+                        Envoyer le signalement →
+                    </button>
+                </form>
+            </div>
+
+            <!-- Message de succès -->
+            <div class="signalement-form" id="signalement-success" style="display:none;">
+                <div class="form-success" style="display:block;">
+                    <div class="form-success-icon">✅</div>
+                    <div class="form-success-title">Signalement envoyé !</div>
+                    <div class="form-success-text">Notre équipe a bien reçu votre message et interviendra dans les plus brefs délais.<br><br>Merci de nous aider à améliorer votre séjour 🙏</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══ SECTION CARTE INTERACTIVE ══════════════════════════════════ -->
+    <style>
+        .carte-section {
+            padding: 48px 20px 56px;
+            background: #fff;
+            border-top: 1px solid #f0f0f0;
+        }
+        .carte-section .section-title {
+            margin-bottom: 8px;
+        }
+        .carte-subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 24px;
+        }
+        /* Filtres */
+        .carte-filters {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin-bottom: 16px;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        .carte-filters::-webkit-scrollbar { display: none; }
+        .carte-filter-btn {
+            border: 2px solid #e0e8f5;
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            background: #f8faff;
+            color: #666;
+            font-family: inherit;
+            transition: all .18s;
+            flex-shrink: 0;
+        }
+        .carte-filter-btn.active,
+        .carte-filter-btn:hover {
+            border-color: #34BDEF;
+            color: #34BDEF;
+            background: #e8f7fd;
+        }
+        /* Carte */
+        .carte-map-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(52,189,239,0.15);
+            border: 1px solid rgba(52,189,239,0.2);
+        }
+        #main-map {
+            height: 420px;
+            width: 100%;
+        }
+        @media (max-width: 768px) {
+            #main-map { height: 340px; }
+        }
+        .carte-count-badge {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(28,43,58,.72);
+            color: #fff;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 999;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+        /* Popup custom */
+        .cp-popup-inner { padding: 14px; min-width: 0; }
+        .cp-popup-cat {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .cp-popup-name {
+            font-size: 15px;
+            font-weight: 700;
+            color: #222;
+            line-height: 1.25;
+            margin-bottom: 5px;
+        }
+        .cp-popup-desc {
+            font-size: 12.5px;
+            color: #666;
+            margin-bottom: 10px;
+            line-height: 1.45;
+        }
+        .cp-popup-dist {
+            display: inline-block;
+            background: #e8f7fd;
+            color: #1a8ab5;
+            border-radius: 6px;
+            padding: 3px 9px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .cp-popup-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #34BDEF, #2a9ec4);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 9px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-family: inherit;
+        }
+        .cp-popup-btn:hover { background: #2a9ec4; }
+        /* Marqueur camping */
+        .cp-camping-pin {
+            background: linear-gradient(135deg, #34BDEF, #2a9ec4);
+            border: 3px solid #fff;
+            border-radius: 50%;
+            width: 42px; height: 42px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            box-shadow: 0 3px 12px rgba(52,189,239,0.5);
+        }
+        /* Icône POI */
+        .cp-poi-pin {
+            border-radius: 50%;
+            border: 2.5px solid #fff;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,.22);
+            width: 34px; height: 34px;
+        }
+        /* Lien "voir plus" */
+        .carte-more-link {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #34BDEF;
+            font-weight: 700;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        .carte-more-link:hover { text-decoration: underline; }
+    </style>
+
+    <section class="carte-section">
+        <div class="container">
+            <h2 class="section-title">🗺️ Autour du camping</h2>
+            <p class="carte-subtitle">Cascades, restaurants, commerces, activités… tout à portée de vue</p>
+
+            <div class="carte-filters" id="carteFilters">
+                <button class="carte-filter-btn active" data-cat="all">Tout voir</button>
+                <button class="carte-filter-btn" data-cat="nature">💧 Nature</button>
+                <button class="carte-filter-btn" data-cat="activite">🎯 Activités</button>
+                <button class="carte-filter-btn" data-cat="restaurant">🍽️ Restaurants</button>
+                <button class="carte-filter-btn" data-cat="commerce">🛒 Commerces</button>
+                <button class="carte-filter-btn" data-cat="village">🏘️ Villages</button>
+                <button class="carte-filter-btn" data-cat="marche">🧺 Marchés</button>
+            </div>
+
+            <div class="carte-map-wrapper">
+                <div class="carte-count-badge" id="carteCount">27 lieux autour du camping</div>
+                <div id="main-map"></div>
+            </div>
+
+            <a class="carte-more-link" href="activites.html">Voir toutes les activités →</a>
+        </div>
+    </section>
+
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+    (function () {
+        // ── Camping : 734 rue du Lac, Matafelon-Granges ──────────────
+        var CAMPING = [46.25205, 5.50585];
+
+        var CATS = {
+            nature:     { color: '#27ae60', emoji: '💧', label: 'Nature & Randonnée' },
+            activite:   { color: '#9b59b6', emoji: '🎯', label: 'Activité' },
+            restaurant: { color: '#e74c3c', emoji: '🍽️', label: 'Restaurant' },
+            commerce:   { color: '#e67e22', emoji: '🛒', label: 'Commerce' },
+            village:    { color: '#3498db', emoji: '🏘️', label: 'Village' },
+            marche:     { color: '#f39c12', emoji: '🧺', label: 'Marché' },
+        };
+
+        var POIS = [
+            // NATURE
+            { cat:'nature', nom:'Gorges de l\'Oignin', desc:'Sentier longeant les gorges sauvages, départ à pied depuis le camping.', lat:46.258, lng:5.515, km:1.5, url:'gorges-ain.html' },
+            { cat:'nature', nom:'Cascade de la Fouge', desc:'Belle chute d\'eau accessible à pied ou en voiture, cadre préservé.', lat:46.276, lng:5.493, km:5, url:'gorges-ain.html' },
+            { cat:'nature', nom:'Lac Genin', desc:'Lac d\'altitude aux eaux cristallines, idéal pour la baignade et la pêche.', lat:46.282, lng:5.571, km:8, url:'peche.html' },
+            { cat:'nature', nom:'Lac de Nantua', desc:'Grand lac naturel, base nautique, plage et promenade.', lat:46.154, lng:5.601, km:13, url:'activites.html' },
+            { cat:'nature', nom:'Belvédère du Pont des Pierres', desc:'Vue panoramique sur les gorges de l\'Ain et la vallée.', lat:46.265, lng:5.532, km:3, url:'gorges-ain.html' },
+            { cat:'nature', nom:'Grottes du Cerdon', desc:'Grottes préhistoriques classées, visite guidée en famille (30 min).', lat:46.170, lng:5.482, km:16, url:'activites.html' },
+            { cat:'nature', nom:'Viaduc de Cize-Bolozon', desc:'Impressionnant viaduc ferroviaire, point de départ de l\'Accro Viaduc.', lat:46.174, lng:5.492, km:13, url:'gorges-ain.html' },
+
+            // ACTIVITÉS
+            { cat:'activite', nom:'Kayak sur le lac (sur place)', desc:'Location de kayaks et canoës directement depuis le camping.', lat:46.2530, lng:5.5065, km:0.2, url:'kayak.html' },
+            { cat:'activite', nom:'Accro Viaduc', desc:'Via ferrata et tyrolienne sur le viaduc — sensations garanties !', lat:46.175, lng:5.494, km:14, url:'escalade.html' },
+            { cat:'activite', nom:'Parapente – Lac de Nantua', desc:'Baptême de l\'air au-dessus du lac de Nantua, dès 70 €.', lat:46.157, lng:5.598, km:14, url:'parapente.html' },
+            { cat:'activite', nom:'Golf du Haut-Bugey', desc:'Parcours 9 trous face au lac de Samognat, cadre exceptionnel.', lat:46.248, lng:5.516, km:2, url:'golf.html' },
+            { cat:'activite', nom:'Tir à l\'arc & Paintball', desc:'Gel Blaster, Tag Archery, Nordic Indiana — pour tous les âges.', lat:46.230, lng:5.540, km:7, url:'tir-arc-paintball.html' },
+            { cat:'activite', nom:'Toboggans géants – Izernore', desc:'Aqua glisse, zorbing, tubing : grand frisson familial !', lat:46.218, lng:5.543, km:8, url:'toboggans-mini-golf.html' },
+            { cat:'activite', nom:'Véloroute de l\'Ain', desc:'Piste cyclable aménagée le long de l\'Ain, idéale en famille.', lat:46.192, lng:5.510, km:11, url:'activites-plein-air.html' },
+            { cat:'activite', nom:'Chèvrerie des Grônes', desc:'Visite de ferme, traite des chèvres, dégustation de fromages.', lat:46.240, lng:5.560, km:6, url:'fermes-a-visiter.html' },
+
+            // RESTAURANTS
+            { cat:'restaurant', nom:'Restaurant du camping (Snack)', desc:'Burgers, salades et plats du jour — sur place.', lat:46.2522, lng:5.5060, km:0.1, url:'snack.html' },
+            { cat:'restaurant', nom:'Auberge de Charix', desc:'Cuisine de montagne, spécialités locales et vins de l\'Ain.', lat:46.283, lng:5.537, km:8, url:'restaurant.html' },
+            { cat:'restaurant', nom:'La Cluse et Mijoux – Nantua', desc:'Tables traditionnelles au bord du lac, quenelles et gratins.', lat:46.152, lng:5.606, km:13, url:'restaurant.html' },
+            { cat:'restaurant', nom:'Restaurant L\'Oignin – Matafelon', desc:'Cuisine locale à quelques minutes du camping.', lat:46.251, lng:5.509, km:1, url:'restaurant.html' },
+
+            // COMMERCES
+            { cat:'commerce', nom:'Boulangerie – Matafelon', desc:'Pain frais et viennoiseries, ouverte le matin.', lat:46.2505, lng:5.5077, km:0.5, url:'commerces.html' },
+            { cat:'commerce', nom:'Intermarché – Oyonnax', desc:'Grande surface à 15 min, tout pour ravitailler le séjour.', lat:46.256, lng:5.663, km:14, url:'commerces.html' },
+            { cat:'commerce', nom:'Carrefour Market – Nantua', desc:'Supermarché en ville, ouvert 7j/7 avec parking.', lat:46.151, lng:5.603, km:12, url:'commerces.html' },
+            { cat:'commerce', nom:'Pharmacie – Izernore', desc:'Pharmacie ouverte en semaine et le matin le week-end.', lat:46.219, lng:5.545, km:7, url:'commerces.html' },
+
+            // VILLAGES
+            { cat:'village', nom:'Nantua', desc:'Ville historique avec son lac, ses boutiques et ses quenelles.', lat:46.150, lng:5.605, km:12, url:'activites.html' },
+            { cat:'village', nom:'Oyonnax', desc:'Capitale de la plasturgie, commerces et services complets.', lat:46.256, lng:5.664, km:14, url:'activites.html' },
+            { cat:'village', nom:'Izernore', desc:'Village gaulois avec ses vestiges et son air de campagne.', lat:46.218, lng:5.546, km:7, url:'activites.html' },
+
+            // MARCHÉS
+            { cat:'marche', nom:'Marché de Nantua (samedi matin)', desc:'Producteurs locaux, fromages, charcuteries et artisans.', lat:46.153, lng:5.608, km:13, url:'marches.html' },
+            { cat:'marche', nom:'Marché d\'Oyonnax (mardi & vendredi)', desc:'Grand marché de plein air en centre-ville.', lat:46.255, lng:5.667, km:14, url:'marches.html' },
+        ];
+
+        // ── Init carte ────────────────────────────────────────────────
+        var map = L.map('main-map', {
+            center: CAMPING,
+            zoom: 12,
+            zoomControl: true,
+            scrollWheelZoom: false,  // évite le scroll accidentel sur mobile
+        });
+
+        // Activer le scroll wheel uniquement au clic sur la carte
+        map.on('click', function() { map.scrollWheelZoom.enable(); });
+        map.on('mouseout', function() { map.scrollWheelZoom.disable(); });
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
+            maxZoom: 18,
+        }).addTo(map);
+
+        // Cercles de distance
+        [3000, 8000, 15000].forEach(function(r, i) {
+            L.circle(CAMPING, {
+                radius: r, color: '#34BDEF',
+                weight: 1, opacity: 0.2 - i * 0.04,
+                fill: false, dashArray: '5 7',
+            }).addTo(map);
+        });
+
+        // ── Marqueur camping ──────────────────────────────────────────
+        var campIcon = L.divIcon({
+            html: '<div class="cp-camping-pin">⛺</div>',
+            className: '', iconSize: [42,42], iconAnchor: [21,21], popupAnchor: [0,-24],
+        });
+        L.marker(CAMPING, { icon: campIcon, zIndexOffset: 1000 })
+            .addTo(map)
+            .bindPopup(
+                '<div class="cp-popup-inner">' +
+                '<div class="cp-popup-cat">📍 Vous êtes ici</div>' +
+                '<div class="cp-popup-name">Camping Paradis<br>Les Gorges du Haut Bugey</div>' +
+                '<div class="cp-popup-desc">734 rue du Lac, Matafelon-Granges</div>' +
+                '<a class="cp-popup-btn" href="https://maps.google.com/?q=734+rue+du+Lac,+Matafelon-Granges" target="_blank" rel="noopener">Ouvrir dans Maps →</a>' +
+                '</div>',
+                { maxWidth: 230 }
+            );
+
+        // ── Marqueurs POI ─────────────────────────────────────────────
+        var markers = [];
+
+        function makePoiIcon(cat) {
+            var c = CATS[cat];
+            return L.divIcon({
+                html: '<div class="cp-poi-pin" style="background:' + c.color + '">' + c.emoji + '</div>',
+                className: '', iconSize: [34,34], iconAnchor: [17,17], popupAnchor: [0,-20],
+            });
+        }
+
+        POIS.forEach(function(poi) {
+            var m = L.marker([poi.lat, poi.lng], { icon: makePoiIcon(poi.cat) });
+            var c = CATS[poi.cat];
+            m.bindPopup(
+                '<div class="cp-popup-inner">' +
+                '<div class="cp-popup-cat">' + c.emoji + ' ' + c.label + '</div>' +
+                '<div class="cp-popup-name">' + poi.nom + '</div>' +
+                '<div class="cp-popup-desc">' + poi.desc + '</div>' +
+                '<span class="cp-popup-dist">📍 ' + poi.km + ' km du camping</span><br>' +
+                '<a class="cp-popup-btn" href="' + poi.url + '">En savoir plus →</a>' +
+                '</div>',
+                { maxWidth: 230 }
+            );
+            m._cat = poi.cat;
+            m.addTo(map);
+            markers.push(m);
+        });
+
+        // ── Filtres ───────────────────────────────────────────────────
+        var countEl = document.getElementById('carteCount');
+
+        function applyFilter(cat) {
+            var n = 0;
+            markers.forEach(function(m) {
+                if (cat === 'all' || m._cat === cat) { m.addTo(map); n++; }
+                else { map.removeLayer(m); }
+            });
+            var label = cat === 'all'
+                ? n + ' lieux autour du camping'
+                : n + ' lieu' + (n > 1 ? 'x' : '') + ' — ' + document.querySelector('.carte-filter-btn.active').textContent.trim();
+            countEl.textContent = label;
+        }
+
+        document.getElementById('carteFilters').addEventListener('click', function(e) {
+            var btn = e.target.closest('.carte-filter-btn');
+            if (!btn) return;
+            document.querySelectorAll('.carte-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            applyFilter(btn.dataset.cat);
+        });
+
+        applyFilter('all');
+    })();
+    </script>
+
+    <footer>
+        <p><strong>Camping Paradis - Les Gorges du Haut Bugey</strong></p>
+        <p> <a href="tel:+33474768097">04 74 76 80 97</a> |  <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top:20px; opacity:0.8; font-size:12px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+    // ── Service Worker ─────────────────────────────────────────────
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+            navigator.serviceWorker.register('sw.js')
+                .then(function(reg) { console.log('SW OK:', reg.scope); })
+                .catch(function(err) { console.log('SW err:', err); });
+        });
+    }
+    </script>
+    <script>
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease-out';
+            observer.observe(card);
+        });
+    </script>
+
+    <script>
+        const carouselState = {};
+
+        function isMobile() { return window.innerWidth <= 768; }
+
+        function getVisibleCount(gridId) {
+            if (isMobile()) return 999; // sur mobile, tout est visible (scroll CSS)
+            const grid = document.getElementById(gridId);
+            const cols = window.getComputedStyle(grid).gridTemplateColumns.split(' ').length;
+            return cols;
+        }
+
+        function moveCarousel(gridId, direction) {
+            if (isMobile()) return; // sur mobile, le scroll CSS gère tout
+            const grid = document.getElementById(gridId);
+            const items = Array.from(grid.children);
+            const visible = getVisibleCount(gridId);
+            if (!carouselState[gridId]) carouselState[gridId] = 0;
+            const newIndex = carouselState[gridId] + direction * visible;
+            carouselState[gridId] = Math.max(0, Math.min(newIndex, items.length - visible));
+            items.forEach((item, i) => {
+                item.style.display = (i >= carouselState[gridId] && i < carouselState[gridId] + visible) ? '' : 'none';
+            });
+            document.getElementById(gridId + '-prev').disabled = carouselState[gridId] === 0;
+            document.getElementById(gridId + '-next').disabled = carouselState[gridId] + visible >= items.length;
+        }
+
+        function initCarousels() {
+            ['carousel0', 'carousel1', 'carousel2', 'carousel3', 'carousel4'].forEach(gridId => {
+                carouselState[gridId] = 0;
+                const grid = document.getElementById(gridId);
+                if (!grid) return;
+                const items = Array.from(grid.children);
+                if (isMobile()) {
+                    // Sur mobile : tout afficher, scroll CSS horizontal
+                    items.forEach(item => { item.style.display = ''; });
+                    const prevBtn = document.getElementById(gridId + '-prev');
+                    const nextBtn = document.getElementById(gridId + '-next');
+                    if (prevBtn) prevBtn.style.display = 'none';
+                    if (nextBtn) nextBtn.style.display = 'none';
+                    return;
+                }
+                const visible = getVisibleCount(gridId);
+                items.forEach((item, i) => { item.style.display = i < visible ? '' : 'none'; });
+                document.getElementById(gridId + '-next').disabled = items.length <= visible;
+            });
+        }
+
+        window.addEventListener('load', initCarousels);
+        window.addEventListener('resize', initCarousels);
+    </script>
+
+    <!-- ══ MÉTÉO API + SERVICE WORKER ═══════════════════════════════ -->
+    <!-- ── BOUTON FLOTTANT RÉCEPTION ─────────────────────────────────── -->
+    <!-- ══ BOUTON THÈME + ASSISTANT (CHATBOT) ══════════════════════ -->
+    <style>
+
+
+        #chat-fab {
+            position: fixed; bottom: 24px; left: 20px; z-index: 9999;
+            width: 60px; height: 60px; border-radius: 50%; border: none; cursor: pointer;
+            background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: #fff;
+            font-size: 26px; box-shadow: 0 6px 18px rgba(52,189,239,0.5);
+            display: flex; align-items: center; justify-content: center;
+        }
+        #chat-panel {
+            position: fixed; bottom: 96px; left: 20px; z-index: 9999;
+            width: min(370px, calc(100vw - 40px)); height: min(540px, calc(100vh - 140px));
+            background: #fff; border-radius: 18px; box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+            display: none; flex-direction: column; overflow: hidden;
+        }
+        #chat-panel.open { display: flex; }
+        .chat-header {
+            background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: #fff;
+            padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+        }
+        .chat-header .ch-title { font-weight: 700; font-size: 15px; }
+        .chat-header .ch-sub { font-size: 11px; opacity: 0.85; }
+        .chat-close { background: rgba(255,255,255,0.2); border: none; color: #fff; width: 30px; height: 30px; border-radius: 50%; cursor: pointer; font-size: 15px; }
+        .chat-body { flex: 1; overflow-y: auto; padding: 16px; background: #f4f6f8; display: flex; flex-direction: column; gap: 10px; }
+        .msg { max-width: 85%; padding: 10px 13px; border-radius: 14px; font-size: 14px; line-height: 1.45; }
+        .msg.bot { background: #fff; color: #333; align-self: flex-start; border-bottom-left-radius: 4px; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+        .msg.user { background: #34BDEF; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px; }
+        .msg a.chat-link { display: inline-block; margin-top: 8px; background: #34BDEF; color: #fff; text-decoration: none; padding: 7px 12px; border-radius: 10px; font-size: 13px; font-weight: 600; }
+        .chat-chips { display: flex; flex-wrap: wrap; gap: 7px; }
+        .chat-chip { background: #fff; border: 1.5px solid #cfe9f7; color: #1c7fa8; border-radius: 20px; padding: 6px 12px; font-size: 12.5px; cursor: pointer; }
+        .chat-chip:hover { background: #e8f7fe; }
+        .chat-input-row { display: flex; gap: 8px; padding: 10px; border-top: 1px solid #e7ebef; background: #fff; }
+        .chat-input-row input { flex: 1; border: 1.5px solid #e0e0e0; border-radius: 20px; padding: 10px 14px; font-size: 14px; font-family: inherit; outline: none; }
+        .chat-input-row input:focus { border-color: #34BDEF; }
+        .chat-input-row button { border: none; background: #34BDEF; color: #fff; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 15px; flex-shrink: 0; }
+
+        @media (max-width: 480px) {
+            #chat-panel { left: 12px; right: 12px; width: auto; bottom: 92px; height: min(72vh, calc(100vh - 120px)); }
+        }
+    </style>
+
+    <button id="chat-fab" aria-label="Ouvrir l'assistant"><img src="images/piki.png" alt="Piki" style="width:42px;height:42px;object-fit:contain;border-radius:50%;" onerror="this.replaceWith(document.createTextNode('💬'))"></button>
+    <div id="chat-panel" role="dialog" aria-label="Assistant Camping Paradis">
+        <div class="chat-header">
+            <div style="width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:22px;"><img src="images/piki.png" alt="Piki" style="width:28px;height:28px;object-fit:contain;border-radius:50%;" onerror="this.replaceWith(document.createTextNode('🦆'))"></div>
+            <div style="flex:1;">
+                <div class="ch-title">Assistant Camping</div>
+                <div class="ch-sub">Réponses immédiates</div>
+            </div>
+            <button class="chat-close" id="chat-close" aria-label="Fermer">✕</button>
+        </div>
+        <div class="chat-body" id="chat-body"></div>
+        <div class="chat-input-row">
+            <input type="text" id="chat-input" placeholder="Écrivez votre question…" autocomplete="off">
+            <button id="chat-send" aria-label="Envoyer">➤</button>
+        </div>
+    </div>
+
+    <a href="tel:+33474768097" class="btn-float" aria-label="Appeler la réception">
+        <div class="btn-float-circle">📞</div>
+        <div class="btn-float-label">Réception</div>
+    </a>
+
+    <script>
+    // ── Météo Open-Meteo (gratuit, sans clé API) ─────────────────────
+    const WMO_CODES = {
+      0:'Ciel dégagé',1:'Principalement dégagé',2:'Partiellement nuageux',3:'Couvert',
+      45:'Brouillard',48:'Brouillard givrant',
+      51:'Bruine légère',53:'Bruine modérée',55:'Bruine dense',
+      61:'Pluie légère',63:'Pluie modérée',65:'Pluie forte',
+      71:'Neige légère',73:'Neige modérée',75:'Neige forte',
+      80:'Averses légères',81:'Averses modérées',82:'Averses fortes',
+      85:'Averses de neige',86:'Averses de neige fortes',
+      95:'Orage',96:'Orage avec grêle',99:'Orage violent'
+    };
+    const WMO_ICONS = {
+      0:'☀️',1:'🌤️',2:'⛅',3:'☁️',
+      45:'🌫️',48:'🌫️',
+      51:'🌦️',53:'🌦️',55:'🌧️',
+      61:'🌧️',63:'🌧️',65:'🌧️',
+      71:'❄️',73:'❄️',75:'❄️',
+      80:'🌦️',81:'🌧️',82:'⛈️',
+      85:'❄️',86:'❄️',
+      95:'⛈️',96:'⛈️',99:'⛈️'
+    };
+
+    async function loadMeteo() {
+      try {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=46.2619&longitude=5.5544&current=temperature_2m,apparent_temperature,weathercode,windspeed_10m&daily=temperature_2m_max,temperature_2m_min&timezone=Europe%2FParis&forecast_days=1';
+        const resp = await fetch(url);
+        const data = await resp.json();
+        const cur = data.current;
+        const day = data.daily;
+        const code = cur.weathercode;
+        document.getElementById('meteo-temp').textContent = Math.round(cur.temperature_2m) + '°';
+        document.getElementById('meteo-desc').textContent = WMO_CODES[code] || 'Variable';
+        document.getElementById('meteo-icon').textContent = WMO_ICONS[code] || '🌡️';
+        document.getElementById('meteo-minmax').textContent = Math.round(day.temperature_2m_min[0]) + '° / ' + Math.round(day.temperature_2m_max[0]) + '°';
+        document.getElementById('meteo-vent').textContent = '💨 ' + Math.round(cur.windspeed_10m) + ' km/h';
+      } catch(e) {
+        document.getElementById('meteo-desc').textContent = 'Météo indisponible';
+      }
+    }
+    loadMeteo();
+
+
+
+    // ── FORMULAIRE SIGNALEMENT ────────────────────────────────────────
+    function handleSignalement(e) {
+        e.preventDefault();
+        var form = e.target;
+        var data = new FormData(form);
+
+        // Ajouter heure et date
+        var now = new Date();
+        var dateStr = now.toLocaleDateString('fr-FR') + ' à ' + now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'});
+        data.append('Date et heure', dateStr);
+
+        fetch('https://formsubmit.co/direction@camping-lesgorgesduhautbugey.fr', {
+            method: 'POST',
+            body: data
+        }).then(function() {
+            document.getElementById('signalement-form-wrap').style.display = 'none';
+            document.getElementById('signalement-success').style.display = 'block';
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'signalement_envoye');
+            }
+        }).catch(function() {
+            // Fallback : soumission classique
+            form.submit();
+        });
+    }
+
+
+
+    // ── FORMULAIRE MÉNAGE ────────────────────────────────────────────
+    function submitMenage(e) {
+        e.preventDefault();
+        var form = e.target;
+        var data = new FormData(form);
+        var now = new Date();
+        data.append('Heure de la demande', now.toLocaleDateString('fr-FR') + ' à ' + now.toLocaleTimeString('fr-FR', {hour:'2-digit', minute:'2-digit'}));
+        fetch('https://formsubmit.co/info@camping-lesgorgesduhautbugey.fr', {
+            method: 'POST', body: data
+        }).then(function() {
+            document.getElementById('menage-form-wrap').style.display = 'none';
+            document.getElementById('menage-success').style.display = 'block';
+            if (typeof gtag !== 'undefined') gtag('event', 'menage_demande');
+        }).catch(function() { form.submit(); });
+    }
+    // Fermer modal en cliquant en dehors
+    document.getElementById('menage-modal').addEventListener('click', function(e) {
+        if (e.target === this) this.classList.remove('open');
+    });
+
+    // ── BON PLAN DU JOUR ─────────────────────────────────────────────
+    async function loadBonPlan() {
+        try {
+            const r = await fetch('bonplan.json?t=' + Date.now());
+            const d = await r.json();
+            if (!d.actif) return;
+            document.getElementById('bonplan-emoji').textContent = d.emoji || '🎉';
+            document.getElementById('bonplan-texte').textContent = d.texte || '';
+            if (d.badge) document.getElementById('bonplan-badge').textContent = d.badge;
+            const colors = {
+                orange:'linear-gradient(135deg,#FF8C00,#FFB347)',
+                bleu:'linear-gradient(135deg,#34BDEF,#2a9ec4)',
+                vert:'linear-gradient(135deg,#27AE60,#2ecc71)',
+                rouge:'linear-gradient(135deg,#E74C3C,#e55039)',
+                violet:'linear-gradient(135deg,#8E44AD,#9b59b6)'
+            };
+            document.getElementById('bonplan-banner').style.background = colors[d.couleur] || colors.orange;
+            document.getElementById('bonplan-container').style.display = 'block';
+        } catch(e) {}
+    }
+    loadBonPlan();
+
+
+
+    // ── POP-UP INSTALLATION ──────────────────────────────────────────
+    function showInstallPopup() {
+        // Ne pas montrer si déjà vu ou si l'app est déjà installée
+        if (localStorage.getItem('install-seen')) return;
+        if (window.matchMedia('(display-mode: standalone)').matches) return;
+        if (window.navigator.standalone === true) return;
+
+        var isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+        var isAndroid = /android/i.test(navigator.userAgent);
+
+        if (!isIOS && !isAndroid) return; // desktop → pas de popup
+
+        if (isIOS) {
+            document.getElementById('install-steps-ios').style.display = 'block';
+            document.getElementById('install-steps-android').style.display = 'none';
+        } else {
+            document.getElementById('install-steps-ios').style.display = 'none';
+            document.getElementById('install-steps-android').style.display = 'block';
+        }
+
+        setTimeout(function() {
+            document.getElementById('install-popup').classList.add('show');
+            // Tracker l'affichage dans Analytics
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'install_popup_shown', { device: isIOS ? 'iOS' : 'Android' });
+            }
+        }, 2000); // apparaît après 2 secondes
+    }
+
+    function closeInstallPopup() {
+        document.getElementById('install-popup').classList.remove('show');
+        localStorage.setItem('install-seen', '1');
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'install_popup_closed');
+        }
+    }
+
+    // Tracker installation PWA
+    window.addEventListener('appinstalled', function() {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'pwa_installed');
+        }
+    });
+
+    window.addEventListener('load', showInstallPopup);
+
+    // ── Service Worker (app installable) ─────────────────────────────
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('sw.js')
+          .then(function(reg) { console.log('SW enregistré:', reg.scope); })
+          .catch(function(err) { console.log('SW erreur:', err); });
+      });
+    }
+    </script>    <script>
+    // ── BARRE DE RECHERCHE ─────────────────────────────────────────
+    (function () {
+        function norm(s) {
+            return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        }
+
+        // Pages "profondes" + synonymes (pas présentes en carte sur l'accueil)
+        var extra = [
+            // Vie au camping
+            { t: "Horaires", d: "Réception, piscine, snack, bar — tous les horaires", h: "horaires.html", k: "horaire ouverture fermeture accueil reception piscine snack bar animation heure" },
+            { t: "Plan du camping", d: "Retrouvez votre emplacement et les équipements", h: "plan.html", k: "plan carte emplacement sanitaires toilettes douches bloc eau" },
+            { t: "Check-in / Check-out", d: "Arrivée, départ, clés, barrière", h: "checkin.html", k: "arrivee depart check in out cle cles barriere code heure 10h equipement" },
+            { t: "Pot d'accueil", d: "Verre de bienvenue offert à votre arrivée", h: "pot-accueil.html", k: "pot accueil bienvenue verre aperitif offert gratuit" },
+            // Services
+            { t: "Kayak & Paddle", d: "Location en libre-service sur le lac — 29€ à 39€", h: "kayak.html", k: "kayak paddle lac eau location prix bateau canoé sport nautique" },
+            { t: "Laverie", d: "Machines à laver disponibles 24h/24", h: "laverie.html", k: "laverie machine laver linge lessiver lessive seche linge 24h" },
+            { t: "Locations", d: "Barbecue, draps, kit bébé, linge de toilette", h: "locations.html", k: "location barbecue draps linge serviette kit bebe louer materiel" },
+            { t: "WiFi", d: "Connexion internet gratuite sur le camping", h: "wifi.html", k: "wifi internet connexion code reseau gratuit fibre" },
+            // Restauration
+            { t: "Snack", d: "Burgers, salades, plats du jour", h: "snack.html", k: "snack manger repas burger salade plat nourriture restaurant restauration" },
+            { t: "Bar", d: "Cocktails, bières, boissons fraîches, glaces", h: "bar.html", k: "bar boire cocktail biere boisson alcool soft glace verre" },
+            { t: "Épicerie", d: "Produits essentiels sur place", h: "epicerie.html", k: "epicerie courses pain lait beurre produit achat magasin boutique" },
+            { t: "Petit-déjeuner", d: "Pain frais et viennoiseries chaque matin", h: "petit-dejeuner.html", k: "petit dejeuner croissant pain viennoiserie matin commander commande" },
+            // Activités
+            { t: "Activités de plein air", d: "Escalade, golf, parapente, pêche, parcs…", h: "activites-plein-air.html", k: "plein air sport activite loisir" },
+            { t: "Escalade, accrobranche & via ferrata", d: "Grimpe et parcours en hauteur", h: "escalade.html", k: "escalade accrobranche via ferrata grimpe canyoning rocher hauteur arbre" },
+            { t: "Toboggans géants & mini-golf", d: "Tubing, zorbing, aqua glisse, mini-golf", h: "toboggans-mini-golf.html", k: "toboggan glisse tubing zorbing aqua mini golf bouee attraction petit monde terre ronde" },
+            { t: "Parapente & baptême de l'air", d: "Vol au-dessus du lac de Nantua — dès 70€", h: "parapente.html", k: "parapente bapteme air vol nantua lac voler altitude sensations" },
+            { t: "Tir à l'arc & Paint Ball", d: "Gel blaster, tag archery, Nordic Indiana", h: "tir-arc-paintball.html", k: "tir arc paintball gel blaster tag archery combat sport" },
+            { t: "Golf", d: "Golf du Haut-Bugey et mini-golf", h: "golf.html", k: "golf terrain parcours 9 trous mini golf samognat lac" },
+            { t: "Fermes à visiter", d: "Chèvrerie, escargots, animaux de la ferme", h: "fermes-a-visiter.html", k: "ferme chevre escargot animaux vaches anes veau cochon volaille visite traite" },
+            { t: "Parcs & zoos", d: "Parc des oiseaux, Le Pal, Walibi, Touroparc", h: "parcs.html", k: "parc oiseaux le pal walibi touroparc zoo attraction manege enfant famille" },
+            { t: "Pêche", d: "Lacs, étangs et rivières du Haut-Bugey", h: "peche.html", k: "peche pecher carte de peche lac etang riviere nantua genin poisson" },
+            { t: "Balade équestre", d: "Cheval et poney en pleine nature", h: "balade-equestre.html", k: "cheval poney equitation equestre balade randonnee nature foret" },
+            // Autour du camping
+            { t: "Restaurants", d: "Les meilleures tables autour du camping", h: "restaurant.html", k: "restaurant manger diner dejeuner sortir table cuisine local" },
+            { t: "À visiter", d: "Gorges de l'Ain, viaduc, cascade, villages", h: "gorges-ain.html", k: "gorges ain viaduc cascade villages visiter tourisme patrimoine" },
+            { t: "Randonnées & balades", d: "Sentiers balisés pour tous les niveaux", h: "randonnees.html", k: "randonnee balade marche sentier foret nature pied chemin" },
+            { t: "Marchés", d: "Marchés producteurs et locaux de la région", h: "marches.html", k: "marche producteur local brocante artisan regional" },
+            { t: "Commerces", d: "Supermarchés et commerces à proximité", h: "commerces.html", k: "supermarche magasin commerce pharmacie courses leclerc intermarche" },
+            // Animations
+            { t: "Programme de la semaine", d: "Activités, soirées et événements à ne pas manquer", h: "programme.html", k: "programme semaine animation soiree evenement agenda planning activite" },
+            { t: "Club enfants Piki Club", d: "Ateliers et aventures pour les 6–12 ans", h: "club-enfants.html", k: "enfant club piki kids atelier activite jeune animation 6 12 ans" },
+            // Circulation
+            { t: "Barrière & accès", d: "Horaires d'entrée et sortie du camping", h: "barriere.html", k: "barriere code acces entree sortie voiture horaire circulation" },
+            { t: "Véhicule électrique", d: "Recharge disponible aux alentours", h: "vehicule-electrique.html", k: "electrique recharge voiture borne vae velo trottinette" },
+            // Météo
+            { t: "Météo", d: "Prévisions météo pour le camping", h: "meteo.html", k: "meteo temps previsions pluie soleil temperature orage vent" },
+            // Piscine (mentionnée dans horaires, pas de page propre)
+            { t: "Piscine & espace aquatique", d: "Horaires, règles d'accès, baignade surveillée", h: "horaires.html", k: "piscine baignade aquatique nager eau bracelet maillot short bain surveille" },
+            // Urgences / numéros utiles (vers réception)
+            { t: "Urgence & contact", d: "Besoin d'aide ? Appelez la réception", h: "tel:+33474768097", k: "urgence probleme aide secours medecin docteur pharmacie blessure urgences" },
+            // Ménage / départ
+            { t: "Ménage fin de séjour", d: "Commandez le ménage avant votre départ — 70€/80€", h: "checkin.html", k: "menage nettoyage depart forfait fin sejour mobilhome chalet 70 80 euros" },
+            // Sanitaires (souvent demandés)
+            { t: "Sanitaires", d: "Blocs sanitaires — voir le plan du camping", h: "plan.html", k: "sanitaire toilette douche wc lavabo eau chaude bloc hygiene" },
+        ];
+
+        // Index : les entrées "extra" (avec mots-clés riches) ont priorité sur les cartes de l'accueil
+        var index = [];
+        var seen = {};
+        // 1. Ajouter d'abord les entrées enrichies
+        extra.forEach(function (e) { seen[e.h] = true; index.push(e); });
+        // 2. Compléter avec les cartes/bulles de l'accueil non encore couvertes
+        document.querySelectorAll('a.card, a.bubble').forEach(function (a) {
+            var href = a.getAttribute('href') || '';
+            if (!href || href.charAt(0) === '#') return;
+            if (seen[href]) return;
+            seen[href] = true;
+            var titleEl = a.querySelector('.card-title, .bubble-title');
+            var descEl = a.querySelector('.card-description, .bubble-desc');
+            index.push({
+                t: (titleEl ? titleEl.textContent : '').trim(),
+                d: (descEl ? descEl.textContent : '').trim(),
+                h: href, k: ''
+            });
+        });
+
+        var input = document.getElementById('app-search');
+        var box = document.getElementById('search-results');
+        var clearBtn = document.getElementById('search-clear');
+        var active = -1, current = [];
+
+        function render(res) {
+            current = res; active = -1;
+            if (!res.length) {
+                box.innerHTML = '<div class="search-empty">Aucun résultat — essayez un autre mot</div>';
+                box.classList.add('open'); return;
+            }
+            box.innerHTML = res.map(function (it) {
+                return '<a class="search-result" href="' + it.h + '">' +
+                    '<span class="sr-dot"></span>' +
+                    '<span class="sr-body"><span class="sr-title">' + it.t + '</span>' +
+                    (it.d ? '<span class="sr-desc">' + it.d + '</span>' : '') + '</span>' +
+                    '<span class="sr-chevron">›</span></a>';
+            }).join('');
+            box.classList.add('open');
+        }
+
+        function doSearch(q) {
+            var nq = norm(q).trim();
+            clearBtn.classList.toggle('show', !!q);
+            if (!nq) { box.classList.remove('open'); box.innerHTML = ''; return; }
+            var words = nq.split(/\s+/);
+            var res = index.filter(function (it) {
+                var hay = norm(it.t + ' ' + it.d + ' ' + (it.k || ''));
+                return words.every(function (w) { return hay.indexOf(w) >= 0; });
+            }).slice(0, 10);
+            render(res);
+        }
+
+        input.addEventListener('input', function () { doSearch(this.value); });
+        input.addEventListener('focus', function () { if (this.value) doSearch(this.value); });
+        clearBtn.addEventListener('click', function () {
+            input.value = ''; doSearch(''); input.focus();
+        });
+
+        input.addEventListener('keydown', function (e) {
+            var rows = box.querySelectorAll('.search-result');
+            if (e.key === 'ArrowDown') { e.preventDefault(); active = Math.min(active + 1, rows.length - 1); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); active = Math.max(active - 1, 0); }
+            else if (e.key === 'Enter') {
+                if (rows.length) { (rows[active] || rows[0]).click(); }
+                return;
+            } else if (e.key === 'Escape') { input.value = ''; doSearch(''); input.blur(); return; }
+            else { return; }
+            rows.forEach(function (r, i) { r.classList.toggle('active', i === active); });
+            if (rows[active]) rows[active].scrollIntoView({ block: 'nearest' });
+        });
+
+        // Fermer en cliquant à l'extérieur
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.search-box')) box.classList.remove('open');
+        });
+    })();
+    </script>
+    <script>
+    // ── ASSISTANT FAQ (hors-ligne, sans serveur) ─────────────────────
+    (function () {
+        var KB = [
+            { k: ['horaire', 'ouverture', 'accueil horaire'], a: "Tu trouveras tous les horaires (réception, piscine, animations) sur la page dédiée.", l: { h: 'horaires.html', t: 'Voir les horaires' } },
+            { k: ['wifi', 'internet', 'connexion', 'wi-fi', 'code wifi'], a: "Le WiFi est gratuit sur le camping. Code et détails ici :", l: { h: 'wifi.html', t: 'Infos WiFi' } },
+            { k: ['menage', 'nettoyage', 'fin de sejour'], a: "Le ménage de fin de séjour est en option : 70 € pour un mobil-home 2 chambres, 80 € pour 3 chambres. Tu peux le demander depuis l'encart « Ménage fin de séjour » sur l'accueil, ou à la réception.", l: { h: 'tel:+33474768097', t: '📞 Appeler la réception' } },
+            { k: ['check', 'arrivee', 'depart', 'arriver', 'partir', 'caution'], a: "Toutes les infos d'arrivée et de départ (horaires, formalités, caution) sont ici :", l: { h: 'checkin.html', t: 'Check-in / Check-out' } },
+            { k: ['barriere', 'portail', 'entree sortie', 'badge'], a: "Les plages horaires d'ouverture de la barrière sont indiquées ici :", l: { h: 'barriere.html', t: 'Horaires de la barrière' } },
+            { k: ['animation', 'programme', 'soiree', 'spectacle', 'evenement', 'ce soir'], a: "Le programme des animations (juillet et août) t'attend ici :", l: { h: 'programme.html', t: 'Programme de la semaine' } },
+            { k: ['enfant', 'club enfant', 'kids', 'ado'], a: "Le club enfants accueille les 6-12 ans avec ateliers et aventures :", l: { h: 'club-enfants.html', t: 'Club enfants' } },
+            { k: ['piscine', 'baignade', 'nager'], a: "Les horaires de la piscine sont regroupés avec les autres horaires :", l: { h: 'horaires.html', t: 'Horaires (piscine)' } },
+            { k: ['snack', 'burger', 'manger', 'plat du jour'], a: "Le snack propose burgers, salades et plats du jour :", l: { h: 'snack.html', t: 'Le snack' } },
+            { k: ['bar', 'cocktail', 'biere', 'boisson', 'apero'], a: "Le bar sert cocktails, bières et boissons fraîches :", l: { h: 'bar.html', t: 'Le bar' } },
+            { k: ['epicerie', 'depannage', 'course'], a: "L'épicerie du camping a les produits essentiels :", l: { h: 'epicerie.html', t: 'Épicerie' } },
+            { k: ['petit dejeuner', 'pain', 'viennoiserie', 'croissant', 'baguette'], a: "Pain frais et viennoiseries chaque matin :", l: { h: 'petit-dejeuner.html', t: 'Petit-déjeuner' } },
+            { k: ['kayak', 'canoe', 'pagaie'], a: "Tu peux explorer le lac du Val d'Oignin en kayak :", l: { h: 'kayak.html', t: 'Kayak' } },
+            { k: ['laverie', 'linge', 'machine', 'lessive', 'laver'], a: "La laverie est disponible 24h/24 :", l: { h: 'laverie.html', t: 'Laverie' } },
+            { k: ['location', 'barbecue', 'drap', 'kit bebe'], a: "Barbecue, draps, kit bébé, linge… tout se loue ici :", l: { h: 'locations.html', t: 'Locations diverses' } },
+            { k: ['activite', 'que faire', 'sortie', 'loisir', 'autour'], a: "Plein d'idées d'activités autour du camping :", l: { h: 'activites.html', t: 'Activités à faire' } },
+            { k: ['peche', 'pecher', 'poisson', 'carte de peche'], a: "Lacs, étangs et rivières pour la pêche dans le Haut-Bugey :", l: { h: 'peche.html', t: 'Pêche' } },
+            { k: ['escalade', 'via ferrata', 'accrobranche', 'grimpe'], a: "Escalade, accrobranche et via ferrata :", l: { h: 'escalade.html', t: 'Escalade & via ferrata' } },
+            { k: ['golf', 'mini golf', 'minigolf'], a: "Golf et mini-golf à proximité :", l: { h: 'golf.html', t: 'Golf' } },
+            { k: ['parapente', 'bapteme', 'vol'], a: "Baptême en parapente au-dessus du lac de Nantua :", l: { h: 'parapente.html', t: 'Parapente' } },
+            { k: ['cheval', 'poney', 'equitation', 'equestre'], a: "Balades à cheval et poney en pleine nature :", l: { h: 'balade-equestre.html', t: 'Balade équestre' } },
+            { k: ['parc', 'zoo', 'walibi', 'le pal', 'touroparc', 'oiseaux', 'attraction'], a: "Parcs animaliers et d'attractions de la région :", l: { h: 'parcs.html', t: 'Parcs' } },
+            { k: ['plan', 'emplacement', 'ou suis'], a: "Le plan du camping pour retrouver ton emplacement :", l: { h: 'plan.html', t: 'Plan du camping' } },
+            { k: ['electrique', 'borne', 'recharge', 'vehicule'], a: "Une borne de recharge est disponible sur site :", l: { h: 'vehicule-electrique.html', t: 'Véhicule électrique' } },
+            { k: ['pot accueil', 'verre bienvenue', 'bienvenue'], a: "Rejoins-nous pour le pot d'accueil :", l: { h: 'pot-accueil.html', t: "Pot d'accueil" } },
+            { k: ['meteo', 'temps', 'pluie', 'soleil', 'prevision'], a: "La météo locale est mise à jour en direct :", l: { h: 'meteo.html', t: 'Météo' } },
+            { k: ['restaurant', 'table', 'ou manger'], a: "Les meilleures tables autour du camping :", l: { h: 'restaurant.html', t: 'Restaurants' } },
+            { k: ['probleme', 'panne', 'signaler', 'casse', 'reparer', 'souci'], a: "Pour signaler un problème, utilise le formulaire « Signaler un problème » en bas de l'accueil — l'équipe intervient vite. Pour une urgence, appelle la réception.", l: { h: 'tel:+33474768097', t: '📞 Réception' } },
+            { k: ['contact', 'telephone', 'numero', 'appeler', 'joindre', 'reception'], a: "Tu peux joindre la réception au 04 74 76 80 97.", l: { h: 'tel:+33474768097', t: '📞 Appeler' } },
+            { k: ['visiter', 'gorges', 'cascade', 'viaduc', 'village', 'tourisme'], a: "Gorges de l'Ain, viaduc, cascade et villages à visiter :", l: { h: 'gorges-ain.html', t: 'À visiter' } }
+        ];
+        var SUGG = ['Horaires', 'WiFi', 'Ménage', 'Check-in / out', 'Animations', 'Restauration', 'Activités', 'Barrière'];
+
+        function norm(s) { return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
+
+        var panel = document.getElementById('chat-panel');
+        var fab = document.getElementById('chat-fab');
+        var bodyEl = document.getElementById('chat-body');
+        var inputEl = document.getElementById('chat-input');
+        var started = false;
+
+        function scrollDown() { bodyEl.scrollTop = bodyEl.scrollHeight; }
+        function addMsg(text, who, link) {
+            var d = document.createElement('div'); d.className = 'msg ' + who; d.innerHTML = text;
+            if (link) {
+                d.appendChild(document.createElement('br'));
+                var a = document.createElement('a'); a.className = 'chat-link'; a.href = link.h; a.textContent = link.t;
+                d.appendChild(a);
+            }
+            bodyEl.appendChild(d); scrollDown();
+        }
+        function addChips() {
+            var wrap = document.createElement('div'); wrap.className = 'chat-chips';
+            SUGG.forEach(function (s) {
+                var b = document.createElement('button'); b.className = 'chat-chip'; b.textContent = s;
+                b.onclick = function () { handle(s); };
+                wrap.appendChild(b);
+            });
+            bodyEl.appendChild(wrap); scrollDown();
+        }
+        function answer(q) {
+            var nq = norm(q), best = null, bestScore = 0;
+            KB.forEach(function (item) {
+                var score = 0;
+                item.k.forEach(function (kw) { if (nq.indexOf(norm(kw)) >= 0) score += norm(kw).length; });
+                if (score > bestScore) { bestScore = score; best = item; }
+            });
+            if (best) { addMsg(best.a, 'bot', best.l); }
+            else {
+                addMsg("Je n'ai pas trouvé de réponse exacte 🤔 Reformule, choisis un sujet, ou contacte la réception :", 'bot', { h: 'tel:+33474768097', t: '📞 Appeler la réception' });
+                addChips();
+            }
+        }
+        function handle(text) {
+            text = (text || '').trim(); if (!text) return;
+            addMsg(text, 'user');
+            setTimeout(function () { answer(text); }, 250);
+        }
+        function start() {
+            if (started) return; started = true;
+            addMsg("Bonjour 👋 Je suis l'assistant du Camping Paradis. Pose-moi une question ou choisis un sujet :", 'bot');
+            addChips();
+        }
+        function openChat() { panel.classList.add('open'); start(); inputEl.focus(); }
+        function closeChat() { panel.classList.remove('open'); }
+
+        fab.addEventListener('click', function () { panel.classList.contains('open') ? closeChat() : openChat(); });
+        document.getElementById('chat-close').addEventListener('click', closeChat);
+        document.getElementById('chat-send').addEventListener('click', function () { var v = inputEl.value; inputEl.value = ''; handle(v); });
+        inputEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') { var v = inputEl.value; inputEl.value = ''; handle(v); } });
+    })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+    <script>
+    (function () {
+        var CATEGORIES = {
+            'mini-club': { label: 'Mini Club', emoji: '🏴‍☠️', c1: '#34BDEF', c2: '#1a7fae' },
+            'ados':      { label: 'Ados',      emoji: '⚡',     c1: '#FF8C00', c2: '#e06d00' },
+            'soiree':    { label: 'Soirée',    emoji: '🌙',     c1: '#5b3a9e', c2: '#2f1f5c' }
+        };
+
+        // Programme par défaut si programme.json est injoignable (mêmes champs que le fichier réel)
+        var PROGRAMME_DEFAUT = [
+            { icone: '🏴‍☠️', heure: '10h00', titre: "Les trésors de l'équipage", description: 'Chasse au trésor pour les 6-12 ans.', lieu: 'Mini club', categorie: 'mini-club' },
+            { icone: '🌊', heure: '15h30', titre: 'La bataille navale des pirates', description: 'Grand jeu d\'eau par équipes.', lieu: 'Piscine', categorie: 'mini-club' },
+            { icone: '🤝', heure: '10h00', titre: 'Rencontre ados', description: 'Présentation du programme de la semaine.', lieu: 'Espace ados', categorie: 'ados' },
+            { icone: '🥏', heure: '11h00', titre: 'Ultimate', description: 'Tournoi par équipes, tous niveaux.', lieu: 'Terrain multisport', categorie: 'ados' },
+            { icone: '🏐', heure: '15h30', titre: 'Tèque géante', description: 'Version XXL du jeu de raquettes.', lieu: 'Terrain multisport', categorie: 'ados' },
+            { icone: '🏴‍☠️', heure: '18h30', titre: 'Piki Pirate', description: "Rendez-vous convivial en musique.", lieu: 'Bar', categorie: 'soiree' },
+            { icone: '🎉', heure: '21h00', titre: 'Tèque géante', description: 'Soirée animée pour tous les âges.', lieu: 'Place centrale', categorie: 'soiree' }
+        ];
+
+        var scrollEl = document.getElementById('prog-jour-scroll');
+        var tabsEl = document.getElementById('prog-jour-tabs');
+        var dateEl = document.getElementById('prog-jour-date');
+        var toutesLesActivites = [];
+        var categorieActive = 'tous';
+
+        function obtenirDateISO() {
+            var params = new URLSearchParams(window.location.search);
+            var forcee = params.get('date');
+            if (forcee) return forcee;
+            var d = new Date();
+            return d.toISOString().slice(0, 10);
+        }
+
+        function formatDateAffichage() {
+            var d = new Date();
+            var params = new URLSearchParams(window.location.search);
+            var forcee = params.get('date');
+            if (forcee) d = new Date(forcee + 'T12:00:00');
+            var jours = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'];
+            var mois = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+            return jours[d.getDay()] + ' ' + d.getDate() + ' ' + mois[d.getMonth()];
+        }
+
+        // Convertit "10h00" ou "10h" en minutes depuis minuit
+        function heureEnMinutes(heure) {
+            if (!heure) return null;
+            var m = heure.match(/(\d{1,2})h(\d{0,2})/);
+            if (!m) return null;
+            return parseInt(m[1]) * 60 + (m[2] ? parseInt(m[2]) : 0);
+        }
+
+        // Marque comme "en cours" la dernière activité commencée il y a moins de 2h30,
+        // tant qu'aucune autre activité n'a démarré depuis
+        function calculerActiviteEnCours(activitesTriees) {
+            var params = new URLSearchParams(window.location.search);
+            if (params.get('date')) return -1; // pas de "live" sur une date simulée
+            var maintenant = new Date();
+            var mins = maintenant.getHours() * 60 + maintenant.getMinutes();
+            var indexEnCours = -1;
+            activitesTriees.forEach(function (a, i) {
+                var debut = heureEnMinutes(a.heure);
+                if (debut !== null && debut <= mins && (mins - debut) <= 150) indexEnCours = i;
+            });
+            return indexEnCours;
+        }
+
+        function construireOnglets() {
+            var cats = {};
+            toutesLesActivites.forEach(function (a) { cats[a.categorie] = true; });
+            tabsEl.innerHTML = '';
+            var tousBtn = document.createElement('button');
+            tousBtn.className = 'prog-onglet actif';
+            tousBtn.type = 'button';
+            tousBtn.textContent = 'Tout voir';
+            tousBtn.addEventListener('click', function () { activerOnglet('tous', tousBtn); });
+            tabsEl.appendChild(tousBtn);
+
+            Object.keys(CATEGORIES).forEach(function (id) {
+                if (!cats[id]) return;
+                var cat = CATEGORIES[id];
+                var btn = document.createElement('button');
+                btn.className = 'prog-onglet';
+                btn.type = 'button';
+                btn.textContent = cat.emoji + ' ' + cat.label;
+                btn.addEventListener('click', function () { activerOnglet(id, btn); });
+                tabsEl.appendChild(btn);
+            });
+        }
+
+        function activerOnglet(id, btn) {
+            categorieActive = id;
+            tabsEl.querySelectorAll('.prog-onglet').forEach(function (b) { b.classList.remove('actif'); });
+            btn.classList.add('actif');
+            construireCartes();
+        }
+
+        function construireCartes() {
+            var activites = (categorieActive === 'tous'
+                ? toutesLesActivites
+                : toutesLesActivites.filter(function (a) { return a.categorie === categorieActive; })
+            ).slice().sort(function (a, b) {
+                return (heureEnMinutes(a.heure) || 0) - (heureEnMinutes(b.heure) || 0);
+            });
+
+            scrollEl.innerHTML = '';
+            if (!activites.length) {
+                scrollEl.innerHTML = '<div class="prog-jour-vide">Aucune animation programmée pour le moment 🙂</div>';
+                return;
+            }
+
+            var indexEnCours = calculerActiviteEnCours(activites);
+
+            activites.forEach(function (a, i) {
+                var cat = CATEGORIES[a.categorie] || CATEGORIES['mini-club'];
+                var card = document.createElement('a');
+                card.href = 'programme.html';
+                card.className = 'prog-card';
+                card.style.setProperty('--cat-c1', cat.c1);
+                card.style.setProperty('--cat-c2', cat.c2);
+
+                card.innerHTML =
+                    (i === indexEnCours ? '<div class="prog-card-live"><span class="dot"></span>En ce moment</div>' : '') +
+                    '<div class="prog-card-cat">' + (a.icone || cat.emoji) + ' ' + cat.label + '</div>' +
+                    '<div class="prog-card-heure">' + a.heure + '</div>' +
+                    '<div class="prog-card-titre">' + a.titre + '</div>' +
+                    (a.lieu ? '<div class="prog-card-lieu">📍 ' + a.lieu + '</div>' : '');
+                scrollEl.appendChild(card);
+            });
+        }
+
+        function activerGlisser() {
+            var down = false, startX, scrollLeft;
+            scrollEl.addEventListener('mousedown', function (e) {
+                down = true; scrollEl.classList.add('dragging');
+                startX = e.pageX - scrollEl.offsetLeft; scrollLeft = scrollEl.scrollLeft;
+            });
+            ['mouseleave', 'mouseup'].forEach(function (ev) {
+                scrollEl.addEventListener(ev, function () { down = false; scrollEl.classList.remove('dragging'); });
+            });
+            scrollEl.addEventListener('mousemove', function (e) {
+                if (!down) return;
+                e.preventDefault();
+                var x = e.pageX - scrollEl.offsetLeft;
+                scrollEl.scrollLeft = scrollLeft - (x - startX) * 1.3;
+            });
+        }
+
+        dateEl.textContent = formatDateAffichage();
+        activerGlisser();
+
+        fetch('programme.json?t=' + Date.now())
+            .then(function (r) { if (!r.ok) throw new Error('introuvable'); return r.json(); })
+            .then(function (data) {
+                var dateISO = obtenirDateISO();
+                var jours = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+                var params = new URLSearchParams(window.location.search);
+                var refDate = params.get('date') ? new Date(params.get('date') + 'T12:00:00') : new Date();
+                var jourDuJour = jours[refDate.getDay()];
+
+                var activitesDuJour = null;
+                if (data.dates && data.dates[dateISO]) activitesDuJour = data.dates[dateISO];
+                else if (data.jours && data.jours[jourDuJour]) activitesDuJour = data.jours[jourDuJour];
+                else if (data[jourDuJour]) activitesDuJour = data[jourDuJour]; // compat ancien format à plat
+
+                toutesLesActivites = (activitesDuJour && activitesDuJour.length) ? activitesDuJour : PROGRAMME_DEFAUT;
+                construireOnglets();
+                construireCartes();
+
+                // Rafraîchit le badge "En ce moment" chaque minute
+                setInterval(construireCartes, 60000);
+            })
+            .catch(function () {
+                toutesLesActivites = PROGRAMME_DEFAUT;
+                construireOnglets();
+                construireCartes();
+            });
+    })();
+    </script>
+
+</body>
+</html>
