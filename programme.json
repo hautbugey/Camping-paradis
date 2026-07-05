@@ -2,21 +2,21 @@
   "jours": {
     "dimanche": [
       { "icone": "🥂", "heure": "19h00", "titre": "Pot d'accueil", "description": "Un moment convivial pour bien commencer votre séjour.", "lieu": "Accueil", "categorie": "soiree" },
-      { "icone": "🎬", "heure": "21h00", "titre": "Soirée cinéma", "description": "Projection en plein air pour toute la famille.", "lieu": "Salle cinéma", "categorie": "soiree" }
+      { "icone": "🎬", "heure": "21h00", "titre": "Soirée cinéma", "description": "Projection en plein air pour toute la famille.", "lieu": "Scène", "categorie": "soiree" }
     ],
     "lundi": [
       { "icone": "🤝", "heure": "10h00", "titre": "Rencontre Ados (13-17 ans)", "description": "Présentation du programme et jeux de connaissance.", "lieu": "Espace ados", "categorie": "ados" },
       { "icone": "🥏", "heure": "11h00", "titre": "Ultimate", "description": "Tournoi par équipes, tous niveaux.", "lieu": "Terrain multisport", "categorie": "ados" },
       { "icone": "⚾", "heure": "15h00", "titre": "Tèque géante", "description": "Version XXL du jeu de raquettes.", "lieu": "Terrain multisport", "categorie": "ados" },
-      { "icone": "🎲", "heure": "21h00", "titre": "Grand Quizz", "description": "Soirée jeux et culture générale en équipes.", "lieu": "Bar", "categorie": "soiree" },
+      { "icone": "🎲", "heure": "21h00", "titre": "Grand Quizz", "description": "Soirée jeux et culture générale en équipes.", "lieu": "Scène", "categorie": "soiree" },
       { "icone": "👋", "heure": "10h00", "titre": "Faisons connaissance !", "description": "Jeux de présentation pour bien démarrer la semaine.", "lieu": "Piki Club", "categorie": "mini-club" },
       { "icone": "📷", "heure": "15h30", "titre": "Rallye photo", "description": "Chasse aux indices en photos autour du camping.", "lieu": "Piki Club", "categorie": "mini-club" },
-      { "icone": "🕺", "heure": "18h30", "titre": "Piki Disco", "description": "La disco des 6-12 ans !", "lieu": "Piki Club", "categorie": "mini-club" }
+      { "icone": "🕺", "heure": "18h30", "titre": "Piki Disco", "description": "La disco des 6-12 ans !", "lieu": "Scène", "categorie": "mini-club" }
     ],
     "mardi": [
       { "icone": "🏐", "heure": "10h00", "titre": "Initiation volley-ball", "description": "Découverte et initiation, tous niveaux.", "lieu": "Terrain multisport", "categorie": "ados" },
       { "icone": "🏐", "heure": "15h00", "titre": "Balles aux prisonniers géantes", "description": "Grand jeu par équipes en extérieur.", "lieu": "Terrain multisport", "categorie": "ados" },
-      { "icone": "🚨", "heure": "21h00", "titre": "Mardi tout est permis !", "description": "Soirée déjantée animée par l'équipe.", "lieu": "Bar", "categorie": "soiree" },
+      { "icone": "🚨", "heure": "21h00", "titre": "Mardi tout est permis !", "description": "Soirée déjantée animée par l'équipe.", "lieu": "Scène", "categorie": "soiree" },
       { "icone": "🔍", "heure": "10h00", "titre": "Escape Game", "description": "Énigmes à résoudre en équipe.", "lieu": "Piki Club", "categorie": "mini-club" },
       { "icone": "🛃", "heure": "15h30", "titre": "Douaniers contrebandiers", "description": "Grand jeu de poursuite et de ruse.", "lieu": "Piki Club", "categorie": "mini-club" },
       { "icone": "🕺", "heure": "18h30", "titre": "Piki Disco", "description": "La disco des 6-12 ans !", "lieu": "Piki Club", "categorie": "mini-club" }
