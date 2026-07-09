@@ -203,9 +203,17 @@
       },
       {
         "icone": "🎸",
-        "heure": "21h00",
+        "heure": "19h45",
         "titre": "Concert",
-        "description": "Concert live par l'équipe d'animation.",
+        "description": "Midnight Burst",
+        "lieu": "Scène principale",
+        "categorie": "soiree"
+      },
+       {
+        "icone": "⚽",
+        "heure": "22h00",
+        "titre": "Diffusion France-Maroc",
+        "description": "Match de coupe du monde",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
