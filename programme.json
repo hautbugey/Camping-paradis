@@ -230,7 +230,7 @@
         "heure": "15h00",
         "titre": "Olympiade",
         "description": "Épreuves sportives et ludiques par équipes familiales",
-        "lieu": "Piki Club",
+        "lieu": "Terrain multisport",
         "categorie": "mini-club"
       },
       {
@@ -238,7 +238,7 @@
         "heure": "18h30",
         "titre": "Piki Disco",
         "description": "La disco des 6-12 ans !",
-        "lieu": "Piki Club",
+        "lieu": "Scène Principale",
         "categorie": "mini-club"
       }
     ],
@@ -264,7 +264,7 @@
         "heure": "21h00",
         "titre": "Soirée dansante",
         "description": "Grande soirée dansante pour clôturer la semaine.",
-        "lieu": "Place centrale",
+        "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
