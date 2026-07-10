@@ -6,7 +6,7 @@
         "heure": "19h00",
         "titre": "Pot d'accueil",
         "description": "Un moment convivial pour bien commencer votre séjour.",
-        "lieu": "Accueil",
+        "lieu": "Scène",
         "categorie": "famille"
       },
       {
@@ -132,15 +132,15 @@
         "heure": "10h00",
         "titre": "Randonnées Cascade",
         "description": "Balade encadrée avec un arrêt baignade.",
-        "lieu": "Départ accueil",
-        "categorie": "ados"
+        "lieu": "Départ bar/snack",
+        "categorie": "famille"
       },
       {
         "icone": "🎪",
         "heure": "17h00",
         "titre": "Marché des artisans",
         "description": "Producteurs et artisans locaux sur le camping.",
-        "lieu": "Place centrale",
+        "lieu": "Proche terrain de pétanque",
         "categorie": "famille"
       },
       {
@@ -157,7 +157,7 @@
         "titre": "Food truck au terrain de pétanque",
         "description": "Restauration sur place pendant le tournoi.",
         "lieu": "Terrain de pétanque",
-        "categorie": "soiree"
+        "categorie": "famille"
       },
       {
         "icone": "🌿",
@@ -190,7 +190,7 @@
         "heure": "10h00",
         "titre": "Tournoi de ping-pong",
         "description": "Inscriptions sur place, en simple ou en double.",
-        "lieu": "Terrasse club",
+        "lieu": "Table de ping-pong",
         "categorie": "ados"
       },
       {
@@ -264,7 +264,7 @@
         "heure": "21h00",
         "titre": "Soirée dansante",
         "description": "Grande soirée dansante pour clôturer la semaine.",
-        "lieu": "Scène principale",
+        "lieu": "Scène",
         "categorie": "soiree"
       },
       {
