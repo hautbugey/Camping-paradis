@@ -13,7 +13,7 @@
         "icone": "🎬",
         "heure": "21h00",
         "titre": "Soirée cinéma",
-        "description": "Projection en plein air pour toute la famille.",
+        "description": "Projection en plein air du film Cars pour toute la famille.",
         "lieu": "Scène",
         "categorie": "soiree"
       }
@@ -38,16 +38,16 @@
       {
         "icone": "⚾",
         "heure": "15h00",
-        "titre": "Tèque géante",
-        "description": "Version XXL du jeu de raquettes.",
+        "titre": "Flag Rugby",
+        "description": "Le rugby mais sans contact !",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
         "icone": "🎲",
         "heure": "21h00",
-        "titre": "Grand Quizz",
-        "description": "Soirée jeux et culture générale en équipes.",
+        "titre": "Blindtest",
+        "description": "Soirée Blindtest",
         "lieu": "Scène",
         "categorie": "soiree"
       },
@@ -62,7 +62,7 @@
       {
         "icone": "📷",
         "heure": "15h30",
-        "titre": "Rallye photo",
+        "titre": "Bataille navale des pirates",
         "description": "Chasse aux indices en photos autour du camping.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
@@ -88,32 +88,32 @@
       {
         "icone": "🏐",
         "heure": "15h00",
-        "titre": "Balles aux prisonniers géantes",
-        "description": "Grand jeu par équipes en extérieur.",
+        "titre": "Tèque Géante",
+        "description": "Version XXL de la tèque",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
         "icone": "🚨",
         "heure": "21h00",
-        "titre": "Mardi tout est permis !",
-        "description": "Soirée déjantée animée par l'équipe.",
+        "titre": "Diffusion match coupe du monde !",
+        "description": "Tous ensemble avec les Bleus",
         "lieu": "Scène",
         "categorie": "soiree"
       },
       {
         "icone": "🔍",
         "heure": "10h00",
-        "titre": "Escape Game",
-        "description": "Énigmes à résoudre en équipe.",
+        "titre": "Les trésors de l'équipage",
+        "description": "Création de bracelets de pirate en perles",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "🛃",
         "heure": "15h30",
-        "titre": "Douaniers contrebandiers",
-        "description": "Grand jeu de poursuite et de ruse.",
+        "titre": "La grande chasse au trésor",
+        "description": "Immersion dans la malédiction de la perle noire",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -203,17 +203,9 @@
       },
       {
         "icone": "🎸",
-        "heure": "19h45",
-        "titre": "Concert",
-        "description": "Midnight Burst",
-        "lieu": "Scène principale",
-        "categorie": "soiree"
-      },
-       {
-        "icone": "⚽",
-        "heure": "22h00",
-        "titre": "Diffusion France-Maroc",
-        "description": "Match de coupe du monde",
+        "heure": "21h00",
+        "titre": "Paradis des stars",
+        "description": "Le show de Hervé POUCHOL",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
