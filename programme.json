@@ -162,25 +162,25 @@
       {
         "icone": "🌿",
         "heure": "10h00",
-        "titre": "Land art",
+        "titre": "Emblème Pirate",
         "description": "Création artistique avec des éléments naturels.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "🎲",
-        "heure": "15h30",
-        "titre": "Jeu de l'oie géant !",
-        "description": "Version grandeur nature du jeu de l'oie.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
-      },
+  "icone": "🧩",
+  "heure": "15h30",
+  "titre": "Le Jeu des Sept Mers",
+  "description": "Partez à la recherche des 12 fragments perdus de la Perle Noire, mémorisez les indices et reconstituez le légendaire navire du Capitaine !",
+  "lieu": "Piki Club",
+  "categorie": "mini-club"
+},
       {
         "icone": "🎨",
         "heure": "18h30",
         "titre": "Atelier maquillage",
-        "description": "Séance de maquillage avant la soirée.",
-        "lieu": "Piki Club",
+        "description": "Séance de maquillage",
+        "lieu": "Terrain de pétanque",
         "categorie": "mini-club"
       }
     ],
@@ -210,12 +210,12 @@
         "categorie": "soiree"
       },
       {
-        "icone": "🖼️",
-        "heure": "10h00",
-        "titre": "Fresque géante !",
-        "description": "Création collective d'une grande fresque.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
+         "icone": "🗺️",
+         "heure": "10h00",
+         "titre": "La carte du capitaine",
+         "description": "Fabrique ta propre carte au trésor sur un parchemin vieilli et trace le chemin qui mènera jusqu'au trésor des pirates !",
+         "lieu": "Piki Club",
+         "categorie": "mini-club"
       },
       {
         "icone": "🏅",
