@@ -160,13 +160,13 @@
         "categorie": "famille"
       },
       {
-        "icone": "🌿",
-        "heure": "10h00",
-        "titre": "Emblème Pirate",
-        "description": "Création artistique avec des éléments naturels.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
-      },
+  "icone": "🏴‍☠️",
+  "heure": "10h00",
+  "titre": "Emblème Pirate",
+  "description": "Imagine ton nom de pirate et crée un blason unique qui représentera ton équipage pendant toute la semaine !",
+  "lieu": "Piki Club",
+  "categorie": "mini-club"
+},
       {
   "icone": "🧩",
   "heure": "15h30",
