@@ -12,8 +12,8 @@
       {
         "icone": "🎬",
         "heure": "21h00",
-        "titre": "Soirée cinéma",
-        "description": "Projection en plein air du film Cars pour toute la famille.",
+        "titre": "Diffusion finale coupe du monde",
+        "description": "Projection en plein air de la finale de la Coupe du monde",
         "lieu": "Scène",
         "categorie": "soiree"
       }
@@ -31,39 +31,39 @@
         "icone": "🥏",
         "heure": "11h00",
         "titre": "Ultimate",
-        "description": "Tournoi par équipes, tous niveaux.",
+        "description": "Une véritable compétition de Frisbee.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
         "icone": "⚾",
         "heure": "15h00",
-        "titre": "Flag Rugby",
-        "description": "Le rugby mais sans contact !",
+        "titre": "Tèque géante",
+        "description": "Le baseball pour tous !",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
         "icone": "🎲",
         "heure": "21h00",
-        "titre": "Blindtest",
-        "description": "Soirée Blindtest",
+        "titre": "Grand Quizz",
+        "description": "Soirée Grand Quizz",
         "lieu": "Scène",
         "categorie": "soiree"
       },
       {
         "icone": "👋",
         "heure": "10h00",
-        "titre": "Faisons connaissance !",
-        "description": "Jeux de présentation pour bien démarrer la semaine.",
+        "titre": "Bienvenue dans l'expédition Atlas !",
+        "description": "Bienvenue chers explorateurs dans l'univers Atlas",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "📷",
         "heure": "15h30",
-        "titre": "Bataille navale des pirates",
-        "description": "Jeux d'eau par équipage, défis",
+        "titre": "Le relais des guerriers",
+        "description": "Grand jeu par équipe",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -88,32 +88,32 @@
       {
         "icone": "🏐",
         "heure": "15h00",
-        "titre": "Tèque Géante",
-        "description": "Version XXL de la tèque",
+        "titre": "Balle aux prisionniers Géante",
+        "description": "Version XXL du jeu",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
         "icone": "🚨",
         "heure": "21h00",
-        "titre": "Diffusion match coupe du monde !",
-        "description": "Tous ensemble avec les Bleus",
+        "titre": "Concert Thatka",
+        "description": "Dancer au rythme du disco ! ",
         "lieu": "Scène",
         "categorie": "soiree"
       },
       {
         "icone": "🔍",
         "heure": "10h00",
-        "titre": "Les trésors de l'équipage",
-        "description": "Création de bracelets de pirate en perles",
+        "titre": "Carnaval de Rio",
+        "description": "Création de masques carnaval",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "🛃",
         "heure": "15h30",
-        "titre": "La grande chasse au trésor",
-        "description": "Immersion dans la malédiction de la perle noire",
+        "titre": "Défi de l'Amazonie",
+        "description": "Grand jeu, défi sur le brésil",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -162,16 +162,16 @@
       {
   "icone": "🏴‍☠️",
   "heure": "10h00",
-  "titre": "Emblème Pirate",
-  "description": "Imagine ton nom de pirate et crée un blason unique qui représentera ton équipage pendant toute la semaine !",
+  "titre": "Atelier du Samourai",
+  "description": "Création d'éventails japonais !",
   "lieu": "Piki Club",
   "categorie": "mini-club"
 },
       {
   "icone": "🧩",
   "heure": "15h30",
-  "titre": "Le Jeu des Sept Mers",
-  "description": "Partez à la recherche des 12 fragments perdus de la Perle Noire, mémorisez les indices et reconstituez le légendaire navire du Capitaine !",
+  "titre": "Ninja VS Samourai",
+  "description": "Grand jeu par équipe en extérieur",
   "lieu": "Piki Club",
   "categorie": "mini-club"
 },
@@ -196,32 +196,32 @@
       {
         "icone": "🏅",
         "heure": "15h00",
-        "titre": "Olympiades en famille",
-        "description": "Épreuves sportives et ludiques par équipes familiales.",
+        "titre": "Escape Game",
+        "description": "Grand jeu de détective en famille",
         "lieu": "Terrain multisport",
         "categorie": "famille"
       },
       {
         "icone": "🎸",
         "heure": "21h00",
-        "titre": "Paradis des stars",
-        "description": "Le show de Hervé POUCHOL",
+        "titre": "Une famile en OR",
+        "description": "Le jeu TV revisité dans votre camping",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
          "icone": "🗺️",
          "heure": "10h00",
-         "titre": "La carte du capitaine",
-         "description": "Fabrique ta propre carte au trésor sur un parchemin vieilli et trace le chemin qui mènera jusqu'au trésor des pirates !",
+         "titre": "Les explorateurs polaires",
+         "description": "Découvre l'Antartique et crée ton propre Igloo ",
          "lieu": "Piki Club",
          "categorie": "mini-club"
       },
       {
         "icone": "🏅",
         "heure": "15h00",
-        "titre": "Olympiade",
-        "description": "Épreuves sportives et ludiques par équipes familiales",
+        "titre": "Escape Game",
+        "description": "Grand jeu de détective en famille",
         "lieu": "Terrain multisport",
         "categorie": "mini-club"
       },
