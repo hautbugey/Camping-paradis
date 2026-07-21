@@ -129,6 +129,66 @@
             color: var(--text-light);
             font-size: 13px;
         }
+        /* Bloc code promo */
+        .promo-card {
+            background: linear-gradient(135deg, #FFF4E5 0%, #FFEAD1 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-top: 4px solid var(--accent-orange);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+            margin-top: 25px;
+            text-align: center;
+        }
+        .promo-card h3 {
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .promo-card p {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 18px;
+        }
+        .promo-code-wrap {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: white;
+            border: 2px dashed var(--accent-orange);
+            border-radius: 8px;
+            padding: 12px 20px;
+        }
+        .promo-code {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: var(--text-dark);
+        }
+        .promo-copy-btn {
+            background: var(--accent-orange);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .promo-copy-btn:hover {
+            opacity: 0.85;
+        }
+        .promo-note {
+            margin-top: 14px;
+            font-size: 12px;
+            color: var(--text-light);
+        }
         footer {
             background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%);
             color: white;
@@ -177,6 +237,16 @@
             <p>Réservez en ligne et ayez la liberté de payer où vous le souhaitez, quand vous souhaitez.</p>
             <p>La station de kayak et de paddle est en bas du camping (juste devant le lac). Si vous rencontrez un problème lors de la location, contactez-nous !</p>
             <a href="https://www.kayakomat.com/fr" target="_blank" rel="noopener" class="cta-button">Découvrir Kayakomat</a>
+        </div>
+
+        <div class="promo-card">
+            <h3>Code promo</h3>
+            <p>Profitez d'un tarif préférentiel sur votre location de kayak ou de paddle avec le code ci-dessous.</p>
+            <div class="promo-code-wrap">
+                <span class="promo-code" id="promoCode">VACANCES</span>
+                <button class="promo-copy-btn" id="promoCopyBtn" onclick="copyPromoCode()">Copier</button>
+            </div>
+            <p class="promo-note">À renseigner lors de votre réservation sur Kayakomat.</p>
         </div>
 
         <div class="info-card">
@@ -243,5 +313,16 @@
         <p style="margin-top: 15px; opacity: 0.8; font-size: 12px;">&copy; 2026 Tous droits réservés.</p>
     </footer>
     <script src="i18n.js" defer></script>
+    <script>
+        function copyPromoCode() {
+            const code = document.getElementById('promoCode').textContent;
+            const btn = document.getElementById('promoCopyBtn');
+            navigator.clipboard.writeText(code).then(function() {
+                const original = btn.textContent;
+                btn.textContent = 'Copié !';
+                setTimeout(function() { btn.textContent = original; }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>
