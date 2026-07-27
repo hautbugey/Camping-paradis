@@ -46,24 +46,24 @@
       {
         "icone": "🎲",
         "heure": "21h00",
-        "titre": "Grand Quizz",
-        "description": "Soirée Grand Quizz",
+        "titre": "Blindtest",
+        "description": "Soirée Blindtest",
         "lieu": "Scène",
         "categorie": "soiree"
       },
       {
         "icone": "👋",
         "heure": "10h00",
-        "titre": "Bienvenue dans l'expédition Atlas !",
-        "description": "Bienvenue chers explorateurs dans l'univers Atlas",
+        "titre": "Bienvenue à bord Mousaillons !",
+        "description": "Bienvenue dans l'univers du Capitaine de la Perle Noire ",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "📷",
         "heure": "15h30",
-        "titre": "Le relais des guerriers",
-        "description": "Grand jeu par équipe",
+        "titre": "Bataille navale de spirates",
+        "description": "Grand jeu d'eau par équipe",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -104,8 +104,8 @@
       {
         "icone": "🔍",
         "heure": "10h00",
-        "titre": "Carnaval de Rio",
-        "description": "Création de masques carnaval",
+        "titre": "Les trésors de l'équipage",
+        "description": "Création de bracelets pirate",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
