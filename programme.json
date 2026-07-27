@@ -46,8 +46,8 @@
       {
         "icone": "🎲",
         "heure": "21h00",
-        "titre": "Blindtest",
-        "description": "Soirée Blindtest",
+        "titre": "BLINDTEST",
+        "description": "Soirée BLINDTEST",
         "lieu": "Scène",
         "categorie": "soiree"
       },
@@ -62,7 +62,7 @@
       {
         "icone": "📷",
         "heure": "15h30",
-        "titre": "Bataille navale de spirates",
+        "titre": "Bataille navale des pirates",
         "description": "Grand jeu d'eau par équipe",
         "lieu": "Piki Club",
         "categorie": "mini-club"
@@ -96,8 +96,8 @@
       {
         "icone": "🚨",
         "heure": "21h00",
-        "titre": "Concert Thatka",
-        "description": "Dancer au rythme du disco ! ",
+        "titre": "Mardi tout est permis",
+        "description": "Le jeu TV revisité ",
         "lieu": "Scène",
         "categorie": "soiree"
       },
@@ -112,8 +112,8 @@
       {
         "icone": "🛃",
         "heure": "15h30",
-        "titre": "Défi de l'Amazonie",
-        "description": "Grand jeu, défi sur le brésil",
+        "titre": "La grande chasse au trésor",
+        "description": "Sur les traces du trésor perdu",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -162,16 +162,16 @@
       {
   "icone": "🏴‍☠️",
   "heure": "10h00",
-  "titre": "Atelier du Samourai",
-  "description": "Création d'éventails japonais !",
+  "titre": "Emblème Pirate",
+  "description": "Création de drapeau pirate",
   "lieu": "Piki Club",
   "categorie": "mini-club"
 },
       {
   "icone": "🧩",
   "heure": "15h30",
-  "titre": "Ninja VS Samourai",
-  "description": "Grand jeu par équipe en extérieur",
+  "titre": "Le jeu des septs mers",
+  "description": "Serez-vous retrouvez le navire de la Perle noire ? ",
   "lieu": "Piki Club",
   "categorie": "mini-club"
 },
@@ -204,24 +204,24 @@
       {
         "icone": "🎸",
         "heure": "21h00",
-        "titre": "Une famile en OR",
-        "description": "Le jeu TV revisité dans votre camping",
+        "titre": "Paradis des stars",
+        "description": "Alexis LOIZON aux Gorges Du haut Bugey",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
          "icone": "🗺️",
          "heure": "10h00",
-         "titre": "Les explorateurs polaires",
-         "description": "Découvre l'Antartique et crée ton propre Igloo ",
+         "titre": "La carte du Capitaine",
+         "description": "Création de carte sur papier vieilli ",
          "lieu": "Piki Club",
          "categorie": "mini-club"
       },
       {
         "icone": "🏅",
         "heure": "15h00",
-        "titre": "Escape Game",
-        "description": "Grand jeu de détective en famille",
+        "titre": "Olympiades,
+        "description": "Grand jeu de défi en famille",
         "lieu": "Terrain multisport",
         "categorie": "mini-club"
       },
