@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Camping Paradis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #34BDEF;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
+
+        header { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 20px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+        .back-button { background: rgba(255,255,255,0.2); border: none; color: white; font-size: 22px; cursor: pointer; padding: 8px 14px; border-radius: 6px; transition: background 0.3s; text-decoration: none; }
+        .back-button:hover { background: rgba(255,255,255,0.35); }
+        header h1 { font-size: 24px; font-weight: 700; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 30px 20px 60px; }
+
+        .intro-block { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); padding: 20px 24px; margin-bottom: 20px; }
+        .intro-block p { font-size: 14px; color: var(--text-light); line-height: 1.8; }
+
+        .faq-search { position: relative; margin-bottom: 20px; }
+        .faq-search input {
+            width: 100%; border: none; border-radius: 12px; padding: 14px 44px 14px 16px;
+            font-size: 14px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); font-family: inherit;
+            color: var(--text-dark); background: white;
+        }
+        .faq-search input:focus { outline: 2px solid var(--primary-blue); }
+        .faq-search .icon { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #b6c0c8; font-size: 16px; pointer-events: none; }
+
+        .faq-list { display: flex; flex-direction: column; gap: 12px; }
+
+        .faq-item { background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); overflow: hidden; }
+        .faq-question {
+            display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+            cursor: pointer; user-select: none;
+        }
+        .faq-icon { width: 34px; height: 34px; background: #f0f8ff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+        .faq-question-text { flex: 1; font-size: 14.5px; font-weight: 600; color: var(--text-dark); line-height: 1.4; }
+        .faq-chevron { color: #b6c0c8; font-size: 14px; flex-shrink: 0; transition: transform 0.25s ease; }
+        .faq-item.open .faq-chevron { transform: rotate(180deg); }
+
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.open .faq-answer { max-height: 600px; }
+        .faq-answer-inner { padding: 0 18px 18px 66px; font-size: 13.5px; color: var(--text-light); line-height: 1.75; }
+        .faq-answer-inner strong { color: var(--text-dark); font-weight: 700; }
+        .faq-answer-inner ul { margin: 8px 0 8px 18px; }
+        .faq-answer-inner li { margin-bottom: 4px; }
+        .faq-answer-inner .highlight { color: var(--primary-blue); font-weight: 700; }
+
+        .faq-empty { display: none; text-align: center; padding: 30px 10px; color: var(--text-light); font-size: 13.5px; }
+
+        .tip-box { background: #fff8e1; border-left: 4px solid #FFB300; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-top: 20px; font-size: 13px; color: #555; line-height: 1.7; }
+
+        footer { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 35px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 14px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">←</a>
+        <h1>Questions fréquentes</h1>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="intro-block">
+        <p>Retrouvez ici les réponses aux questions que nos vacanciers nous posent le plus souvent. Une question n'apparaît pas dans la liste ? Notre équipe reste à votre disposition à la réception.</p>
+    </div>
+
+    <div class="faq-search">
+        <input type="text" id="faqSearchInput" placeholder="Rechercher une question..." oninput="filterFaq()">
+        <span class="icon">🔍</span>
+    </div>
+
+    <div class="faq-list" id="faqList">
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🚪</div>
+                <div class="faq-question-text">Pourquoi la barrière est-elle fermée entre 23h et 8h ? Et si j'ai une urgence ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    La fermeture de la barrière est une pratique courante dans les campings. Elle permet avant tout de garantir la sécurité de nos vacanciers en limitant l'accès aux personnes extérieures durant la nuit.<br><br>
+                    Cette mesure contribue également à préserver le calme du camping et à assurer des nuits plus sereines pour tous.<br><br>
+                    <strong>En cas d'urgence, pas d'inquiétude !</strong> Un numéro d'urgence est mis à votre disposition. Il vous suffit de contacter le directeur d'astreinte, qui pourra ouvrir la barrière à distance si la situation le nécessite.<br><br>
+                    Nous vous remercions de votre compréhension. Cette organisation nous permet de concilier sécurité, tranquillité et réactivité en cas de besoin.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🕓</div>
+                <div class="faq-question-text">Puis-je arriver avant 16h ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    En règle générale, non.<br><br>
+                    Chaque samedi, notre camping affiche complet. Cela signifie que <strong>56 hébergements</strong> sont libérés avant 10h, puis doivent être entièrement préparés avant l'arrivée des nouveaux vacanciers à partir de 16h.<br><br>
+                    Entre 10h et 16h, nos équipes réalisent :
+                    <ul>
+                        <li>le nettoyage complet des hébergements ;</li>
+                        <li>la préparation des lits et des options réservées (draps, serviettes, kits bébé...) ;</li>
+                        <li>les vérifications techniques si nécessaire ;</li>
+                        <li>un contrôle qualité effectué par la direction dans chaque hébergement avant la remise des clés.</li>
+                    </ul>
+                    Ces six heures sont indispensables pour garantir que votre logement soit propre, prêt et conforme à nos exigences de qualité.<br><br>
+                    Nous vous remercions de votre compréhension et vous donnons rendez-vous à partir de <span class="highlight">16h</span> pour le début de vos vacances.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🩳</div>
+                <div class="faq-question-text">Pourquoi les shorts de bain sont-ils interdits à la piscine ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nous savons que cette règle peut surprendre, mais elle ne dépend pas du camping.<br><br>
+                    Les shorts de bain sont interdits pour des raisons d'hygiène. Contrairement aux maillots de bain, ils sont souvent portés en dehors de la piscine (balades, voiture, restaurant...), ce qui peut apporter davantage d'impuretés dans l'eau.<br><br>
+                    Cette règle est imposée dans de nombreux établissements aquatiques en France afin de garantir une eau de baignade propre pour tous.<br><br>
+                    👉 Les boxers, slips de bain et maillots spécialement conçus pour la baignade sont bien autorisés.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">👨‍👩‍👧</div>
+                <div class="faq-question-text">Nous sommes 4 dans un logement 4 personnes, pouvons-nous ajouter une 5ᵉ personne qui dormira sur le canapé ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Non.<br><br>
+                    Chaque hébergement possède une capacité maximale qui ne peut pas être dépassée, même si une personne dort sur le canapé, apporte un matelas ou prévoit de rester seulement quelques nuits.<br><br>
+                    Cette capacité est définie pour des raisons :
+                    <ul>
+                        <li>de sécurité ;</li>
+                        <li>d'assurance ;</li>
+                        <li>de confort.</li>
+                    </ul>
+                    Nous vous remercions de votre compréhension.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">⛺</div>
+                <div class="faq-question-text">Puis-je installer une tente devant mon hébergement ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Non.<br><br>
+                    Les tentes ne sont autorisées que sur les emplacements camping prévus à cet effet.<br><br>
+                    Les espaces autour des hébergements doivent rester dégagés afin de respecter les normes de sécurité, faciliter les interventions en cas d'urgence et préserver le confort de chacun.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🏊</div>
+                <div class="faq-question-text">Pourquoi mon enfant de moins de 12 ans ne peut-il pas aller seul à la piscine ? Il sait très bien nager.</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nous ne doutons pas que votre enfant sache nager.<br><br>
+                    Cependant, savoir nager ne permet malheureusement pas d'écarter tous les risques. Un malaise, une chute, un jeu qui dégénère ou une simple perte de vigilance peuvent arriver très rapidement.<br><br>
+                    C'est pourquoi tous les enfants de moins de 12 ans doivent être accompagnés d'un adulte responsable, conformément au règlement de notre espace aquatique.<br><br>
+                    Cette règle est avant tout là pour garantir leur sécurité.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🎨</div>
+                <div class="faq-question-text">Ma fille a 5 ans et demi, très mature. Pourquoi ne peut-elle pas participer au mini-club ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nous comprenons tout à fait votre demande, et il est fréquent que les parents nous disent que leur enfant est très autonome.<br><br>
+                    Cependant, l'âge minimum de <strong>6 ans</strong> nous permet de proposer des activités adaptées à un groupe ayant des capacités relativement homogènes.<br><br>
+                    Certaines activités demandent de l'autonomie, de la concentration ou encore le respect de consignes qui peuvent être plus difficiles pour les plus jeunes.<br><br>
+                    Afin d'assurer la sécurité de tous et de garantir le bon déroulement des animations, nous ne pouvons malheureusement pas faire d'exception.<br><br>
+                    Nous serons ravis d'accueillir votre enfant dès ses 6 ans !
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🌊</div>
+                <div class="faq-question-text">Pourquoi le lac n'est-il pas davantage aménagé ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    C'est une question qui nous est régulièrement posée.<br><br>
+                    Nous serions les premiers à souhaiter proposer un accès plus aménagé au lac. Malheureusement, le lac et ses berges n'appartiennent pas au camping.<br><br>
+                    Ils appartiennent à <strong>EDF</strong>, qui exploite ce lac comme retenue d'eau pour la production d'électricité. Chaque année, il est d'ailleurs entièrement vidé durant la basse saison afin de permettre son exploitation et sa maintenance.<br><br>
+                    En conséquence, nous ne sommes pas autorisés à réaliser des aménagements (plage, ponton, escaliers, accès aménagé...) sur ce terrain.<br><br>
+                    Si, à l'avenir, ce secteur venait à être repris en exploitation par la société exploitant le camping, nous serions naturellement ravis d'étudier des solutions permettant d'améliorer encore davantage cet espace.<br><br>
+                    En attendant, nous espérons que vous profiterez pleinement de ce cadre naturel exceptionnel, qui fait le charme des Gorges du Haut-Bugey.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🌙</div>
+                <div class="faq-question-text">J'arrive après la fermeture de la réception. Comment récupérer mes clés ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Aucun problème ! Nous avons mis en place un système d'arrivée autonome pour vous permettre d'accéder à votre hébergement même en dehors des horaires d'ouverture de la réception.<br><br>
+                    Pour en bénéficier, il est simplement nécessaire de prévenir la réception avant votre arrivée. Nous vous enverrons alors par e-mail toutes les informations nécessaires, notamment :
+                    <ul>
+                        <li>la procédure d'arrivée autonome ;</li>
+                        <li>l'emplacement de votre enveloppe et de vos clés ;</li>
+                        <li>les différentes étapes à suivre.</li>
+                    </ul>
+                    ⚠️ Pensez également à nous communiquer votre plaque d'immatriculation afin que nous puissions préparer votre arrivée dans les meilleures conditions.<br><br>
+                    <strong>Attention :</strong> la barrière d'accès ferme à 23h. Si vous arrivez après cet horaire, vous devrez stationner votre véhicule sur le parking extérieur et rejoindre votre hébergement à pied. Vous pourrez accéder au camping grâce aux indications transmises dans votre procédure d'arrivée.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">📍</div>
+                <div class="faq-question-text">Puis-je choisir mon emplacement de camping ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Oui, c'est possible !<br><br>
+                    Si vous souhaitez séjourner sur un emplacement précis ou dans un secteur particulier du camping, nous proposons une option <strong>"Choix de l'emplacement"</strong> au tarif de <span class="highlight">35€</span>.<br><br>
+                    Cette option est proposée dans la limite des disponibilités et permet à nos équipes d'organiser au mieux le planning des réservations.<br><br>
+                    Nous vous conseillons de faire votre demande le plus tôt possible afin d'augmenter vos chances d'obtenir l'emplacement souhaité.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🏡</div>
+                <div class="faq-question-text">Puis-je choisir mon hébergement ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Oui !<br><br>
+                    Si vous avez repéré un hébergement en particulier ou souhaitez séjourner dans un secteur spécifique du camping, nous proposons également une option <strong>"Choix de l'hébergement"</strong> au tarif de <span class="highlight">35€</span>.<br><br>
+                    Cette demande est étudiée en fonction des disponibilités au moment de votre réservation.<br><br>
+                    Notre équipe fera toujours son maximum pour répondre favorablement à votre demande lorsque cela est possible.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🚿</div>
+                <div class="faq-question-text">À quelle fréquence les sanitaires sont-ils nettoyés ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nos sanitaires sont nettoyés <strong>deux fois par jour</strong> par notre équipe de ménage :
+                    <ul>
+                        <li>🧹 un premier passage le matin ;</li>
+                        <li>🧹 un second passage dans l'après-midi.</li>
+                    </ul>
+                    En complément, la direction effectue régulièrement des contrôles afin de s'assurer de leur propreté tout au long de la journée.<br><br>
+                    En période de très forte affluence, notamment fin juillet et début août, lorsque le camping affiche complet, plusieurs centaines de personnes utilisent les sanitaires. Il est donc possible qu'ils se salissent plus rapidement entre deux interventions.<br><br>
+                    Nos équipes mettent tout en œuvre pour maintenir un niveau de propreté conforme à nos exigences et nous vous remercions également pour votre contribution en laissant les lieux propres après votre passage.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">💳</div>
+                <div class="faq-question-text">Comment fonctionne la caution ? Pourquoi n'effectuez-vous pas d'état des lieux de départ ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Lors de votre arrivée, une empreinte de caution est réalisée afin de couvrir d'éventuelles dégradations importantes du logement.<br><br>
+                    En période de juillet et août, nous n'effectuons pas d'état des lieux de départ avec chaque vacancier. En effet, tous les samedis matin, l'ensemble de nos 56 hébergements sont libérés entre 8h et 10h. Notre équipe doit ensuite préparer tous les logements pour accueillir les nouveaux vacanciers dès 16h. Dans ce contexte, il ne nous est malheureusement pas possible de réaliser un état des lieux individuel avec chaque départ.<br><br>
+                    À la place, nos équipes effectuent un contrôle complet de chaque hébergement quelques heures après votre départ.<br><br>
+                    La caution n'est retenue qu'en cas de dégradations importantes, par exemple :
+                    <ul>
+                        <li>une vitre cassée ;</li>
+                        <li>un équipement détérioré ;</li>
+                        <li>un mobilier endommagé ;</li>
+                        <li>ou tout dommage nécessitant une remise en état.</li>
+                    </ul>
+                    À l'inverse, nous ne retenons pas de caution pour un simple verre, une assiette ou un couvert cassé au cours de votre séjour.<br><br>
+                    Si aucune anomalie n'est constatée, votre caution est automatiquement validée. Vous recevez une confirmation par e-mail, généralement dès le lendemain de votre départ et au plus tard le lundi matin.<br><br>
+                    Ce mode de fonctionnement est aujourd'hui adopté par de nombreux campings, notamment en haute saison, afin de concilier un contrôle rigoureux des hébergements et une préparation rapide pour les arrivées des nouveaux vacanciers.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🚗</div>
+                <div class="faq-question-text">Pourquoi ne puis-je pas entrer dans le camping avant 16h, même si mon hébergement semble prêt ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Chaque samedi en haute saison, notre camping accueille <strong>plus de 300 nouveaux vacanciers</strong>.<br><br>
+                    Afin que cette journée se déroule dans les meilleures conditions, nous organisons les arrivées à partir de 16h, une fois que l'ensemble des hébergements est prêt et que les clés peuvent être distribuées.<br><br>
+                    Autoriser les arrivées plus tôt entraînerait :
+                    <ul>
+                        <li>une circulation importante de véhicules dans le camping pendant que nos équipes travaillent ;</li>
+                        <li>davantage de stress pour notre personnel de ménage et de maintenance ;</li>
+                        <li>des difficultés pour orienter les vacanciers, les hébergements n'étant pas encore tous prêts à être attribués.</li>
+                    </ul>
+                    Cette organisation nous permet de préparer sereinement votre arrivée et de garantir un accueil fluide pour l'ensemble des vacanciers.<br><br>
+                    Nous vous remercions de votre compréhension et avons hâte de vous accueillir à partir de <span class="highlight">16h</span> pour le début de vos vacances !
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">📍</div>
+                <div class="faq-question-text">Pourquoi ne communiquez-vous pas le numéro de mon emplacement ou de mon hébergement avant mon arrivée ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nous comprenons que vous souhaitiez connaître votre numéro de logement ou d'emplacement avant votre arrivée. Cependant, celui-ci n'est communiqué qu'au moment de votre passage en réception.<br><br>
+                    <strong>Pourquoi ?</strong><br><br>
+                    Tout simplement parce que notre planning évolue jusqu'au dernier moment afin d'améliorer l'accueil de nos vacanciers.<br><br>
+                    Par exemple, il peut arriver qu'un hébergement de la même catégorie soit prêt plus tôt que celui qui vous était initialement attribué. Dans ce cas, nous pouvons décider de vous affecter ce logement afin de vous permettre de récupérer vos clés plus rapidement.<br><br>
+                    De la même manière, nous pouvons être amenés à modifier certains emplacements à la dernière minute pour répondre à une demande particulière (emplacements côte à côte, regroupement de familles, contraintes techniques, etc.).<br><br>
+                    Cette souplesse d'organisation nous permet de trouver les meilleures solutions pour chacun de nos vacanciers et d'optimiser les arrivées du samedi.<br><br>
+                    C'est pourquoi votre numéro d'emplacement ou d'hébergement est confirmé uniquement lors de votre enregistrement en réception.<br><br>
+                    Merci de votre compréhension !
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">👨‍👩‍👧‍👦</div>
+                <div class="faq-question-text">Nous souhaitons recevoir des amis ou de la famille quelques heures. Peuvent-ils entrer dans le camping ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Oui, avec plaisir ! Les visiteurs sont les bienvenus.<br><br>
+                    Pour des raisons de sécurité, toute personne entrant dans le camping doit obligatoirement se présenter à la réception, même si elle ne reste que quelques heures.<br><br>
+                    Un <strong>tarif visiteur de 5€ par personne et par jour</strong> est appliqué. Cette démarche nous permet d'enregistrer les informations essentielles de chaque visiteur (nom, prénom et date de naissance).<br><br>
+                    <strong>Pourquoi est-ce important ?</strong><br><br>
+                    En cas d'urgence (incendie, évacuation, intervention des secours...), nous devons connaître avec précision l'identité et le nombre de toutes les personnes présentes dans le camping. Cette procédure nous permet de garantir la sécurité de chacun et de faciliter le travail des services de secours si nécessaire.<br><br>
+                    Nous vous remercions de votre compréhension. Cette règle est mise en place avant tout pour assurer la sécurité de tous nos vacanciers et de leurs visiteurs.
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question" onclick="toggleFaq(this)">
+                <div class="faq-icon">🏕️</div>
+                <div class="faq-question-text">Pourquoi ne réalisez-vous pas certains aménagements qui pourraient améliorer le camping ?</div>
+                <div class="faq-chevron">▾</div>
+            </div>
+            <div class="faq-answer">
+                <div class="faq-answer-inner">
+                    Nous recevons régulièrement de très bonnes idées de la part de nos vacanciers, et nous les remercions sincèrement pour leurs suggestions.<br><br>
+                    Sachez que nous sommes souvent les premiers à imaginer les évolutions de notre camping. Chaque hiver, nous réfléchissons à de nouveaux projets afin d'améliorer progressivement l'expérience de nos vacanciers.<br><br>
+                    Il est toutefois important de rappeler qu'un camping est une infrastructure complexe. Agrandir une piscine, modifier un bâtiment, créer de nouveaux équipements ou réaménager certains espaces représente des investissements pouvant atteindre <strong>plusieurs centaines de milliers d'euros, voire plusieurs millions d'euros</strong>.<br><br>
+                    Notre établissement est un ancien camping municipal, repris récemment. Comme toute reprise, les évolutions se réalisent progressivement, en fonction des priorités, des contraintes techniques et des investissements possibles.<br><br>
+                    Notre objectif est d'améliorer le camping chaque année, tout en préservant son cadre naturel et son identité.<br><br>
+                    Nous vous remercions pour vos suggestions, qui nourrissent également notre réflexion pour les saisons à venir.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="faq-empty" id="faqEmpty">Aucune question ne correspond à votre recherche.</div>
+
+    <div class="tip-box">
+        <span>💬 <strong>Vous ne trouvez pas votre réponse ?</strong> N'hésitez pas à nous en parler à la réception ou via le formulaire "Signaler un problème" de l'application.</span>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Camping Paradis - Les Gorges du Haut Bugey</strong></p>
+    <p> <a href="tel:+33474768097">04 74 76 80 97</a> |  <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:15px; opacity:0.8; font-size:12px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script>
+    function toggleFaq(el) {
+        var item = el.closest('.faq-item');
+        var wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(o) { o.classList.remove('open'); });
+        if (!wasOpen) item.classList.add('open');
+    }
+
+    function filterFaq() {
+        var q = document.getElementById('faqSearchInput').value.trim().toLowerCase();
+        var items = document.querySelectorAll('.faq-item');
+        var visibleCount = 0;
+        items.forEach(function(item) {
+            var text = item.textContent.toLowerCase();
+            var match = text.indexOf(q) !== -1;
+            item.style.display = match ? '' : 'none';
+            if (match) visibleCount++;
+        });
+        document.getElementById('faqEmpty').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+</script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
