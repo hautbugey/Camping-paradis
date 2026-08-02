@@ -5,16 +5,16 @@
         "icone": "🥂",
         "heure": "19h00",
         "titre": "Pot d'accueil",
-        "description": "Un moment convivial pour bien commencer votre séjour.",
-        "lieu": "Scène",
+        "description": "Un moment convivial pour découvrir le camping, l'équipe et le programme de la semaine.",
+        "lieu": "Scène principale",
         "categorie": "famille"
       },
       {
         "icone": "🎬",
         "heure": "21h00",
         "titre": "Soirée cinéma",
-        "description": "Diffusion de film Vaiana",
-        "lieu": "Scène",
+        "description": "Profitez d'une séance de cinéma en famille.",
+        "lieu": "Scène principale",
         "categorie": "soiree"
       }
     ],
@@ -22,8 +22,8 @@
       {
         "icone": "🤝",
         "heure": "10h00",
-        "titre": "Rencontre Ados (13-17 ans)",
-        "description": "Présentation du programme et jeux de connaissance.",
+        "titre": "Rencontre ados (13-17 ans)",
+        "description": "Présentation du programme et jeux pour faire connaissance.",
         "lieu": "Espace ados",
         "categorie": "ados"
       },
@@ -31,7 +31,7 @@
         "icone": "🥏",
         "heure": "11h00",
         "titre": "Ultimate",
-        "description": "Une véritable compétition de Frisbee.",
+        "description": "Découvrez ce sport collectif dynamique pratiqué avec un frisbee.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
@@ -39,31 +39,39 @@
         "icone": "⚾",
         "heure": "15h00",
         "titre": "Tèque géante",
-        "description": "Le baseball pour tous !",
+        "description": "Une version géante et conviviale de la tèque, inspirée du baseball.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
-        "icone": "🎲",
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "❓",
         "heure": "21h00",
-        "titre": "BLINDTEST",
-        "description": "Soirée BLINDTEST",
-        "lieu": "Scène",
+        "titre": "Grand quiz",
+        "description": "Affrontez les autres équipes lors d'un grand quiz pour toute la famille.",
+        "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
-        "icone": "👋",
+        "icone": "🧭",
         "heure": "10h00",
-        "titre": "Bienvenue à bord Mousaillons !",
-        "description": "Bienvenue dans l'univers du Capitaine de la Perle Noire ",
+        "titre": "Bienvenue dans l'expédition Atlas",
+        "description": "Les enfants découvrent l'univers du Professeur Atlas et deviennent de véritables explorateurs.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "📷",
+        "icone": "🛡️",
         "heure": "15h30",
-        "titre": "Bataille navale des pirates",
-        "description": "Grand jeu d'eau par équipe",
+        "titre": "Le relais des guerriers",
+        "description": "Un grand relais par équipes inspiré des guerriers et explorateurs du monde.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -71,8 +79,8 @@
         "icone": "🕺",
         "heure": "18h30",
         "titre": "Piki Disco",
-        "description": "La disco des 6-12 ans !",
-        "lieu": "Scène",
+        "description": "La mini-disco des enfants de 6 à 12 ans.",
+        "lieu": "Scène principale",
         "categorie": "mini-club"
       }
     ],
@@ -81,39 +89,47 @@
         "icone": "🏐",
         "heure": "10h00",
         "titre": "Initiation volley-ball",
-        "description": "Découverte et initiation, tous niveaux.",
+        "description": "Découverte du volley-ball à travers des exercices et des petits matchs.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
-        "icone": "🏐",
+        "icone": "🔴",
         "heure": "15h00",
-        "titre": "Balle aux prisionniers Géante",
-        "description": "Version XXL du jeu",
+        "titre": "Balles aux prisonniers géantes",
+        "description": "Une version géante et dynamique du célèbre jeu par équipes.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
       },
       {
-        "icone": "🚨",
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "🎸",
         "heure": "21h00",
-        "titre": "Mardi tout est permis",
-        "description": "Le jeu TV revisité ",
-        "lieu": "Scène",
+        "titre": "Concert",
+        "description": "Profitez d'un concert en plein air dans une ambiance festive.",
+        "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
-        "icone": "🔍",
+        "icone": "🎭",
         "heure": "10h00",
-        "titre": "Les trésors de l'équipage",
-        "description": "Création de bracelets pirate",
+        "titre": "Carnaval de Rio",
+        "description": "Création d'un masque coloré inspiré du célèbre carnaval brésilien.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "🛃",
+        "icone": "🦜",
         "heure": "15h30",
-        "titre": "La grande chasse au trésor",
-        "description": "Sur les traces du trésor perdu",
+        "titre": "Défi de l'Amazonie",
+        "description": "Un grand jeu d'aventure au cœur de la jungle amazonienne.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -121,8 +137,8 @@
         "icone": "🕺",
         "heure": "18h30",
         "titre": "Piki Disco",
-        "description": "La disco des 6-12 ans !",
-        "lieu": "Piki Club",
+        "description": "La mini-disco des enfants de 6 à 12 ans.",
+        "lieu": "Scène principale",
         "categorie": "mini-club"
       }
     ],
@@ -130,56 +146,56 @@
       {
         "icone": "🥾",
         "heure": "10h00",
-        "titre": "Randonnées Cascade",
-        "description": "Balade encadrée avec un arrêt baignade.",
-        "lieu": "Départ bar/snack",
+        "titre": "Randonnée cascade",
+        "description": "Randonnée encadrée jusqu'aux cascades, avec un arrêt baignade.",
+        "lieu": "Départ au bar/snack",
         "categorie": "famille"
       },
       {
         "icone": "🎪",
         "heure": "17h00",
         "titre": "Marché des artisans",
-        "description": "Producteurs et artisans locaux sur le camping.",
-        "lieu": "Proche terrain de pétanque",
+        "description": "Découvrez les créations et produits des artisans présents au camping.",
+        "lieu": "À proximité du terrain de pétanque",
         "categorie": "famille"
       },
       {
         "icone": "🎯",
         "heure": "18h00",
         "titre": "Tournoi de pétanque",
-        "description": "Inscriptions sur place, par doublettes.",
+        "description": "Tournoi en doublettes avec inscriptions sur place.",
         "lieu": "Terrain de pétanque",
         "categorie": "famille"
       },
       {
         "icone": "🍕",
         "heure": "18h00",
-        "titre": "Food truck au terrain de pétanque",
-        "description": "Restauration sur place pendant le tournoi.",
+        "titre": "Food truck",
+        "description": "Restauration sur place pendant le tournoi de pétanque.",
         "lieu": "Terrain de pétanque",
         "categorie": "famille"
       },
       {
-  "icone": "🏴‍☠️",
-  "heure": "10h00",
-  "titre": "Emblème Pirate",
-  "description": "Création de drapeau pirate",
-  "lieu": "Piki Club",
-  "categorie": "mini-club"
-},
+        "icone": "🌸",
+        "heure": "10h00",
+        "titre": "L'atelier du samouraï",
+        "description": "Création d'une ombrelle japonaise personnalisée.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
+      },
       {
-  "icone": "🧩",
-  "heure": "15h30",
-  "titre": "Le jeu des septs mers",
-  "description": "Serez-vous retrouvez le navire de la Perle noire ? ",
-  "lieu": "Piki Club",
-  "categorie": "mini-club"
-},
+        "icone": "🥷",
+        "heure": "15h30",
+        "titre": "Ninja VS Samouraï",
+        "description": "Deux équipes s'affrontent au cours de défis d'agilité, de rapidité et de stratégie.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
+      },
       {
         "icone": "🎨",
         "heure": "18h30",
-        "titre": "Atelier maquillage",
-        "description": "Séance de maquillage",
+        "titre": "Maquillage",
+        "description": "Une séance de maquillage proposée aux enfants.",
         "lieu": "Terrain de pétanque",
         "categorie": "mini-club"
       }
@@ -189,48 +205,56 @@
         "icone": "🏓",
         "heure": "10h00",
         "titre": "Tournoi de ping-pong",
-        "description": "Inscriptions sur place, en simple ou en double.",
-        "lieu": "Table de ping-pong",
+        "description": "Affrontez les autres vacanciers lors d'un tournoi de ping-pong.",
+        "lieu": "Tables de ping-pong",
         "categorie": "ados"
       },
       {
-        "icone": "🏅",
+        "icone": "🗝️",
         "heure": "15h00",
-        "titre": "Olympiades",
-        "description": "Grand jeu de détective en famille",
-        "lieu": "Terrain multisport",
+        "titre": "Escape Game",
+        "description": "Résolvez les énigmes et tentez de terminer la mission avant la fin du temps imparti.",
+        "lieu": "Point de rendez-vous indiqué sur place",
         "categorie": "famille"
       },
       {
-        "icone": "🎸",
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "👨‍👩‍👧‍👦",
         "heure": "21h00",
-        "titre": "Paradis des stars",
-        "description": "Alexis LOIZON aux Gorges Du haut Bugey",
+        "titre": "Une famille en or",
+        "description": "Le célèbre jeu télévisé revisité dans une ambiance familiale et conviviale.",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
-         "icone": "🗺️",
-         "heure": "10h00",
-         "titre": "La carte du Capitaine",
-         "description": "Création de carte sur papier vieilli ",
-         "lieu": "Piki Club",
-         "categorie": "mini-club"
+        "icone": "❄️",
+        "heure": "10h00",
+        "titre": "Les explorateurs polaires",
+        "description": "Une activité créative consacrée à la banquise et aux expéditions polaires.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
       },
       {
-        "icone": "🏅",
+        "icone": "🗝️",
         "heure": "15h00",
-        "titre": "Olympiades",
-        "description": "Grand jeu de défi en famille",
-        "lieu": "Terrain multisport",
+        "titre": "Escape Game",
+        "description": "Les jeunes explorateurs devront résoudre une série d'énigmes pour réussir leur mission.",
+        "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "🕺",
         "heure": "18h30",
         "titre": "Piki Disco",
-        "description": "La disco des 6-12 ans !",
-        "lieu": "Scène Principale",
+        "description": "La mini-disco des enfants de 6 à 12 ans.",
+        "lieu": "Scène principale",
         "categorie": "mini-club"
       }
     ],
@@ -238,8 +262,8 @@
       {
         "icone": "🏀",
         "heure": "10h00",
-        "titre": "Water-basket",
-        "description": "Basket aquatique à la piscine.",
+        "titre": "Water basket",
+        "description": "Une partie de basket aquatique organisée dans la piscine.",
         "lieu": "Piscine",
         "categorie": "ados"
       },
@@ -247,23 +271,31 @@
         "icone": "⚽",
         "heure": "15h00",
         "titre": "Tournoi de football",
-        "description": "Inscriptions sur place, par équipes.",
-        "lieu": "Terrain de sport",
+        "description": "Formez votre équipe et participez au tournoi de football.",
+        "lieu": "Terrain multisport",
         "categorie": "ados"
+      },
+      {
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
       },
       {
         "icone": "🎉",
         "heure": "21h00",
         "titre": "Soirée dansante",
-        "description": "Grande soirée dansante pour clôturer la semaine.",
-        "lieu": "Scène",
+        "description": "Une grande soirée dansante pour terminer la semaine dans une ambiance festive.",
+        "lieu": "Scène principale",
         "categorie": "soiree"
       },
       {
         "icone": "🎭",
         "heure": "10h00",
         "titre": "Préparation du spectacle",
-        "description": "Répétitions avec les enfants du Piki Club.",
+        "description": "Premières répétitions du spectacle de fin de semaine.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -271,15 +303,15 @@
         "icone": "🎭",
         "heure": "15h30",
         "titre": "Préparation du spectacle",
-        "description": "Répétitions et derniers réglages avant le show.",
+        "description": "Répétitions et derniers réglages avant le spectacle.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
         "icone": "🌟",
         "heure": "18h30",
-        "titre": "Piki Spectacle",
-        "description": "Le grand spectacle de fin de semaine du Piki Club !",
+        "titre": "Spectacle du Piki Club",
+        "description": "Le grand spectacle de fin de semaine présenté par les enfants du Piki Club.",
         "lieu": "Scène principale",
         "categorie": "mini-club"
       }
