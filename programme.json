@@ -110,10 +110,10 @@
         "categorie": "famille"
       },
       {
-        "icone": "🎸",
+        "icone": "👨‍👩‍👧‍👦",
         "heure": "21h00",
-        "titre": "Concert",
-        "description": "Profitez d'un concert en plein air dans une ambiance festive.",
+        "titre": "Une famille en OR",
+        "description": "Le célèbre jeu télévisé revisité dans une ambiance familiale et conviviale.",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
@@ -226,10 +226,10 @@
         "categorie": "famille"
       },
       {
-        "icone": "👨‍👩‍👧‍👦",
+        "icone": "🎸",
         "heure": "21h00",
-        "titre": "Une famille en or",
-        "description": "Le célèbre jeu télévisé revisité dans une ambiance familiale et conviviale.",
+        "titre": "Concert",
+        "description": "Midnight Burst s'invite sur la scène pour un show inoubliable !",
         "lieu": "Scène principale",
         "categorie": "soiree"
       },
