@@ -18,6 +18,7 @@
         "categorie": "soiree"
       }
     ],
+
     "lundi": [
       {
         "icone": "🤝",
@@ -36,42 +37,26 @@
         "categorie": "ados"
       },
       {
-        "icone": "⚾",
-        "heure": "15h00",
-        "titre": "Tèque géante",
-        "description": "Une version géante et conviviale de la tèque, inspirée du baseball.",
-        "lieu": "Terrain multisport",
-        "categorie": "ados"
-      },
-      {
-        "icone": "🍹",
-        "heure": "19h15",
-        "titre": "Jeu apéro au bar",
-        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
-        "lieu": "Bar",
-        "categorie": "famille"
-      },
-      {
-        "icone": "❓",
-        "heure": "21h00",
-        "titre": "Grand quiz",
-        "description": "Affrontez les autres équipes lors d'un grand quiz pour toute la famille.",
-        "lieu": "Scène principale",
-        "categorie": "soiree"
-      },
-      {
-        "icone": "🧭",
+        "icone": "🏴‍☠️",
         "heure": "10h00",
-        "titre": "Bienvenue dans l'expédition Atlas",
-        "description": "Les enfants découvrent l'univers du Professeur Atlas et deviennent de véritables explorateurs.",
+        "titre": "Bienvenue à bord Moussaillons !",
+        "description": "Bienvenue dans l'univers des pirates ! Les jeunes moussaillons embarquent pour une semaine pleine d'aventures.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "🛡️",
+        "icone": "🏉",
+        "heure": "15h00",
+        "titre": "Flag Rugby",
+        "description": "Un jeu collectif inspiré du rugby où rapidité, esquive et esprit d'équipe seront indispensables.",
+        "lieu": "Terrain multisport",
+        "categorie": "ados"
+      },
+      {
+        "icone": "⛵",
         "heure": "15h30",
-        "titre": "Le relais des guerriers",
-        "description": "Un grand relais par équipes inspiré des guerriers et explorateurs du monde.",
+        "titre": "Bataille navale des pirates",
+        "description": "Les équipages pirates s'affrontent lors d'une grande bataille navale pleine de défis.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -82,8 +67,25 @@
         "description": "La mini-disco des enfants de 6 à 12 ans.",
         "lieu": "Scène principale",
         "categorie": "mini-club"
+      },
+      {
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "🎵",
+        "heure": "21h00",
+        "titre": "Blindtest",
+        "description": "Testez vos connaissances musicales et tentez de reconnaître les morceaux avant les autres équipes !",
+        "lieu": "Scène principale",
+        "categorie": "soiree"
       }
     ],
+
     "mardi": [
       {
         "icone": "🏐",
@@ -94,42 +96,26 @@
         "categorie": "ados"
       },
       {
-        "icone": "🔴",
-        "heure": "15h00",
-        "titre": "Balles aux prisonniers géantes",
-        "description": "Une version géante et dynamique du célèbre jeu par équipes.",
-        "lieu": "Terrain multisport",
-        "categorie": "ados"
-      },
-      {
-        "icone": "🍹",
-        "heure": "19h15",
-        "titre": "Jeu apéro au bar",
-        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
-        "lieu": "Bar",
-        "categorie": "famille"
-      },
-      {
-        "icone": "👨‍👩‍👧‍👦",
-        "heure": "21h00",
-        "titre": "Une famille en OR",
-        "description": "Le célèbre jeu télévisé revisité dans une ambiance familiale et conviviale.",
-        "lieu": "Scène principale",
-        "categorie": "soiree"
-      },
-      {
-        "icone": "🎭",
+        "icone": "💎",
         "heure": "10h00",
-        "titre": "Carnaval de Rio",
-        "description": "Création d'un masque coloré inspiré du célèbre carnaval brésilien.",
+        "titre": "Les trésors de l'équipage",
+        "description": "Les moussaillons partent à la découverte des précieux trésors de leur équipage pirate.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "🦜",
+        "icone": "⚾",
+        "heure": "15h00",
+        "titre": "Tèque GÉANTE",
+        "description": "Une version géante et conviviale de la tèque, inspirée du baseball.",
+        "lieu": "Terrain multisport",
+        "categorie": "ados"
+      },
+      {
+        "icone": "🗺️",
         "heure": "15h30",
-        "titre": "Défi de l'Amazonie",
-        "description": "Un grand jeu d'aventure au cœur de la jungle amazonienne.",
+        "titre": "La grande chasse au trésor",
+        "description": "Une grande aventure pirate à travers le camping pour retrouver le trésor caché.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -140,8 +126,25 @@
         "description": "La mini-disco des enfants de 6 à 12 ans.",
         "lieu": "Scène principale",
         "categorie": "mini-club"
+      },
+      {
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "🎭",
+        "heure": "21h00",
+        "titre": "Mardi tout est permis !",
+        "description": "Une soirée de défis et de jeux complètement déjantés à partager en famille.",
+        "lieu": "Scène principale",
+        "categorie": "soiree"
       }
     ],
+
     "mercredi": [
       {
         "icone": "🥾",
@@ -150,6 +153,22 @@
         "description": "Randonnée encadrée jusqu'aux cascades, avec un arrêt baignade.",
         "lieu": "Départ au bar/snack",
         "categorie": "famille"
+      },
+      {
+        "icone": "🏴‍☠️",
+        "heure": "10h00",
+        "titre": "Emblème Pirate",
+        "description": "Les moussaillons créent leur propre emblème pirate pour représenter leur équipage.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
+      },
+      {
+        "icone": "🐙",
+        "heure": "15h30",
+        "titre": "Le jeu des sept mers",
+        "description": "Un grand jeu pirate où les moussaillons devront relever les défis des sept mers.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
       },
       {
         "icone": "🎪",
@@ -171,25 +190,9 @@
         "icone": "🍕",
         "heure": "18h00",
         "titre": "Food truck",
-        "description": "Restauration sur place pendant le tournoi de pétanque.",
+        "description": "Restauration sur place au terrain de pétanque.",
         "lieu": "Terrain de pétanque",
         "categorie": "famille"
-      },
-      {
-        "icone": "🌸",
-        "heure": "10h00",
-        "titre": "L'atelier du samouraï",
-        "description": "Création d'une ombrelle japonaise personnalisée.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
-      },
-      {
-        "icone": "🥷",
-        "heure": "15h30",
-        "titre": "Ninja VS Samouraï",
-        "description": "Deux équipes s'affrontent au cours de défis d'agilité, de rapidité et de stratégie.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
       },
       {
         "icone": "🎨",
@@ -200,6 +203,7 @@
         "categorie": "mini-club"
       }
     ],
+
     "jeudi": [
       {
         "icone": "🏓",
@@ -210,42 +214,26 @@
         "categorie": "ados"
       },
       {
-        "icone": "🗝️",
-        "heure": "15h00",
-        "titre": "Escape Game",
-        "description": "Résolvez les énigmes et tentez de terminer la mission avant la fin du temps imparti.",
-        "lieu": "Point de rendez-vous indiqué sur place",
-        "categorie": "famille"
-      },
-      {
-        "icone": "🍹",
-        "heure": "19h15",
-        "titre": "Jeu apéro au bar",
-        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
-        "lieu": "Bar",
-        "categorie": "famille"
-      },
-      {
-        "icone": "🎸",
-        "heure": "21h00",
-        "titre": "Concert",
-        "description": "Midnight Burst s'invite sur la scène pour un show inoubliable !",
-        "lieu": "Scène principale",
-        "categorie": "soiree"
-      },
-      {
-        "icone": "❄️",
+        "icone": "🗺️",
         "heure": "10h00",
-        "titre": "Les explorateurs polaires",
-        "description": "Une activité créative consacrée à la banquise et aux expéditions polaires.",
+        "titre": "La carte du capitaine",
+        "description": "Les jeunes pirates réalisent et déchiffrent la mystérieuse carte du capitaine.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
       {
-        "icone": "🗝️",
+        "icone": "🏆",
         "heure": "15h00",
-        "titre": "Escape Game",
-        "description": "Les jeunes explorateurs devront résoudre une série d'énigmes pour réussir leur mission.",
+        "titre": "Olympiades en famille",
+        "description": "Affrontez-vous en famille lors d'une série de défis sportifs et ludiques.",
+        "lieu": "Terrain multisport",
+        "categorie": "famille"
+      },
+      {
+        "icone": "🏴‍☠️",
+        "heure": "15h30",
+        "titre": "Les Olympiades des pirates",
+        "description": "Les équipages s'affrontent dans une série d'épreuves pour devenir les champions des pirates.",
         "lieu": "Piki Club",
         "categorie": "mini-club"
       },
@@ -256,8 +244,25 @@
         "description": "La mini-disco des enfants de 6 à 12 ans.",
         "lieu": "Scène principale",
         "categorie": "mini-club"
+      },
+      {
+        "icone": "🍹",
+        "heure": "19h15",
+        "titre": "Jeu apéro au bar",
+        "description": "Retrouvez-nous au bar pour un jeu convivial à l'heure de l'apéritif.",
+        "lieu": "Bar",
+        "categorie": "famille"
+      },
+      {
+        "icone": "⭐",
+        "heure": "21h00",
+        "titre": "Paradis des stars",
+        "description": "Une soirée festive sur scène placée sous le signe du spectacle et des stars.",
+        "lieu": "Scène principale",
+        "categorie": "soiree"
       }
     ],
+
     "vendredi": [
       {
         "icone": "🏀",
@@ -268,12 +273,36 @@
         "categorie": "ados"
       },
       {
+        "icone": "🎭",
+        "heure": "10h00",
+        "titre": "Préparation du spectacle",
+        "description": "Les jeunes pirates commencent les répétitions de leur spectacle de fin de semaine.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
+      },
+      {
         "icone": "⚽",
         "heure": "15h00",
         "titre": "Tournoi de football",
         "description": "Formez votre équipe et participez au tournoi de football.",
         "lieu": "Terrain multisport",
         "categorie": "ados"
+      },
+      {
+        "icone": "🎭",
+        "heure": "15h30",
+        "titre": "Préparation du spectacle",
+        "description": "Dernières répétitions et préparation avant le grand spectacle des pirates.",
+        "lieu": "Piki Club",
+        "categorie": "mini-club"
+      },
+      {
+        "icone": "🌟",
+        "heure": "18h30",
+        "titre": "Spectacle du Piki Club",
+        "description": "Les jeunes pirates montent sur scène pour présenter leur spectacle de fin de semaine.",
+        "lieu": "Scène principale",
+        "categorie": "mini-club"
       },
       {
         "icone": "🍹",
@@ -290,32 +319,9 @@
         "description": "Une grande soirée dansante pour terminer la semaine dans une ambiance festive.",
         "lieu": "Scène principale",
         "categorie": "soiree"
-      },
-      {
-        "icone": "🎭",
-        "heure": "10h00",
-        "titre": "Préparation du spectacle",
-        "description": "Premières répétitions du spectacle de fin de semaine.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
-      },
-      {
-        "icone": "🎭",
-        "heure": "15h30",
-        "titre": "Préparation du spectacle",
-        "description": "Répétitions et derniers réglages avant le spectacle.",
-        "lieu": "Piki Club",
-        "categorie": "mini-club"
-      },
-      {
-        "icone": "🌟",
-        "heure": "18h30",
-        "titre": "Spectacle du Piki Club",
-        "description": "Le grand spectacle de fin de semaine présenté par les enfants du Piki Club.",
-        "lieu": "Scène principale",
-        "categorie": "mini-club"
       }
     ],
+
     "samedi": []
   }
 }
