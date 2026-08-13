@@ -231,7 +231,7 @@
       },
       {
         "icone": "🏴‍☠️",
-        "heure": "15h30",
+        "heure": "15h00",
         "titre": "Les Olympiades des pirates",
         "description": "Les équipages s'affrontent dans une série d'épreuves pour devenir les champions des pirates.",
         "lieu": "Piki Club",
@@ -257,7 +257,7 @@
         "icone": "⭐",
         "heure": "21h00",
         "titre": "Paradis des stars",
-        "description": "Une soirée festive sur scène placée sous le signe du spectacle et des stars.",
+        "description": "Ginie Line sur scène pour le Paradis des stars.",
         "lieu": "Scène principale",
         "categorie": "soiree"
       }
