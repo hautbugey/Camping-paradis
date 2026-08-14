@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galerie photos - Camping Paradis</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #34BDEF;
+            --text-dark: #333;
+            --text-light: #666;
+            --bg-light: #f8f9fa;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: var(--text-dark); line-height: 1.6; background: var(--bg-light); }
+
+        header { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 20px 0; box-shadow: 0 4px 12px rgba(0,0,0,0.15); position: sticky; top: 0; z-index: 100; }
+        .header-container { max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 15px; }
+        .back-button { background: rgba(255,255,255,0.2); border: none; color: white; font-size: 22px; cursor: pointer; padding: 8px 14px; border-radius: 6px; transition: background 0.3s; text-decoration: none; }
+        .back-button:hover { background: rgba(255,255,255,0.35); }
+        header h1 { font-size: 24px; font-weight: 700; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+
+        .hero-image { width: 100%; height: 220px; border-radius: 12px; background-image: url('images/camping-hero (3).jpg'); background-size: cover; background-position: center; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.07); }
+
+        .intro-text { font-size: 14px; color: var(--text-light); margin-bottom: 22px; padding: 0 4px; }
+
+        /* ===== Filtres catégories ===== */
+        .filters { display: flex; gap: 10px; overflow-x: auto; padding: 4px 0 20px; scrollbar-width: none; }
+        .filters::-webkit-scrollbar { display: none; }
+        .filter-chip { flex-shrink: 0; padding: 9px 18px; border-radius: 20px; background: white; border: 1px solid #e0e0e0; font-size: 13px; font-weight: 600; color: var(--text-dark); cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+        .filter-chip.active { background: var(--primary-blue); border-color: var(--primary-blue); color: white; }
+
+        /* ===== Grille photos ===== */
+        .photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .photo-item { position: relative; border-radius: 12px; overflow: hidden; aspect-ratio: 1 / 1; cursor: pointer; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+        .photo-item:active img { transform: scale(0.96); }
+        .photo-caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 10px 8px; background: linear-gradient(to top, rgba(0,0,0,0.65), transparent); color: white; font-size: 12px; font-weight: 600; }
+        .photo-item.large { grid-column: span 2; aspect-ratio: 16 / 9; }
+
+        .empty-note { background: #fff8e1; border-left: 4px solid #FFB300; border-radius: 0 10px 10px 0; padding: 14px 18px; margin-top: 24px; font-size: 13px; color: #555; line-height: 1.7; }
+
+        /* ===== Lightbox ===== */
+        .lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 1000; align-items: center; justify-content: center; flex-direction: column; }
+        .lightbox.open { display: flex; }
+        .lightbox img { max-width: 92vw; max-height: 72vh; border-radius: 10px; object-fit: contain; }
+        .lightbox-caption { color: white; font-size: 14px; margin-top: 14px; text-align: center; padding: 0 20px; }
+        .lightbox-close { position: absolute; top: 18px; right: 18px; background: rgba(255,255,255,0.15); border: none; color: white; font-size: 20px; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
+        .lightbox-nav { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.15); border: none; color: white; font-size: 22px; width: 44px; height: 44px; border-radius: 50%; cursor: pointer; }
+        .lightbox-prev { left: 12px; }
+        .lightbox-next { right: 12px; }
+
+        footer { background: linear-gradient(135deg, #34BDEF 0%, #2a9ec4 100%); color: white; padding: 35px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 14px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        @media (max-width: 380px) {
+            .photo-grid { gap: 8px; }
+        }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">←</a>
+        <h1>Galerie photos</h1>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="hero-image" style="background-image: url('images/gal-bar-piscine.jpg');"></div>
+    <p class="intro-text">Un aperçu en images du camping, de ses installations et des activités à vivre sur place et aux alentours.</p>
+
+    <div class="filters" id="filters">
+        <button class="filter-chip active" data-filter="all">Tout</button>
+        <button class="filter-chip" data-filter="camping">Le camping</button>
+        <button class="filter-chip" data-filter="animations">Animations</button>
+        <button class="filter-chip" data-filter="nature">Nature & alentours</button>
+    </div>
+
+    <div class="photo-grid" id="photoGrid">
+        <div class="photo-item" data-cat="camping" data-caption="Remise des clés à la réception">
+            <img src="images/gal-accueil-cles.jpg" alt="Remise des clés à la réception">
+            <div class="photo-caption">L'accueil</div>
+        </div>
+        <div class="photo-item" data-cat="camping" data-caption="Un cocktail en terrasse au bord de la piscine">
+            <img src="images/gal-bar-piscine.jpg" alt="Bar de la piscine">
+            <div class="photo-caption">Bar de la piscine</div>
+        </div>
+        <div class="photo-item" data-cat="camping" data-caption="Les sanitaires du camping">
+            <img src="images/gal-sanitaires.jpg" alt="Sanitaires">
+            <div class="photo-caption">Sanitaires</div>
+        </div>
+        <div class="photo-item" data-cat="camping" data-caption="Barbecue et grillades entre campeurs">
+            <img src="images/gal-barbecue.jpg" alt="Barbecue">
+            <div class="photo-caption">Barbecue</div>
+        </div>
+        <div class="photo-item" data-cat="camping" data-caption="Balade entre les hébergements du camping">
+            <img src="images/gal-allee-mobilhomes.jpg" alt="Allée entre les mobil-homes">
+            <div class="photo-caption">Les hébergements</div>
+        </div>
+        <div class="photo-item" data-cat="camping" data-caption="Détente sur une bouée à la piscine">
+            <img src="images/gal-bouee-piscine.jpg" alt="Bouée à la piscine">
+            <div class="photo-caption">Détente à la piscine</div>
+        </div>
+        <div class="photo-item large" data-cat="animations" data-caption="Soirée dansante devant la scène du Camping Paradis">
+            <img src="images/gal-soiree-danse.jpg" alt="Soirée dansante">
+            <div class="photo-caption">Soirée dansante</div>
+        </div>
+        <div class="photo-item" data-cat="animations" data-caption="Concert en soirée sur la scène du camping">
+            <img src="images/gal-concert-scene.jpg" alt="Concert en soirée">
+            <div class="photo-caption">Concert en soirée</div>
+        </div>
+        <div class="photo-item" data-cat="animations" data-caption="Match de volley organisé près du lac">
+            <img src="images/gal-volleyball.jpg" alt="Volleyball">
+            <div class="photo-caption">Volleyball</div>
+        </div>
+        <div class="photo-item" data-cat="animations" data-caption="Atelier créatif au club enfants">
+            <img src="images/gal-atelier-mini-club.jpg" alt="Atelier créatif du club enfants">
+            <div class="photo-caption">Atelier club enfants</div>
+        </div>
+        <div class="photo-item large" data-cat="nature" data-caption="Petit-déjeuner au bord du lac du Val d'Oignin">
+            <img src="images/gal-petit-dej-lac.jpg" alt="Petit-déjeuner au bord du lac">
+            <div class="photo-caption">Petit-déjeuner au bord du lac</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">‹</button>
+    <img id="lightboxImg" src="" alt="">
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)">›</button>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<footer>
+    <p><strong>Camping Paradis - Les Gorges du Haut Bugey</strong></p>
+    <p> <a href="tel:+33474768097">04 74 76 80 97</a> |  <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:15px; opacity:0.8; font-size:12px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script>
+    // Filtres
+    const filters = document.querySelectorAll('.filter-chip');
+    const items = document.querySelectorAll('.photo-item');
+    filters.forEach(chip => {
+        chip.addEventListener('click', () => {
+            filters.forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            const f = chip.dataset.filter;
+            items.forEach(item => {
+                item.style.display = (f === 'all' || item.dataset.cat === f) ? '' : 'none';
+            });
+        });
+    });
+
+    // Lightbox
+    let currentIndex = 0;
+    const visibleItems = () => Array.from(items).filter(i => i.style.display !== 'none');
+
+    items.forEach((item, i) => {
+        item.addEventListener('click', () => openLightbox(item));
+    });
+
+    function openLightbox(item) {
+        const list = visibleItems();
+        currentIndex = list.indexOf(item);
+        showLightboxItem(list[currentIndex]);
+        document.getElementById('lightbox').classList.add('open');
+    }
+
+    function showLightboxItem(item) {
+        document.getElementById('lightboxImg').src = item.querySelector('img').src;
+        document.getElementById('lightboxCaption').textContent = item.dataset.caption || '';
+    }
+
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('open');
+    }
+
+    function navLightbox(dir) {
+        const list = visibleItems();
+        currentIndex = (currentIndex + dir + list.length) % list.length;
+        showLightboxItem(list[currentIndex]);
+    }
+
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+        if (e.target.id === 'lightbox') closeLightbox();
+    });
+</script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
