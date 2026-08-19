@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fermes à visiter - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6;
+            background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 22px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; max-width:40ch; }
+
+        /* ── Filtres par catégorie ───────────────────────────────────── */
+        .filters-wrapper {
+            background: rgba(246,243,233,0.94); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+            position: sticky; top: 0; z-index: 99;
+        }
+        .filters {
+            max-width: 900px; margin: 0 auto; padding: 12px 16px;
+            display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+        }
+        .filters::-webkit-scrollbar { display: none; }
+        .filter-chip {
+            flex-shrink:0; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+            font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:700; padding:7px 15px;
+            border-radius:100px; cursor:pointer; white-space:nowrap; transition:.15s;
+        }
+        .filter-chip.active { background:var(--forest); border-color:var(--forest); color:#fff; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        /* ── Mini-carte ──────────────────────────────────────────────── */
+        .map-section { margin-bottom: 18px; }
+        .map-head { display:flex; align-items:center; justify-content:space-between; margin: 2px 4px 10px; }
+        .map-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:15px; color:var(--forest); }
+        .map-hint { font-size:11px; color:var(--ink-soft); font-family:'JetBrains Mono', monospace; }
+        #farm-map {
+            height: 220px; border-radius: 18px; border:1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.08); overflow:hidden;
+        }
+        .leaflet-popup-content-wrapper { border-radius: 12px; font-family:'Outfit', sans-serif; }
+        .map-popup-cat { font-size:10px; font-weight:800; text-transform:uppercase; color:var(--river); display:block; margin-bottom:2px; }
+        .map-popup-name { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:13.5px; color:var(--ink); }
+        .farm-marker {
+            width: 26px; height: 26px; border-radius: 50% 50% 50% 0; background: var(--gorge);
+            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(36,57,44,0.4); transform: rotate(-45deg);
+        }
+        .farm-marker.camp-marker { background: var(--clay); }
+
+        /* ── Badge "ouvert maintenant" ───────────────────────────────── */
+        .open-badge {
+            display:inline-flex; align-items:center; gap:5px; font-size:10.5px; font-weight:800;
+            text-transform:uppercase; letter-spacing:0.4px; border-radius:100px; padding:3px 9px;
+            margin-left:6px; font-family:'Outfit', sans-serif;
+        }
+        .open-badge.open { background:#E7F1E9; color:#1E7A3E; }
+        .open-badge.closed { background:#F3E9E5; color:#A24A2E; }
+        .open-badge.rdv { background:#EFEADA; color:var(--ink-soft); }
+        .open-badge .dot { width:6px; height:6px; border-radius:50%; background:#2FA35A; flex-shrink:0; }
+        .open-badge.open .dot { animation: openpulse 1.6s ease-in-out infinite; }
+        @keyframes openpulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+
+        .result-count { font-size: 12px; color: var(--ink-soft); margin: 2px 4px 14px; font-family:'JetBrains Mono', monospace; }
+
+        /* ── Cartes ferme (accordéon) ────────────────────────────────── */
+        .farm-card {
+            background: white; border: 1px solid var(--line); border-radius: 18px;
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 14px; overflow: hidden;
+        }
+        .farm-head {
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+            padding: 18px 18px 14px; cursor: pointer;
+        }
+        .farm-head-text { flex: 1; min-width: 0; }
+        .farm-cat {
+            display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 0.5px; color: var(--river); background: #E7F1F3; border-radius: 100px;
+            padding: 3px 9px; margin-bottom: 8px;
+        }
+        .farm-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 18px; color: var(--ink); line-height: 1.3; }
+        .farm-teaser { font-size: 12.5px; color: var(--ink-soft); margin-top: 5px; line-height: 1.5; }
+        .farm-chevron {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--paper-deep);
+            display: flex; align-items: center; justify-content: center; color: var(--forest);
+            font-size: 13px; transition: transform .25s ease; margin-top: 2px;
+        }
+        .farm-card.open .farm-chevron { transform: rotate(180deg); }
+
+        .farm-body { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+        .farm-card.open .farm-body { max-height: 600px; }
+        .farm-body-inner { padding: 0 18px 18px; }
+
+        .farm-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 14px; }
+        .farm-desc p { margin-bottom: 8px; }
+        .farm-desc p:last-child { margin-bottom: 0; }
+
+        .info-block { background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+        .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon {
+            width: 30px; height: 30px; background: #fff; border-radius: 9px; display: flex;
+            align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.55; }
+        .info-value a { color: var(--river); text-decoration: none; font-weight: 600; }
+        .info-value a:hover { text-decoration: underline; }
+
+        /* ── Footer ──────────────────────────────────────────────────── */
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="index.html">← Retour</a>
+            <div class="hdr-eyebrow">🚜 À la rencontre des producteurs</div>
+            <h1>Fermes à visiter</h1>
+            <div class="hdr-sub">Chèvres, ânes, escargots, comté — quatre adresses authentiques du Haut-Bugey, à quelques minutes du camping.</div>
+        </div>
+    </header>
+
+    <div class="container" style="padding-bottom:0;">
+        <div class="map-section">
+            <div class="map-head">
+                <div class="map-title">📍 Où se trouvent-elles ?</div>
+                <div class="map-hint">Distances approx.</div>
+            </div>
+            <div id="farm-map"></div>
+        </div>
+    </div>
+
+    <div class="filters-wrapper">
+        <div class="filters" id="filters">
+            <button class="filter-chip active" data-filter="tous">Toutes</button>
+            <button class="filter-chip" data-filter="fromage">🧀 Fromage</button>
+            <button class="filter-chip" data-filter="elevage">🐐 Élevage</button>
+            <button class="filter-chip" data-filter="specialite">🐌 Spécialité locale</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="result-count" id="result-count">4 adresses</div>
+        <div id="farm-list">
+
+            <!-- 1. CHÈVRERIE LA RAMAZ -->
+            <div class="farm-card" data-cat="fromage elevage" data-lat="45.9772" data-lng="5.6018" data-place="Plateau d'Hauteville" data-schedule='{"daily":[["16:00","18:30"]]}'>
+                <div class="farm-head">
+                    <div class="farm-head-text">
+                        <span class="farm-cat">🐐 Fromage & élevage</span>
+                        <span class="open-badge rdv" data-badge></span>
+                        <div class="farm-name">Chèvrerie La Ramaz</div>
+                        <div class="farm-teaser">Une chèvrerie familiale sur le Plateau d'Hauteville, ouverte tous les jours en fin d'après-midi.</div>
+                    </div>
+                    <div class="farm-chevron">▾</div>
+                </div>
+                <div class="farm-body">
+                    <div class="farm-body-inner">
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value">
+                                        <a href="https://maps.google.com/?q=Chèvrerie+la+Ramaz+01110+Plateau+d'Hauteville" target="_blank" rel="noopener">Chèvrerie la Ramaz, 01110 Plateau d'Hauteville</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📞</div>
+                                <div class="info-content">
+                                    <div class="info-label">Téléphone</div>
+                                    <div class="info-value"><a href="tel:0637091020">06 37 09 10 20</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📅</div>
+                                <div class="info-content">
+                                    <div class="info-label">Horaires</div>
+                                    <div class="info-value">Tous les jours, de 16h à 18h30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FERME MARIE 'ÂNES - GAEC MASSONNET -->
+            <div class="farm-card" data-cat="elevage" data-lat="46.2619" data-lng="5.5544" data-place="Matafelon-Granges" data-schedule='{"season":["02-01","10-30"],"daily":[["17:00","18:30"]]}'>
+                <div class="farm-head">
+                    <div class="farm-head-text">
+                        <span class="farm-cat">🫏 Élevage</span>
+                        <span class="open-badge rdv" data-badge></span>
+                        <div class="farm-name">Ferme Marie 'ânes — GAEC Massonnet</div>
+                        <div class="farm-teaser">Vaches, ânes, lapins et volailles — avec, en saison, la traite en fin d'après-midi.</div>
+                    </div>
+                    <div class="farm-chevron">▾</div>
+                </div>
+                <div class="farm-body">
+                    <div class="farm-body-inner">
+                        <div class="farm-desc">
+                            <p>La visite de la ferme permet de découvrir l'alimentation des vaches, veaux et génisses, ainsi que les ânes, lapins, cochons et volailles.</p>
+                            <p>En fin d'après-midi (et en fonction des saisons), participez à la traite des vaches.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">💶</div>
+                                <div class="info-content">
+                                    <div class="info-label">Prix</div>
+                                    <div class="info-value">Tarif unique : 10 € par personne<br>Tarif groupe à partir de 5 personnes</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📅</div>
+                                <div class="info-content">
+                                    <div class="info-label">Dates</div>
+                                    <div class="info-value">Du 01/02 au 30/10, tous les jours de 17h à 18h30</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. GAEC L'ESCAR'PADE -->
+            <div class="farm-card" data-cat="specialite" data-lat="46.2680" data-lng="5.5490" data-place="Corcelles, Matafelon-Granges">
+                <div class="farm-head">
+                    <div class="farm-head-text">
+                        <span class="farm-cat">🐌 Spécialité locale</span>
+                        <span class="open-badge rdv">Sur rendez-vous</span>
+                        <div class="farm-name">GAEC L'Escar'pade</div>
+                        <div class="farm-teaser">L'élevage d'escargots "Gros Gris" à Corcelles, cuisinés avec des produits du Bugey.</div>
+                    </div>
+                    <div class="farm-chevron">▾</div>
+                </div>
+                <div class="farm-body">
+                    <div class="farm-body-inner">
+                        <div class="farm-desc">
+                            <p>Corcelles est un petit hameau situé à flanc de montagne sur la commune de Matafelon-Granges. Une altitude de 327 m permet d'avoir des conditions optimales pour l'élevage des escargots Helix Aspersa Maxima, dit « Gros Gris ».</p>
+                            <p>Les jeunes escargots nés de quelques jours grandissent dans un parc en plein air durant tout l'été. Ils sont cuisinés dans un laboratoire aux normes CE à Bourg-en-Bresse, avec des produits régionaux comme le beurre d'Étrez ou le vin du Bugey.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">💶</div>
+                                <div class="info-content">
+                                    <div class="info-label">Prix</div>
+                                    <div class="info-value">Forfait groupe adultes (par personne) — tarif à consulter auprès de l'organisateur</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📅</div>
+                                <div class="info-content">
+                                    <div class="info-label">Dates</div>
+                                    <div class="info-value">Vente toute l'année sur rendez-vous. Visite sur rendez-vous en juillet et août.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. FROMAGERIE DE BRÉNOD -->
+            <div class="farm-card" data-cat="fromage" data-lat="46.0870" data-lng="5.5670" data-place="Brénod" data-schedule='{"week":{"0":[["08:30","12:00"]],"1":[["08:30","12:00"]],"2":[["08:30","12:00"],["14:00","18:30"]],"3":[["08:30","12:00"],["14:00","18:30"]],"4":[["08:30","12:00"],["14:00","18:30"]],"5":[["08:30","12:00"],["14:00","18:30"]],"6":[["08:30","12:00"],["14:00","18:30"]]}}'>
+                <div class="farm-head">
+                    <div class="farm-head-text">
+                        <span class="farm-cat">🧀 Fromage</span>
+                        <span class="open-badge rdv" data-badge></span>
+                        <div class="farm-name">Fromagerie de Brénod</div>
+                        <div class="farm-teaser">Visite libre et gratuite de la fabrication du Comté, avec galerie d'observation et film pour enfants.</div>
+                    </div>
+                    <div class="farm-chevron">▾</div>
+                </div>
+                <div class="farm-body">
+                    <div class="farm-body-inner">
+                        <div class="farm-desc">
+                            <p>Charmante fruitière villageoise au cœur du Haut-Bugey (850 m d'altitude). Chaque matin, le Comté y est fabriqué selon un savoir-faire traditionnel.</p>
+                            <p>Une galerie de visite permet d'observer le fromager en plein travail, complétée d'une projection vidéo (18 min) et d'un film pour enfants. Magasin de vente sur place.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">👀</div>
+                                <div class="info-content">
+                                    <div class="info-label">Le conseil</div>
+                                    <div class="info-value">Venir avant 10h30 pour voir la fabrication du Comté depuis la galerie</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">💶</div>
+                                <div class="info-content">
+                                    <div class="info-label">Prix</div>
+                                    <div class="info-value">Visite libre et gratuite</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📅</div>
+                                <div class="info-content">
+                                    <div class="info-label">Horaires</div>
+                                    <div class="info-value">Mar-sam : 8h30-12h et 14h-18h30 · Dim et lun : 8h30-12h · Fermé les 1er mai et 25 décembre</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p>📞 <a href="tel:+33474768097">04 74 76 80 97</a> · 📧 <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.farm-card'));
+            var chips = Array.prototype.slice.call(document.querySelectorAll('.filter-chip'));
+            var countEl = document.getElementById('result-count');
+
+            // Accordéon : ouvrir/fermer une fiche au clic
+            cards.forEach(function (card) {
+                card.querySelector('.farm-head').addEventListener('click', function () {
+                    card.classList.toggle('open');
+                });
+            });
+
+            // Filtres par catégorie
+            chips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    chips.forEach(function (c) { c.classList.remove('active'); });
+                    chip.classList.add('active');
+                    var filter = chip.getAttribute('data-filter');
+                    var visible = 0;
+                    cards.forEach(function (card) {
+                        var cats = (card.getAttribute('data-cat') || '').split(' ');
+                        var show = filter === 'tous' || cats.indexOf(filter) !== -1;
+                        card.style.display = show ? '' : 'none';
+                        if (show) visible++;
+                    });
+                    countEl.textContent = visible + (visible > 1 ? ' adresses' : ' adresse');
+                });
+            });
+
+            // Ouvre la première fiche par défaut
+            if (cards[0]) cards[0].classList.add('open');
+
+            // ── Badge "Ouvert maintenant" calculé en direct ────────────
+            function pad(n) { return (n < 10 ? '0' : '') + n; }
+            function toMinutes(hhmm) {
+                var p = hhmm.split(':');
+                return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+            }
+            function computeStatus(schedule) {
+                var now = new Date();
+                var nowMin = now.getHours() * 60 + now.getMinutes();
+                var day = now.getDay();
+
+                if (schedule.season) {
+                    var mmdd = pad(now.getMonth() + 1) + '-' + pad(now.getDate());
+                    if (mmdd < schedule.season[0] || mmdd > schedule.season[1]) {
+                        return { state: 'closed', label: 'Fermé (hors saison)' };
+                    }
+                }
+
+                var ranges = schedule.daily || (schedule.week ? schedule.week[String(day)] : null);
+                if (!ranges || !ranges.length) return { state: 'closed', label: 'Fermé aujourd\'hui' };
+
+                for (var i = 0; i < ranges.length; i++) {
+                    var start = toMinutes(ranges[i][0]);
+                    var end = toMinutes(ranges[i][1]);
+                    if (nowMin >= start && nowMin < end) {
+                        return { state: 'open', label: 'Ouvert maintenant · ferme à ' + ranges[i][1].replace(':', 'h') };
+                    }
+                }
+                // Cherche le prochain horaire d'ouverture aujourd'hui
+                for (var j = 0; j < ranges.length; j++) {
+                    if (nowMin < toMinutes(ranges[j][0])) {
+                        return { state: 'closed', label: 'Ouvre à ' + ranges[j][0].replace(':', 'h') };
+                    }
+                }
+                return { state: 'closed', label: 'Fermé pour aujourd\'hui' };
+            }
+
+            cards.forEach(function (card) {
+                var badge = card.querySelector('[data-badge]');
+                if (!badge) return;
+                var raw = card.getAttribute('data-schedule');
+                if (!raw) return;
+                try {
+                    var schedule = JSON.parse(raw);
+                    var status = computeStatus(schedule);
+                    badge.className = 'open-badge ' + status.state;
+                    badge.innerHTML = (status.state === 'open' ? '<span class="dot"></span>' : '') + status.label;
+                } catch (e) { /* garde le badge par défaut */ }
+            });
+        })();
+    </script>
+
+    <!-- ── Mini-carte des fermes ─────────────────────────────────────── -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        (function () {
+            var CAMPING = [46.2619, 5.5544]; // Matafelon-Granges — position approximative, à ajuster si besoin
+            var map = L.map('farm-map', { zoomControl: false, attributionControl: false }).setView(CAMPING, 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+
+            function pin(className) {
+                return L.divIcon({ className: '', html: '<div class="farm-marker ' + className + '"></div>', iconSize: [26, 26], iconAnchor: [13, 26] });
+            }
+
+            L.marker(CAMPING, { icon: pin('camp-marker') })
+                .addTo(map)
+                .bindPopup('<span class="map-popup-cat">🏕️ Vous êtes ici</span><span class="map-popup-name">Camping Les Gorges du Haut Bugey</span>');
+
+            var bounds = [CAMPING];
+            document.querySelectorAll('.farm-card[data-lat]').forEach(function (card) {
+                var lat = parseFloat(card.getAttribute('data-lat'));
+                var lng = parseFloat(card.getAttribute('data-lng'));
+                var name = card.querySelector('.farm-name').textContent;
+                var cat = card.querySelector('.farm-cat').textContent;
+                var place = card.getAttribute('data-place') || '';
+                if (isNaN(lat) || isNaN(lng)) return;
+                L.marker([lat, lng], { icon: pin('') })
+                    .addTo(map)
+                    .bindPopup('<span class="map-popup-cat">' + cat + '</span><span class="map-popup-name">' + name + '</span><br><span style="font-size:11px;color:#5C6B5F;">' + place + '</span>');
+                bounds.push([lat, lng]);
+                card.addEventListener('click', function () {
+                    map.flyTo([lat, lng], 12, { duration: .6 });
+                });
+            });
+            if (bounds.length > 1) map.fitBounds(bounds, { padding: [24, 24] });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
