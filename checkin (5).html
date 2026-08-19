@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check-in / Check-out - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6;
+            background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+
+        /* ── Onglets segmentés ───────────────────────────────────────── */
+        .tabs-wrapper {
+            background: rgba(246,243,233,0.94); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 99;
+        }
+        .tabs { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 8px; }
+        .tab {
+            flex: 1; background: #fff; border: 1.5px solid var(--line); color: var(--ink-soft);
+            padding: 10px 14px; border-radius: 100px; cursor: pointer; font-size: 13px; font-weight: 700;
+            font-family: 'Outfit', sans-serif; transition: all .2s; text-align: center;
+        }
+        .tab.active { background: var(--forest); border-color: var(--forest); color: #fff; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 22px 16px 40px; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+        .panel-title {
+            font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 21px;
+            color: var(--forest); margin-bottom: 6px;
+        }
+        .panel-sub { font-size: 13px; color: var(--ink-soft); margin-bottom: 20px; }
+
+        /* ── Bloc texte narratif ─────────────────────────────────────── */
+        .text-block {
+            background: white; border-radius: 18px; border:1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); padding: 20px; margin-bottom: 16px;
+        }
+        .text-block p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 10px; }
+        .text-block p:last-child { margin-bottom: 0; }
+        .text-block strong { color: var(--ink); }
+
+        /* ── Grille "dans votre enveloppe" ───────────────────────────── */
+        .envelope-title {
+            font-family:'Fraunces', Georgia, serif; font-weight:600; color:var(--forest);
+            font-size:15px; margin: 20px 0 12px;
+        }
+        .envelope-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+        .envelope-item {
+            background: var(--paper-deep); border:1px solid var(--line); border-radius: 14px;
+            padding: 14px; display: flex; flex-direction: column; gap: 6px;
+        }
+        .envelope-item-icon { font-size: 22px; }
+        .envelope-item-label { font-size: 12.5px; font-weight: 700; color: var(--ink); line-height: 1.3; }
+        .envelope-item-desc { font-size: 11px; color: var(--ink-soft); line-height: 1.4; }
+        @media (max-width: 420px) { .envelope-grid { grid-template-columns: 1fr; } }
+
+        /* ── Callout important ───────────────────────────────────────── */
+        .callout {
+            background: linear-gradient(150deg, #FBF1E4, #F6E4CE); border:1px solid #E7CBA3;
+            border-radius: 16px; padding: 16px 18px; margin-top: 16px;
+        }
+        .callout-item { display: flex; gap: 10px; font-size: 13px; color: #6B4F27; line-height: 1.55; }
+        .callout-item + .callout-item { margin-top: 10px; }
+        .callout-item strong { color: #4A3418; }
+        .callout-icon { flex-shrink: 0; font-size: 16px; }
+
+        /* ── Cartes info clé (heure limite, clés) ───────────────────── */
+        .info-block { margin-top: 16px; }
+        .info-row {
+            background: white; border:1px solid var(--line); border-radius: 14px;
+            display: flex; gap: 14px; align-items: flex-start; padding: 15px 16px; margin-bottom: 10px;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .info-row:last-child { margin-bottom: 0; }
+        .info-icon {
+            width: 36px; height: 36px; background: var(--paper-deep); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+
+        /* ── Comparatif forfait ménage ───────────────────────────────── */
+        .clean-options { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+        .clean-card { background: white; border:1px solid var(--line); border-radius: 14px; padding: 14px 16px; box-shadow: 0 3px 12px rgba(36,57,44,0.06); }
+        .clean-card-title { font-size: 12.5px; font-weight: 800; color: var(--forest); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 8px; }
+        .clean-card ul { margin: 0; padding-left: 18px; }
+        .clean-card li { font-size: 13px; color: var(--ink-soft); line-height: 1.7; }
+        .clean-card p { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+        <div class="hdr-eyebrow">🗝️ Arrivée & départ</div>
+        <h1>Check-in / Check-out</h1>
+    </div>
+</header>
+
+<div class="tabs-wrapper">
+    <div class="tabs">
+        <button class="tab active" onclick="showPanel(0)">Arrivée</button>
+        <button class="tab" onclick="showPanel(1)">Départ</button>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- CHECK-IN -->
+    <div class="panel active" id="panel-0">
+        <div class="panel-title">Bienvenue au camping !</div>
+        <div class="panel-sub">Ça y est, les vacances peuvent commencer.</div>
+
+        <div class="text-block">
+            <p>Pour vous accompagner au mieux pendant votre séjour, nous vous avons remis à la réception une enveloppe contenant toutes les informations utiles.</p>
+
+            <div class="envelope-title">📩 Dans votre enveloppe</div>
+            <div class="envelope-grid">
+                <div class="envelope-item">
+                    <div class="envelope-item-icon">🗺️</div>
+                    <div class="envelope-item-label">Plan du camping</div>
+                    <div class="envelope-item-desc">Pour vous repérer dès votre arrivée</div>
+                </div>
+                <div class="envelope-item">
+                    <div class="envelope-item-icon">♻️</div>
+                    <div class="envelope-item-label">Mémo tri & compost</div>
+                    <div class="envelope-item-desc">Poubelles à l'entrée du camping</div>
+                </div>
+                <div class="envelope-item">
+                    <div class="envelope-item-icon">📱</div>
+                    <div class="envelope-item-label">QR code de l'application</div>
+                    <div class="envelope-item-desc">Animations, infos pratiques, lieux à visiter</div>
+                </div>
+                <div class="envelope-item">
+                    <div class="envelope-item-icon">📿</div>
+                    <div class="envelope-item-label">Bracelets du camping</div>
+                    <div class="envelope-item-desc">À porter pendant toute la durée du séjour</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="callout">
+            <div class="callout-item">
+                <span class="callout-icon">🚗</span>
+                <span><strong>Accès à la barrière</strong> — par reconnaissance de plaque d'immatriculation. Communiquez-nous votre plaque avant votre arrivée ou lors de la réservation pour pouvoir entrer sans attendre.</span>
+            </div>
+            <div class="callout-item">
+                <span class="callout-icon">💡</span>
+                <span><strong>Bon à savoir</strong> — aucun code n'est nécessaire pour sortir du camping, un capteur au sol détecte votre véhicule.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHECK-OUT -->
+    <div class="panel" id="panel-1">
+        <div class="panel-title">Avant de nous quitter</div>
+        <div class="panel-sub">Votre semaine touche à sa fin — nous sommes tristes de vous voir partir.</div>
+
+        <div class="text-block">
+            <p>Si vous avez séjourné en hébergement (chalet, mobil-home, cottage), merci de le quitter au plus tard à <strong>10h00</strong>.</p>
+            <p>Nous n'effectuons pas d'état des lieux au départ. Les équipes de ménage veilleront à ce que l'hébergement soit conforme à l'état dans lequel il vous a été confié. En cas de problème, nous vous contacterons par téléphone.</p>
+        </div>
+
+        <div class="clean-options">
+            <div class="clean-card">
+                <div class="clean-card-title">✅ Avec forfait ménage</div>
+                <ul>
+                    <li>Vider les poubelles</li>
+                    <li>Faire la vaisselle</li>
+                </ul>
+            </div>
+            <div class="clean-card">
+                <div class="clean-card-title">🧹 Sans forfait ménage</div>
+                <p>Merci de rendre l'hébergement aussi propre qu'il vous a été donné.</p>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <div class="info-row">
+                <div class="info-icon">🕙</div>
+                <div>
+                    <div class="info-label">Heure limite de départ</div>
+                    <div class="info-value">10h00 pour les hébergements</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">🗝️</div>
+                <div>
+                    <div class="info-label">Remise des clés</div>
+                    <div class="info-value">À la réception, ou dans la boîte en bois à l'entrée du camping si vous partez avant l'ouverture</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+    <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script>
+    function showPanel(i) {
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById('panel-' + i).classList.add('active');
+        document.querySelectorAll('.tab')[i].classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+</script>
+
+<script src="i18n.js" defer></script>
+</body>
+</html>
