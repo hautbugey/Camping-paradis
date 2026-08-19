@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'histoire du camping - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+        .hdr-years {
+            display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:12px; font-weight:700;
+            background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.26); border-radius:100px;
+            padding:6px 13px; font-family:'JetBrains Mono', monospace;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        .hero-image {
+            width: 100%; height: 200px; border-radius: 20px; background-image: url('images/histoire.jpg');
+            background-size: cover; background-position: center; margin-bottom: 18px;
+            box-shadow: 0 6px 20px rgba(36,57,44,0.14); border: 1px solid var(--line);
+        }
+
+        .text-block {
+            background: white; border: 1px solid var(--line); border-radius: 18px;
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); padding: 20px; margin-bottom: 16px;
+        }
+        .text-block p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.75; margin-bottom: 11px; }
+        .text-block p:last-child { margin-bottom: 0; }
+        .text-block strong { color: var(--ink); }
+
+        /* ── Chiffres clés ───────────────────────────────────────────── */
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 18px; }
+        .stat-card {
+            background: white; border: 1px solid var(--line); border-radius: 16px;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06); padding: 16px 10px; text-align: center;
+        }
+        .stat-number { font-family: 'JetBrains Mono', monospace; font-size: 22px; font-weight: 700; color: var(--gorge); }
+        .stat-label { font-size: 10.5px; color: var(--ink-soft); margin-top: 5px; line-height: 1.4; }
+
+        .section-label { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--forest); margin: 6px 4px 14px; }
+
+        /* ── Frise chronologique reliée ──────────────────────────────── */
+        .timeline-track { position: relative; padding-left: 2px; margin-bottom: 4px; }
+        .timeline-step { position: relative; display: flex; gap: 14px; padding-bottom: 22px; }
+        .timeline-step:last-child { padding-bottom: 0; }
+        .timeline-step:last-child .timeline-connector { display: none; }
+
+        .timeline-marker { position: relative; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; }
+        .timeline-dot {
+            width: 38px; height: 38px; border-radius: 50%; background: white; border: 2px solid var(--line);
+            display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; z-index: 1;
+            box-shadow: 0 3px 8px rgba(36,57,44,0.08);
+        }
+        .timeline-step.milestone .timeline-dot { border-color: var(--clay); background: #FBF1E4; }
+        .timeline-step.today .timeline-dot {
+            border-color: var(--gorge); background: var(--gorge); color: #fff;
+            box-shadow: 0 0 0 4px rgba(62,108,82,0.15);
+        }
+        .timeline-step.today .timeline-card { border-color: var(--gorge-light); background: var(--paper-deep); }
+        .timeline-live-badge {
+            display:inline-flex; align-items:center; gap:5px; font-size:10px; font-weight:800;
+            text-transform:uppercase; letter-spacing:0.4px; color:#fff; background:var(--gorge);
+            border-radius:100px; padding:3px 9px; margin-bottom:6px;
+        }
+        .timeline-live-badge .dot { width:5px; height:5px; border-radius:50%; background:#fff; animation: pulseDot 1.6s infinite; }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+        .timeline-connector {
+            position: absolute; top: 38px; bottom: -22px; left: 50%; width: 2px; margin-left: -1px;
+            background: repeating-linear-gradient(to bottom, var(--line) 0 5px, transparent 5px 9px);
+        }
+
+        .timeline-card {
+            flex: 1; background: white; border: 1px solid var(--line); border-radius: 16px;
+            padding: 13px 16px; box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .timeline-period {
+            font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+            color: var(--gorge); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 4px;
+        }
+        .timeline-value { font-size: 13.5px; color: var(--ink); line-height: 1.6; }
+
+        /* ── Encart astuce ───────────────────────────────────────────── */
+        .tip-box {
+            display: flex; gap: 10px; align-items: flex-start; background: linear-gradient(150deg, #FBF1E4, #F3DFC0);
+            border: 1px solid #E7CBA3; border-radius: 16px; padding: 15px 17px; font-size: 13px;
+            color: #6B4F27; margin-top: 18px; line-height: 1.65;
+        }
+        .tip-box strong { color: #4A3418; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+        <div class="hdr-eyebrow">📖 Depuis les années 60</div>
+        <h1>L'histoire du camping</h1>
+        <div class="hdr-sub">D'un champ au bord du lac à Camping Les Gorges du Haut-Bugey.</div>
+        <div class="hdr-years" id="hdr-years"></div>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="hero-image"></div>
+
+    <div class="text-block">
+        <p>Avant d'être un camping, ce terrain était tout simplement… un champ. C'est dans les <strong>années 60/70</strong> qu'un camping municipal y voit le jour, géré par la commune, sur les bords du lac du Val d'Oignin.</p>
+        <p>À l'époque, c'était surtout un camping de <strong>pêche</strong>, où les habitants d'Oyonnax venaient se détendre le week-end. Uniquement des emplacements nus : pas de piscine, pas d'hébergements locatifs.</p>
+        <p>Le camping tel que vous le connaissez aujourd'hui s'est construit petit à petit, au fil de plusieurs reprises et aménagements, jusqu'à devenir Camping Les Gorges du Haut-Bugey.</p>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-number">130</div>
+            <div class="stat-label">emplacements au total</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4,3</div>
+            <div class="stat-label">hectares au bord du lac</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">4★</div>
+            <div class="stat-label">classement du camping</div>
+        </div>
+    </div>
+
+    <div class="section-label">La frise des grandes étapes</div>
+    <div class="timeline-track">
+        <div class="timeline-step">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🌾</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">Avant tout</div>
+                <div class="timeline-value">Un simple champ, au bord du lac du Val d'Oignin</div>
+            </div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🎣</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">Années 60/70</div>
+                <div class="timeline-value">Création d'un camping municipal, prisé pour la pêche par les habitants d'Oyonnax le week-end. Uniquement des emplacements nus : ni piscine, ni hébergement.</div>
+            </div>
+        </div>
+        <div class="timeline-step milestone">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🏗️</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">1999 – 2001</div>
+                <div class="timeline-value">La Communauté de Communes des Montberthiands mène deux ans de travaux : 10 chalets éco, sanitaire principal, bâtiment réception, piscine (grand bassin et pataugeoire), terrain de pétanque, et aménagement général du camping.</div>
+            </div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-marker">
+                <div class="timeline-dot">💦</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">2006</div>
+                <div class="timeline-value">Ajout de la piscine ludique</div>
+            </div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-marker">
+                <div class="timeline-dot">📉</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">2019</div>
+                <div class="timeline-value">Après plusieurs gestions privées successives, le camping ferme faute de gérant</div>
+            </div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🔑</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">Mai 2022</div>
+                <div class="timeline-value">La société Alpha Camping reprend l'exploitation du camping des Gorges de l'Oignin et le renomme Camping Paradis Les Gorges du Haut-Bugey</div>
+            </div>
+        </div>
+        <div class="timeline-step milestone">
+            <div class="timeline-marker">
+                <div class="timeline-dot">⚖️</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">Novembre 2025</div>
+                <div class="timeline-value">La société Alpha Camping, qui exploitait 26 campings, est placée en redressement judiciaire</div>
+            </div>
+        </div>
+        <div class="timeline-step milestone">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🔑</div>
+                <div class="timeline-connector"></div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-period">2 avril 2026</div>
+                <div class="timeline-value">Au terme de la procédure, la société WH reprend l'exploitation du camping.</div>
+            </div>
+        </div>
+        <div class="timeline-step today">
+            <div class="timeline-marker">
+                <div class="timeline-dot">🏕️</div>
+            </div>
+            <div class="timeline-card">
+                <div class="timeline-live-badge"><span class="dot"></span>Aujourd'hui</div>
+                <div class="timeline-value">Le camping continue de grandir sous la houlette de WH : 130 emplacements, piscine, mini-club Piki Club, et vous, qui écrivez la suite de cette histoire.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <span>💬 <strong>Une idée, une remarque ?</strong> Le camping a changé de main récemment : certaines choses prennent un peu de temps à évoluer, mais on avance avec vous. N'hésitez pas à nous en parler à la réception ou via le formulaire "Signaler un problème" de l'application.</span>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+    <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+    <script>
+        // ── Compteur "depuis X années", calculé automatiquement chaque année ──
+        (function () {
+            var FOUNDING_YEAR_APPROX = 1970; // années 60/70, création du camping municipal
+            var years = new Date().getFullYear() - FOUNDING_YEAR_APPROX;
+            var el = document.getElementById('hdr-years');
+            if (el) el.textContent = '🕰️ Plus de ' + years + ' ans d\'histoire, depuis les années 60/70';
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
