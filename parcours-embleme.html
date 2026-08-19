@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le parcours des 10 incontournables - Camping Paradis</title>
+<meta name="theme-color" content="#2F4B3C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+        --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+        --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+        --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+    }
+    body {
+        font-family:'Outfit', sans-serif; background:var(--paper); color:var(--ink);
+        padding-bottom:76px; line-height:1.5;
+        background-image:
+            radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+            repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+    }
+
+    header {
+        background: linear-gradient(155deg, var(--gorge), var(--forest));
+        padding: 20px 20px 26px; color:#fff; position:relative; overflow:hidden;
+    }
+    header::after {
+        content:''; position:absolute; inset:0;
+        background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+        pointer-events:none;
+    }
+    .back-link { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.85); text-decoration:none; font-size:13px; font-weight:600; margin-bottom:14px; }
+    .hdr-eyebrow { font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+    .hdr-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.25; }
+    .hdr-sub { font-size:13.5px; color:rgba(255,255,255,0.82); margin-top:8px; max-width:36ch; }
+
+    .carnet-progress {
+        position:relative; margin-top:20px; background:rgba(255,255,255,0.14);
+        border:1px solid rgba(255,255,255,0.22); border-radius:14px; padding:14px 16px;
+        display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .carnet-progress-label { font-size:12.5px; font-weight:700; }
+    .carnet-progress-count { font-family:'JetBrains Mono', monospace; font-weight:700; font-size:15px; }
+    .carnet-progress-bar { position:absolute; left:0; bottom:0; height:3px; background:#fff; border-radius:0 0 0 14px; transition:width .4s ease; }
+
+    /* ── Récompense finale ───────────────────────────────────────── */
+    .carnet-reward {
+        display:none; margin-top:12px; background:rgba(255,255,255,0.95); color:var(--forest);
+        border-radius:12px; padding:12px 14px; font-size:12.5px; font-weight:700; text-align:center;
+    }
+    .carnet-reward.show { display:block; }
+
+    /* ── Le parcours : une vraie ligne de sentier reliant les étapes ─ */
+    .container { max-width:600px; margin:0 auto; padding:22px 16px 8px; }
+    .list-head { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:16px; color:var(--forest); margin:6px 4px 6px; }
+    .list-sub { font-size:12.5px; color:var(--ink-soft); margin:0 4px 16px; }
+
+    .parcours-track { position:relative; padding-left:6px; }
+    .parcours-step { position:relative; display:flex; gap:14px; padding-bottom:22px; }
+    .parcours-step:last-child { padding-bottom:0; }
+    .parcours-step:last-child .parcours-connector { display:none; }
+
+    .parcours-marker { position:relative; flex-shrink:0; display:flex; flex-direction:column; align-items:center; }
+    .parcours-dot {
+        width:34px; height:34px; border-radius:50%; background:#fff; border:2px solid var(--line);
+        display:flex; align-items:center; justify-content:center; font-family:'JetBrains Mono', monospace;
+        font-weight:700; font-size:12px; color:var(--ink-soft); flex-shrink:0; z-index:1;
+        transition: background .2s, border-color .2s, color .2s;
+    }
+    .parcours-step.done .parcours-dot { background:var(--gorge); border-color:var(--gorge); color:#fff; }
+    .parcours-connector {
+        position:absolute; top:34px; bottom:-22px; left:50%; width:2px; margin-left:-1px;
+        background: repeating-linear-gradient(to bottom, var(--line) 0 5px, transparent 5px 9px);
+    }
+    .parcours-step.done .parcours-connector { background: repeating-linear-gradient(to bottom, var(--gorge-light) 0 5px, transparent 5px 9px); }
+
+    .parcours-card {
+        flex:1; background:#fff; border:1px solid var(--line); border-radius:16px; overflow:hidden;
+        box-shadow:0 3px 12px rgba(36,57,44,0.06); transition: box-shadow .2s;
+    }
+    .parcours-step.done .parcours-card { border-color:var(--gorge-light); background:var(--paper-deep); }
+    .parcours-card-img { width:100%; height:120px; object-fit:cover; display:block; background:linear-gradient(135deg,var(--gorge-light),var(--gorge)); }
+    .parcours-card-body { padding:12px 14px 14px; }
+    .parcours-cat {
+        display:inline-block; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:0.5px;
+        color:var(--river); background:#E7F1F3; border-radius:100px; padding:3px 8px; margin-bottom:7px;
+    }
+    .parcours-titre { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:15.5px; color:var(--ink); line-height:1.3; margin-bottom:5px; }
+    .parcours-lieu { font-size:11px; color:var(--ink-soft); margin-bottom:7px; }
+    .parcours-desc { font-size:13px; color:var(--ink-soft); line-height:1.5; margin-bottom:11px; }
+    .parcours-toggle {
+        width:100%; border:1.5px solid var(--gorge); background:#fff; color:var(--gorge);
+        font-family:'Outfit', sans-serif; font-weight:700; font-size:13px; border-radius:100px;
+        padding:9px; cursor:pointer; transition:.15s;
+    }
+    .parcours-toggle.done { background:var(--gorge); color:#fff; border-color:var(--gorge); }
+
+    .bottom-nav {
+        position:fixed; bottom:0; left:0; right:0; z-index:999;
+        display:flex; justify-content:space-around; align-items:center;
+        background:rgba(246,243,233,0.94); backdrop-filter:blur(10px);
+        border-top:1px solid var(--line); box-shadow:0 -4px 18px rgba(36,57,44,0.08);
+        padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+    }
+    .bottom-nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#8A9789; flex:1; padding:4px 2px; }
+    .bottom-nav-item .bn-ico { width:22px; height:22px; }
+    .bottom-nav-item .bn-ico svg { width:100%; height:100%; display:block; }
+    .bottom-nav-item .bn-label { font-size:10px; font-weight:700; }
+    .bottom-nav-item.active { color:var(--forest); }
+</style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+    <div class="hdr-eyebrow">🧭 À voir dans le coin</div>
+    <div class="hdr-title">Les 10 plus beaux sites du Haut-Bugey</div>
+    <div class="hdr-sub">Lacs, grottes, viaduc, cascades — le meilleur des environs du camping. Cochez au fil de vos sorties.</div>
+
+    <div class="carnet-progress">
+        <div class="carnet-progress-label">Sites visités</div>
+        <div class="carnet-progress-count" id="progress-count">0 / 10</div>
+        <div class="carnet-progress-bar" id="progress-bar" style="width:0%;"></div>
+    </div>
+    <div class="carnet-reward" id="carnet-reward">🏆 Les 10 sites visités — vous connaissez le Haut-Bugey comme personne !</div>
+</header>
+
+<div class="container">
+    <div class="list-head">Les sites à ne pas manquer</div>
+    <div class="list-sub">Distances indicatives depuis le camping — vérifiez les horaires d'ouverture avant de partir.</div>
+    <div class="parcours-track" id="parcours-track"></div>
+</div>
+
+<nav class="bottom-nav" aria-label="Navigation principale">
+    <a href="programme.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <span class="bn-label">Programme</span>
+    </a>
+    <a href="plan.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+        <span class="bn-label">Plan</span>
+    </a>
+    <a href="club-enfants.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+        <span class="bn-label">Mini club</span>
+    </a>
+    <a href="horaires.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+        <span class="bn-label">Horaires</span>
+    </a>
+</nav>
+
+<script>
+(function () {
+    var STORAGE_KEY = 'campingparadis_parcours_embleme';
+    var trackEl = document.getElementById('parcours-track');
+    var countEl = document.getElementById('progress-count');
+    var barEl = document.getElementById('progress-bar');
+    var rewardEl = document.getElementById('carnet-reward');
+
+    function getDone() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+        catch (e) { return []; }
+    }
+    function setDone(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+    function updateProgress(total) {
+        var done = getDone();
+        countEl.textContent = done.length + ' / ' + total;
+        barEl.style.width = (total ? (done.length / total) * 100 : 0) + '%';
+        rewardEl.classList.toggle('show', total > 0 && done.length === total);
+    }
+
+    function render(etapes) {
+        trackEl.innerHTML = '';
+        var done = getDone();
+
+        etapes.forEach(function (e, i) {
+            var isDone = done.indexOf(e.id) !== -1;
+
+            var step = document.createElement('div');
+            step.className = 'parcours-step' + (isDone ? ' done' : '');
+
+            var imgHtml = e.image
+                ? '<img class="parcours-card-img" src="' + e.image + '" alt="' + e.titre + '">'
+                : '<div class="parcours-card-img"></div>';
+
+            step.innerHTML =
+                '<div class="parcours-marker">' +
+                    '<div class="parcours-dot">' + (isDone ? '✓' : String(i + 1).padStart(2, '0')) + '</div>' +
+                    '<div class="parcours-connector"></div>' +
+                '</div>' +
+                '<div class="parcours-card">' +
+                    imgHtml +
+                    '<div class="parcours-card-body">' +
+                        '<div class="parcours-cat">' + e.categorie + '</div>' +
+                        '<div class="parcours-titre">' + e.titre + '</div>' +
+                        '<div class="parcours-lieu">📍 ' + e.lieu + '</div>' +
+                        '<div class="parcours-desc">' + e.description + '</div>' +
+                        '<button type="button" class="parcours-toggle' + (isDone ? ' done' : '') + '">' +
+                            (isDone ? '✓ Site visité' : 'Marquer comme visité') +
+                        '</button>' +
+                    '</div>' +
+                '</div>';
+
+            step.querySelector('.parcours-toggle').addEventListener('click', function () {
+                var d = getDone();
+                var idx = d.indexOf(e.id);
+                if (idx === -1) { d.push(e.id); } else { d.splice(idx, 1); }
+                setDone(d);
+                render(etapes);
+                updateProgress(etapes.length);
+            });
+
+            trackEl.appendChild(step);
+        });
+    }
+
+    fetch('parcours.json?t=' + Date.now())
+        .then(function (r) { if (!r.ok) throw new Error('introuvable'); return r.json(); })
+        .then(function (data) {
+            var etapes = data.etapes || [];
+            render(etapes);
+            updateProgress(etapes.length);
+        })
+        .catch(function () {
+            trackEl.innerHTML = '<div style="text-align:center;padding:30px;color:var(--ink-soft);font-size:13px;">Impossible de charger le parcours pour le moment.</div>';
+        });
+})();
+</script>
+</body>
+</html>

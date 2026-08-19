@@ -1,0 +1,84 @@
+{
+  "etapes": [
+    {
+      "id": "lac-genin",
+      "titre": "Lac Genin",
+      "categorie": "Lac",
+      "lieu": "Charix — env. 12 km, 30 min (route de montagne)",
+      "image": "",
+      "description": "Surnommé le \"Petit Canada du Haut-Bugey\", à 830 m d'altitude, entouré de sapins. Baignade surveillée l'été, patinage sur glace naturelle l'hiver. Une auberge sur place pour manger au bord de l'eau."
+    },
+    {
+      "id": "lac-nantua",
+      "titre": "Lac de Nantua",
+      "categorie": "Lac",
+      "lieu": "Nantua — env. 12 km, 16 min",
+      "image": "",
+      "description": "Le plus grand des lacs du secteur (141 hectares), niché entre de hautes falaises calcaires. Baignade, paddle, voile, pêche. La ville de Nantua juste à côté, réputée pour sa gastronomie (la fameuse sauce Nantua)."
+    },
+    {
+      "id": "lac-sylans",
+      "titre": "Lac de Sylans et ses glacières",
+      "categorie": "Patrimoine",
+      "lieu": "Les Neyrolles — env. 15 km, 20 min",
+      "image": "",
+      "description": "Site naturel classé depuis 1909. Sur ses berges, les vestiges d'une ancienne exploitation de glace naturelle du 19e siècle, expédiée jusqu'à Paris et Alger. Visite libre et gratuite, sentier avec panneaux explicatifs."
+    },
+    {
+      "id": "grottes-cerdon",
+      "titre": "Les Grottes du Cerdon",
+      "categorie": "Famille",
+      "lieu": "Labalme — env. 20 km, 30 min",
+      "image": "",
+      "description": "Visite de 45 min à 1h30 à travers un monde souterrain, jusqu'à un belvédère niché dans la falaise. Activités préhistoriques pour les enfants dès 4 ans (poterie, peinture aux ocres, tir au propulseur). Billetterie sur place."
+    },
+    {
+      "id": "viaduc-cize-bolozon",
+      "titre": "Le viaduc de Cize-Bolozon",
+      "categorie": "Patrimoine",
+      "lieu": "Bolozon — env. 20 km, 25 min",
+      "image": "",
+      "description": "Un pont ferroviaire et routier à double étage, unique en France, suspendu à 280 m au-dessus des Gorges de l'Ain. Se traverse à pied — l'une des images les plus photographiées du département."
+    },
+    {
+      "id": "lac-vouglans",
+      "titre": "Lac de Vouglans",
+      "categorie": "Lac",
+      "lieu": "Jura, à la frontière de l'Ain — env. 24 km, 42 min",
+      "image": "",
+      "description": "Le 3e plus grand lac artificiel de France, aux eaux couleur émeraude, 35 km de long. Plages aménagées (Mercantine, Bellecin), baignade, paddle, ski nautique. Idéal pour une journée complète."
+    },
+    {
+      "id": "oyoxygene",
+      "titre": "Oyoxygène",
+      "categorie": "Famille",
+      "lieu": "Près du lac Genin, Charix — env. 13 km",
+      "image": "",
+      "description": "Parc d'aventure en pleine nature : accrobranche, escape game, chasse au trésor, initiation au biathlon. Accessible dès 2 ans, à deux pas du lac Genin — les deux se combinent bien sur une même sortie."
+    },
+    {
+      "id": "cascade-pisse-vache",
+      "titre": "La cascade de Pisse Vache",
+      "categorie": "Nature",
+      "lieu": "Bombois, hameau de Matafelon-Granges",
+      "image": "",
+      "description": "Une balade au départ du hameau de Bombois : grotte de l'Ours, point de vue à 400 m au-dessus de la rivière d'Ain, puis la cascade de Pisse Vache, visible sous plusieurs angles."
+    },
+    {
+      "id": "ile-chambod",
+      "titre": "L'Île Chambod",
+      "categorie": "Nature",
+      "lieu": "Gorges de l'Ain, secteur de Poncin",
+      "image": "",
+      "description": "Un coin de nature au bord de la rivière d'Ain, à l'ambiance presque méditerranéenne. Eaux calmes, kayak, pique-nique — l'un des spots préférés des habitués des Gorges de l'Ain."
+    },
+    {
+      "id": "ville-nantua",
+      "titre": "Le village de Nantua",
+      "categorie": "Découverte",
+      "lieu": "Nantua — env. 12 km, 16 min",
+      "image": "",
+      "description": "Sous-préfecture de l'Ain au bord de son lac. Petites rues, marché, tables réputées pour la sauce Nantua (spécialité à base d'écrevisses). Se combine facilement avec la visite du lac."
+    }
+  ]
+}
