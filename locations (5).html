@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations Diverses - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6;
+            background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        /* ── Sélecteur d'objets (grille d'icônes) ────────────────────── */
+        .selector-wrapper {
+            background: rgba(246,243,233,0.94); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 99;
+        }
+        .selector { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+        .selector::-webkit-scrollbar { display: none; }
+        .item-chip {
+            flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 4px;
+            background: #fff; border: 1.5px solid var(--line); border-radius: 14px; padding: 9px 12px;
+            cursor: pointer; transition: .15s; min-width: 66px;
+        }
+        .item-chip-icon { font-size: 19px; }
+        .item-chip-label { font-size: 9.5px; font-weight: 700; color: var(--ink-soft); text-align: center; line-height: 1.2; }
+        .item-chip.active { background: var(--forest); border-color: var(--forest); }
+        .item-chip.active .item-chip-label { color: #fff; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 16px; }
+
+        /* ── Info réception (constante, affichée une seule fois) ─────── */
+        .reception-info {
+            display: flex; gap: 14px; background: white; border: 1px solid var(--line);
+            border-radius: 16px; padding: 14px 16px; margin-bottom: 18px;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .reception-info-icon {
+            width: 36px; height: 36px; border-radius: 10px; background: var(--paper-deep); flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 17px;
+        }
+        .reception-info-title { font-size: 12.5px; font-weight: 700; color: var(--ink); }
+        .reception-info-sub { font-size: 11.5px; color: var(--ink-soft); margin-top: 2px; }
+
+        /* ── Fiche objet ─────────────────────────────────────────────── */
+        .item { display: none; }
+        .item.active { display: block; }
+        .item-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 21px; color: var(--forest); margin-bottom: 12px; }
+        .item-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 8px; }
+        .item-desc ul { margin: 8px 0 8px 20px; }
+        .item-desc li { margin-bottom: 4px; }
+
+        .info-block {
+            background: white; border-radius: 16px; border:1px solid var(--line); overflow: hidden;
+            margin-top: 16px; box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .info-row { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon {
+            width: 30px; height: 30px; background: var(--paper-deep); border-radius: 9px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+        .price-tag {
+            display: inline-block; font-family:'JetBrains Mono', monospace; font-weight: 700; font-size: 13px;
+        }
+        .price-free { color: #1E7A3E; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🎒 Le petit + qui manquait</div>
+            <h1>Locations diverses</h1>
+            <div class="hdr-sub">Draps, kit bébé, jeux — disponibles à la réception.</div>
+        </div>
+    </header>
+
+    <div class="selector-wrapper">
+        <div class="selector" id="selector">
+            <div class="item-chip active" onclick="showItem(0)">
+                <span class="item-chip-icon">🎲</span><span class="item-chip-label">Jeux de société</span>
+            </div>
+            <div class="item-chip" onclick="showItem(1)">
+                <span class="item-chip-icon">🧊</span><span class="item-chip-label">Frigo</span>
+            </div>
+            <div class="item-chip" onclick="showItem(2)">
+                <span class="item-chip-icon">🛏️</span><span class="item-chip-label">Draps</span>
+            </div>
+            <div class="item-chip" onclick="showItem(3)">
+                <span class="item-chip-icon">🍼</span><span class="item-chip-label">Kit bébé</span>
+            </div>
+            <div class="item-chip" onclick="showItem(4)">
+                <span class="item-chip-icon">🏓</span><span class="item-chip-label">Ping-pong</span>
+            </div>
+            <div class="item-chip" onclick="showItem(5)">
+                <span class="item-chip-icon">⚪</span><span class="item-chip-label">Pétanque</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div class="reception-info">
+            <div class="reception-info-icon">📍</div>
+            <div>
+                <div class="reception-info-title">Toutes les locations se font à la réception</div>
+                <div class="reception-info-sub">Tous les jours, sur les horaires d'ouverture — prêts sous réserve de disponibilité</div>
+            </div>
+        </div>
+
+        <!-- 1. JEU DE SOCIÉTÉ -->
+        <div class="item active" id="item-0">
+            <div class="item-name">Jeux de société</div>
+            <div class="item-desc">
+                <p>Six jeux disponibles gratuitement à la réception :</p>
+                <ul>
+                    <li>Unanimo Party</li>
+                    <li>Contrario</li>
+                    <li>Code Names</li>
+                    <li>Give Me Five</li>
+                    <li>Twin It</li>
+                    <li>Skyjo</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value"><span class="price-tag price-free">Gratuit</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. FRIGO -->
+        <div class="item" id="item-1">
+            <div class="item-name">Frigo</div>
+            <div class="item-desc">
+                <p>Réservé aux emplacements en tente, caravane, camping-car ou van aménagé.</p>
+                <p>Merci de le nettoyer avant de nous le rendre — nous venons le récupérer directement sur l'emplacement.</p>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value"><span class="price-tag">7 € / jour</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. DRAPS -->
+        <div class="item" id="item-2">
+            <div class="item-name">Draps</div>
+            <div class="item-desc">
+                <p>Pour profiter pleinement de votre séjour — et de votre sommeil, d'autant plus important en vacances.</p>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value">
+                            <span class="price-tag">7 €</span> lit simple · <span class="price-tag">10 €</span> lit double
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. KIT BÉBÉ -->
+        <div class="item" id="item-3">
+            <div class="item-name">Kit bébé</div>
+            <div class="item-desc">
+                <p>Pour que le séjour de votre bout'chou se passe aussi bien que le vôtre :</p>
+                <ul>
+                    <li>Chaise haute</li>
+                    <li>Lit parapluie</li>
+                    <li>Matelas à langer</li>
+                </ul>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value"><span class="price-tag">5 € / jour</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. RAQUETTES PING-PONG -->
+        <div class="item" id="item-4">
+            <div class="item-name">Raquettes de ping-pong</div>
+            <div class="item-desc">
+                <p>Raquettes et balles, prêtées gratuitement contre votre numéro d'emplacement.</p>
+                <p>En cas d'oubli de restitution, une facture vous sera adressée sur place ou par voie postale.</p>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value"><span class="price-tag price-free">Gratuit</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. BOULES DE PÉTANQUE -->
+        <div class="item" id="item-5">
+            <div class="item-name">Boules de pétanque</div>
+            <div class="item-desc">
+                <p>Jeu de boules avec cochonnet, prêté gratuitement à la réception.</p>
+                <p>En cas d'oubli de restitution, une facture vous sera adressée sur place ou par voie postale.</p>
+            </div>
+            <div class="info-block">
+                <div class="info-row">
+                    <div class="info-icon">💶</div>
+                    <div class="info-content">
+                        <div class="info-label">Prix</div>
+                        <div class="info-value"><span class="price-tag price-free">Gratuit</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function showItem(index) {
+            document.querySelectorAll('.item').forEach(i => i.classList.remove('active'));
+            document.querySelectorAll('.item-chip').forEach(t => t.classList.remove('active'));
+            document.getElementById('item-' + index).classList.add('active');
+            document.querySelectorAll('.item-chip')[index].classList.add('active');
+            document.querySelectorAll('.item-chip')[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        }
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
