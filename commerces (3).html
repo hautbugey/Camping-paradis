@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commerces - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6;
+            background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        /* ── Grille de catégories ─────────────────────────────────────── */
+        .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+        .cat-card {
+            background: white; border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+            cursor: pointer; text-align: left; font-family: inherit; padding: 0;
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); transition: transform .2s, box-shadow .2s;
+        }
+        .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 26px rgba(36,57,44,0.15); }
+        .cat-image {
+            width: 100%; height: 130px; background-size: cover; background-position: center;
+            background-color: var(--paper-deep); position: relative;
+        }
+        .cat-icon-badge {
+            position: absolute; bottom: 10px; left: 12px; width: 40px; height: 40px; border-radius: 12px;
+            background: rgba(255,255,255,0.92); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; font-size: 19px;
+        }
+        .cat-title { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 15.5px; color: var(--ink); padding: 14px 16px; }
+        @media (max-width: 600px) { .cat-grid { grid-template-columns: 1fr; } }
+
+        /* ── Mini-carte ──────────────────────────────────────────────── */
+        .map-section { margin-bottom: 16px; }
+        .map-head { display:flex; align-items:center; justify-content:space-between; margin: 2px 4px 10px; }
+        .map-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:15px; color:var(--forest); }
+        .map-hint { font-size:11px; color:var(--ink-soft); font-family:'JetBrains Mono', monospace; }
+        #commerces-map {
+            height: 220px; border-radius: 18px; border:1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.08); overflow:hidden;
+        }
+        .leaflet-popup-content-wrapper { border-radius: 12px; font-family:'Outfit', sans-serif; }
+        .map-popup-cat { font-size:10px; font-weight:800; text-transform:uppercase; display:block; margin-bottom:2px; }
+        .map-popup-name { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:13.5px; color:var(--ink); }
+        .shop-marker {
+            width: 24px; height: 24px; border-radius: 50% 50% 50% 0; border: 2px solid #fff;
+            box-shadow: 0 2px 6px rgba(36,57,44,0.4); transform: rotate(-45deg);
+        }
+        .shop-marker.camp-marker { background: var(--forest); }
+        .shop-marker.super-marker { background: var(--gorge); }
+        .shop-marker.sante-marker { background: #C0424A; }
+        .shop-marker.petits-marker { background: var(--clay); }
+
+        /* ── Vue liste d'une catégorie ───────────────────────────────── */
+        .cat-view { display: none; }
+        .cat-view.active { display: block; }
+        #cat-home.active { display: block; }
+
+        .back-cats {
+            display: inline-flex; align-items: center; gap: 6px; background: white;
+            border: 1.5px solid var(--line); color: var(--ink-soft); padding: 8px 16px 8px 12px;
+            border-radius: 100px; cursor: pointer; font-size: 12.5px; font-weight: 700;
+            font-family: inherit; margin-bottom: 18px; transition: all .2s;
+        }
+        .back-cats:hover { border-color: var(--gorge); color: var(--gorge); }
+
+        .cat-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 24px; color: var(--forest); margin-bottom: 4px; }
+        .cat-sub { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 12px; }
+
+        .sort-btn {
+            display: inline-flex; align-items: center; gap: 6px; background: white; border: 1.5px solid var(--line);
+            color: var(--ink-soft); font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12px;
+            padding: 8px 14px; border-radius: 100px; cursor: pointer; margin-bottom: 16px; transition: .2s;
+        }
+        .sort-btn.active { background: var(--forest); border-color: var(--forest); color: #fff; }
+
+        .closed-alert {
+            display: flex; gap: 10px; align-items: flex-start; background: #FBEDEB; border: 1px solid #EAC3BE;
+            border-radius: 14px; padding: 13px 15px; font-size: 13px; color: #7A3A30; margin-bottom: 16px;
+        }
+
+        .directions-btn {
+            display: inline-flex; align-items: center; gap: 6px; color: var(--forest); font-weight: 700;
+            font-size: 12.5px; text-decoration: none; margin-top: 4px;
+        }
+        .directions-btn:hover { text-decoration: underline; }
+
+        /* ── Fiche commerce ──────────────────────────────────────────── */
+        .shop-block {
+            background: white; border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+            margin-bottom: 14px; box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .shop-head { padding: 16px 18px 8px; display: flex; align-items: flex-start; gap: 12px; }
+        .shop-icon {
+            width: 38px; height: 38px; border-radius: 11px; background: var(--paper-deep); flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 17px;
+        }
+        .shop-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 15.5px; color: var(--ink); line-height: 1.3; }
+        .shop-badge-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .shop-badge {
+            display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700;
+            color: var(--river); background: #E7F1F3; padding: 4px 9px; border-radius: 100px;
+        }
+        .open-badge {
+            display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight: 700;
+            border-radius:100px; padding:4px 9px; font-family:'Outfit', sans-serif;
+        }
+        .open-badge.open { background:#E7F1E9; color:#1E7A3E; }
+        .open-badge.closed { background:#F3E9E5; color:#A24A2E; }
+        .open-badge.always { background:#EFEADA; color:var(--ink-soft); }
+        .open-badge .dot { width:6px; height:6px; border-radius:50%; background:#2FA35A; flex-shrink:0; }
+        .open-badge.open .dot { animation: openpulse 1.6s ease-in-out infinite; }
+        @keyframes openpulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+
+        .shop-desc { font-size: 13px; color: var(--ink-soft); padding: 6px 18px 12px; }
+
+        .info-row { display: flex; gap: 14px; align-items: flex-start; padding: 12px 18px; border-top: 1px solid var(--line); }
+        .info-icon {
+            width: 30px; height: 30px; background: var(--paper-deep); border-radius: 9px;
+            display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.55; }
+        .info-value a { color: var(--river); text-decoration: none; font-weight: 600; }
+        .info-value a:hover { text-decoration: underline; }
+
+        /* ── Encart astuce ───────────────────────────────────────────── */
+        .tip-box {
+            display: flex; gap: 10px; align-items: flex-start; background: linear-gradient(150deg, #FBF1E4, #F3DFC0);
+            border: 1px solid #E7CBA3; border-radius: 14px; padding: 13px 15px; font-size: 13px;
+            color: #6B4F27; margin: 2px 0 18px;
+        }
+        .tip-box a { color: var(--clay); font-weight: 700; text-decoration: none; }
+        .tip-box a:hover { text-decoration: underline; }
+
+        /* ── Urgences ────────────────────────────────────────────────── */
+        .urgence-box {
+            background: #FBEDEB; border: 1px solid #EAC3BE; border-radius: 14px;
+            padding: 15px 17px; font-size: 13px; color: var(--ink); margin-top: 4px; line-height: 1.7;
+        }
+        .urgence-box strong { color: #B4392E; }
+        .urgence-box a { color: var(--river); font-weight: 700; text-decoration: none; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🧭 Autour du camping</div>
+            <h1>Commerces</h1>
+            <div class="hdr-sub">Courses, santé et petits commerces à proximité.</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- ═══ VUE D'ACCUEIL : 3 CATÉGORIES ═══ -->
+        <div class="cat-view active" id="cat-home">
+            <div class="map-section">
+                <div class="map-head">
+                    <div class="map-title">📍 Où se trouvent-ils ?</div>
+                    <div class="map-hint">Distances approx.</div>
+                </div>
+                <div id="commerces-map"></div>
+            </div>
+            <div class="cat-grid">
+            <button class="cat-card" onclick="showCat('super')">
+                <div class="cat-image" style="background-image: url('images/supermarches.jpg');">
+                    <div class="cat-icon-badge">🛒</div>
+                </div>
+                <div class="cat-title">Supermarchés</div>
+            </button>
+            <button class="cat-card" onclick="showCat('sante')">
+                <div class="cat-image" style="background-image: url('images/sante.jpg');">
+                    <div class="cat-icon-badge">💊</div>
+                </div>
+                <div class="cat-title">Santé</div>
+            </button>
+            <button class="cat-card" onclick="showCat('petits')">
+                <div class="cat-image" style="background-image: url('images/boulangerie.jpg');">
+                    <div class="cat-icon-badge">🥐</div>
+                </div>
+                <div class="cat-title">Petits commerces</div>
+            </button>
+            </div>
+        </div>
+
+        <!-- ═══ SUPERMARCHÉS ═══ -->
+        <div class="cat-view" id="cat-super">
+            <button class="back-cats" onclick="showCat('home')">← Toutes les catégories</button>
+            <div class="cat-name">Supermarchés</div>
+            <div class="cat-sub">Grandes surfaces et courses du quotidien</div>
+            <button class="sort-btn" data-sort-target="cat-super" onclick="toggleSort(this)">↕️ Trier par proximité</button>
+            <div class="closed-alert" id="closed-alert-super" style="display:none;">🕐 Rien n'est ouvert dans cette catégorie en ce moment.</div>
+
+            <div class="tip-box">💡&nbsp;Pour le dépannage, pensez aussi à <a href="epicerie.html">l'épicerie du camping</a> !</div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:30","19:30"]],"2":[["08:30","19:30"]],"3":[["08:30","19:30"]],"4":[["08:30","19:30"]],"5":[["08:30","19:30"]],"6":[["08:30","19:30"]],"0":[["09:00","12:30"]]}}' id="market-montreal" data-km="13" data-address="68 Rue du Jura, 01460 Montréal-la-Cluse">
+                <div class="shop-head">
+                    <div class="shop-icon">🛒</div>
+                    <div>
+                        <div class="shop-name">Market Montréal-la-Cluse</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 13 km · 15 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Supermarché complet avec rayon boulangerie, le plus pratique pour les grosses courses.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Market+68+Rue+du+Jura+01460+Montréal-la-Cluse" target="_blank" rel="noopener">68 Rue du Jura, 01460 Montréal-la-Cluse</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Sam : 8h30–19h30 · Dim : 9h–12h30</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474762643">04 74 76 26 43</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:30","19:30"]],"2":[["08:30","19:30"]],"3":[["08:30","19:30"]],"4":[["08:30","19:30"]],"5":[["08:30","19:30"]],"6":[["08:30","19:30"]],"0":[["09:00","12:30"]]}}' id="intermarche-super-port" data-km="16" data-address="Rue de l'Ancre, 01460 Port">
+                <div class="shop-head">
+                    <div class="shop-icon">🛒</div>
+                    <div>
+                        <div class="shop-name">Intermarché SUPER — Port (Nantua)</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 16 km · 18 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Pratique au retour du lac de Nantua. Espace dédié aux camping-cars à côté du magasin.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Intermarché+Rue+de+l'Ancre+01460+Port" target="_blank" rel="noopener">Rue de l'Ancre, 01460 Port</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Sam : 8h30–19h30 · Dim : 9h–12h30</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474761844">04 74 76 18 44</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:30","20:00"]],"2":[["08:30","20:00"]],"3":[["08:30","20:00"]],"4":[["08:30","20:00"]],"5":[["08:30","20:00"]],"6":[["08:30","20:00"]],"0":[["08:30","12:30"]]}}' id="intermarche-hyper-arbent" data-km="17" data-address="Avenue du 19 Mars 1962, 01100 Arbent">
+                <div class="shop-head">
+                    <div class="shop-icon">🛒</div>
+                    <div>
+                        <div class="shop-name">Intermarché HYPER — Arbent</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 17 km · 20 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Le plus grand choix de la région (hypermarché), avec station-service.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Intermarché+Hyper+Avenue+du+19+Mars+1962+01100+Arbent" target="_blank" rel="noopener">Avenue du 19 Mars 1962, 01100 Arbent</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Sam : 8h30–20h · Dim : 8h30–12h30</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474812400">04 74 81 24 00</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:00","20:00"]],"2":[["08:00","20:00"]],"3":[["08:00","20:00"]],"4":[["08:00","20:00"]],"5":[["08:00","20:00"]],"6":[["08:00","20:00"]],"0":[["08:00","12:15"]]}}' id="lidl-oyonnax" data-km="15" data-address="41 Cours de Verdun, 01100 Oyonnax">
+                <div class="shop-head">
+                    <div class="shop-icon">🛒</div>
+                    <div>
+                        <div class="shop-name">Lidl — Oyonnax</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 15 km · 18 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Enseigne discount bien connue de nos vacanciers européens.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Lidl+41+Cours+de+Verdun+01100+Oyonnax" target="_blank" rel="noopener">41 Cours de Verdun, 01100 Oyonnax</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Sam : 8h–20h · Dim : 8h–12h15</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══ SANTÉ ═══ -->
+        <div class="cat-view" id="cat-sante">
+            <button class="back-cats" onclick="showCat('home')">← Toutes les catégories</button>
+            <div class="cat-name">Santé</div>
+            <div class="cat-sub">Pharmacie, médecins et urgences</div>
+            <button class="sort-btn" data-sort-target="cat-sante" onclick="toggleSort(this)">↕️ Trier par proximité</button>
+            <div class="closed-alert" id="closed-alert-sante" style="display:none;">🕐 Rien n'est ouvert dans cette catégorie en ce moment.</div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:45","12:15"],["14:45","19:00"]],"2":[["08:45","12:15"],["14:45","19:00"]],"3":[["08:45","12:15"],["14:45","19:00"]],"4":[["08:45","12:15"],["14:45","19:00"]],"5":[["08:45","12:15"],["14:45","19:00"]],"6":[["08:45","12:30"]]}}' id="pharmacie-izernore" data-km="6" data-address="705 Grande Rue, 01580 Izernore">
+                <div class="shop-head">
+                    <div class="shop-icon">💊</div>
+                    <div>
+                        <div class="shop-name">Pharmacie des Monts Berthiand — Izernore</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 6 km · 8 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">La pharmacie la plus proche du camping. Équipe accueillante et de bon conseil.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Pharmacie+des+Monts+Berthiand+705+Grande+Rue+01580+Izernore" target="_blank" rel="noopener">705 Grande Rue, 01580 Izernore</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Ven : 8h45–12h15 / 14h45–19h · Sam : 8h45–12h30</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474765000">04 74 76 50 00</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["08:00","18:00"]],"2":[["08:00","18:00"]],"3":[["08:00","18:00"]],"4":[["08:00","18:00"]],"5":[["08:00","18:00"]]}}' id="espace-sante-montreal" data-km="14" data-address="6 Rue de Brolliat, 01460 Montréal-la-Cluse">
+                <div class="shop-head">
+                    <div class="shop-icon">🩺</div>
+                    <div>
+                        <div class="shop-name">Espace Santé Mont Royal — Montréal-la-Cluse</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 14 km · 16 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Maison de santé regroupant médecins généralistes et autres praticiens.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Espace+Santé+Mont+Royal+6+Rue+de+Brolliat+01460+Montréal-la-Cluse" target="_blank" rel="noopener">6 Rue de Brolliat, 01460 Montréal-la-Cluse</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Ven : 8h–18h</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0974192569">09 74 19 25 69</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" id="hopital-oyonnax" data-km="15" data-address="Route de Veyziat, 01100 Oyonnax">
+                <div class="shop-head">
+                    <div class="shop-icon">🏥</div>
+                    <div>
+                        <div class="shop-name">Centre hospitalier du Haut-Bugey — Oyonnax</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 15 km · 18 min</span>
+                            <span class="open-badge always">🚨 Urgences 24h/24</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Le service d'urgences le plus proche du camping.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Centre+hospitalier+du+Haut-Bugey+Oyonnax" target="_blank" rel="noopener">Route de Veyziat, 01100 Oyonnax</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="urgence-box">
+                <strong>Numéros d'urgence :</strong> 15 (SAMU) · 112 (urgences européennes) · 3237 (pharmacie de garde)<br>
+                En cas de besoin, la réception du camping est là pour vous aider : <a href="tel:+33474768097">04 74 76 80 97</a>
+            </div>
+        </div>
+
+        <!-- ═══ PETITS COMMERCES ═══ -->
+        <div class="cat-view" id="cat-petits">
+            <button class="back-cats" onclick="showCat('home')">← Toutes les catégories</button>
+            <div class="cat-name">Petits commerces</div>
+            <div class="cat-sub">Boulangerie, tabac et presse à Izernore</div>
+            <button class="sort-btn" data-sort-target="cat-petits" onclick="toggleSort(this)">↕️ Trier par proximité</button>
+            <div class="closed-alert" id="closed-alert-petits" style="display:none;">🕐 Rien n'est ouvert dans cette catégorie en ce moment.</div>
+
+            <div class="tip-box">🥐&nbsp;Pain frais et viennoiseries disponibles chaque matin <a href="petit-dejeuner.html">au camping</a> !</div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["06:00","19:00"]],"2":[["06:00","19:00"]],"3":[],"4":[["06:00","19:00"]],"5":[["06:00","19:00"]],"6":[["06:00","19:00"]],"0":[["06:00","13:00"]]}}' id="boulangerie-izernore" data-km="6" data-address="99 Grande Rue, 01580 Izernore">
+                <div class="shop-head">
+                    <div class="shop-icon">🥖</div>
+                    <div>
+                        <div class="shop-name">Boulangerie des Colonnes — Izernore</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 6 km · 8 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Boulangerie artisanale : pains, pâtisseries et petit salon de thé avec terrasse.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Boulangerie+des+Colonnes+99+Grande+Rue+01580+Izernore" target="_blank" rel="noopener">99 Grande Rue, 01580 Izernore</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun, Mar, Jeu–Sam : 6h–19h · Dim : 6h–13h · Fermé le mercredi</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474769283">04 74 76 92 83</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="shop-block" data-schedule='{"week":{"1":[["06:30","12:30"],["15:00","19:00"]],"2":[["06:30","12:30"],["15:00","19:00"]],"3":[["06:30","12:30"],["15:00","19:00"]],"4":[["06:30","12:30"],["15:00","19:00"]],"5":[["06:30","12:30"],["15:00","19:00"]],"6":[["06:30","12:30"],["15:00","19:00"]],"0":[["07:00","12:30"]]}}' id="tabac-izernore" data-km="6" data-address="636 Grande Rue, 01580 Izernore">
+                <div class="shop-head">
+                    <div class="shop-icon">🚬</div>
+                    <div>
+                        <div class="shop-name">Tabac-Presse des Colonnes — Izernore</div>
+                        <div class="shop-badge-row">
+                            <span class="shop-badge">🚗 ≈ 6 km · 8 min</span>
+                            <span class="open-badge" data-badge></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="shop-desc">Tabac, presse, jeux, souvenirs et petit dépannage alimentaire.</div>
+                <div class="info-row">
+                    <div class="info-icon">📍</div>
+                    <div class="info-content">
+                        <div class="info-label">Adresse</div>
+                        <div class="info-value"><a href="https://maps.google.com/?q=Tabac+des+Colonnes+636+Grande+Rue+01580+Izernore" target="_blank" rel="noopener">636 Grande Rue, 01580 Izernore</a></div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">🕐</div>
+                    <div class="info-content">
+                        <div class="info-label">Horaires</div>
+                        <div class="info-value">Lun–Sam : 6h30–12h30 / 15h–19h · Dim : 7h–12h30</div>
+                    </div>
+                </div>
+                <div class="info-row">
+                    <div class="info-icon">📞</div>
+                    <div class="info-content">
+                        <div class="info-label">Téléphone</div>
+                        <div class="info-value"><a href="tel:0474771938">04 74 77 19 38</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        function showCat(id) {
+            document.querySelectorAll('.cat-view').forEach(v => v.classList.remove('active'));
+            document.getElementById('cat-' + id).classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <script>
+        // ── Badge "Ouvert maintenant" calculé en direct à partir des horaires ──
+        (function () {
+            function pad(n) { return (n < 10 ? '0' : '') + n; }
+            function toMinutes(hhmm) {
+                var p = hhmm.split(':');
+                return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+            }
+            function computeStatus(schedule) {
+                var now = new Date();
+                var nowMin = now.getHours() * 60 + now.getMinutes();
+                var day = now.getDay();
+                var ranges = schedule.week ? schedule.week[String(day)] : null;
+
+                if (!ranges || !ranges.length) return { state: 'closed', label: 'Fermé aujourd\'hui' };
+
+                for (var i = 0; i < ranges.length; i++) {
+                    var start = toMinutes(ranges[i][0]);
+                    var end = toMinutes(ranges[i][1]);
+                    if (nowMin >= start && nowMin < end) {
+                        return { state: 'open', label: 'Ouvert · ferme à ' + ranges[i][1].replace(':', 'h').replace(/h00$/, 'h') };
+                    }
+                }
+                for (var j = 0; j < ranges.length; j++) {
+                    if (nowMin < toMinutes(ranges[j][0])) {
+                        return { state: 'closed', label: 'Ouvre à ' + ranges[j][0].replace(':', 'h').replace(/h00$/, 'h') };
+                    }
+                }
+                return { state: 'closed', label: 'Fermé pour aujourd\'hui' };
+            }
+
+            document.querySelectorAll('.shop-block[data-schedule]').forEach(function (block) {
+                var badge = block.querySelector('[data-badge]');
+                if (!badge) return;
+                try {
+                    var schedule = JSON.parse(block.getAttribute('data-schedule'));
+                    var status = computeStatus(schedule);
+                    badge.className = 'open-badge ' + status.state;
+                    badge.innerHTML = (status.state === 'open' ? '<span class="dot"></span>' : '') + status.label;
+                } catch (e) { /* pas de badge si erreur */ }
+            });
+        })();
+    </script>
+
+    <!-- ── Mini-carte des commerces ──────────────────────────────────── -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        (function () {
+            var CAMPING = [46.2619, 5.5544]; // Matafelon-Granges — position approximative
+            var SHOPS = [
+                { id: 'market-montreal', name: 'Market Montréal-la-Cluse', cat: 'super', label: '🛒 Supermarché', lat: 46.2427, lng: 5.6272 },
+                { id: 'intermarche-super-port', name: 'Intermarché SUPER — Port (Nantua)', cat: 'super', label: '🛒 Supermarché', lat: 46.1517, lng: 5.6067 },
+                { id: 'intermarche-hyper-arbent', name: 'Intermarché HYPER — Arbent', cat: 'super', label: '🛒 Supermarché', lat: 46.2519, lng: 5.6664 },
+                { id: 'lidl-oyonnax', name: 'Lidl — Oyonnax', cat: 'super', label: '🛒 Supermarché', lat: 46.2564, lng: 5.6553 },
+                { id: 'pharmacie-izernore', name: 'Pharmacie des Monts Berthiand — Izernore', cat: 'sante', label: '💊 Pharmacie', lat: 46.2764, lng: 5.6114 },
+                { id: 'espace-sante-montreal', name: 'Espace Santé Mont Royal — Montréal-la-Cluse', cat: 'sante', label: '🩺 Santé', lat: 46.2427, lng: 5.6272 },
+                { id: 'hopital-oyonnax', name: 'Centre hospitalier du Haut-Bugey — Oyonnax', cat: 'sante', label: '🏥 Hôpital', lat: 46.2564, lng: 5.6553 },
+                { id: 'boulangerie-izernore', name: 'Boulangerie des Colonnes — Izernore', cat: 'petits', label: '🥖 Boulangerie', lat: 46.2764, lng: 5.6114 },
+                { id: 'tabac-izernore', name: 'Tabac-Presse des Colonnes — Izernore', cat: 'petits', label: '🚬 Tabac-Presse', lat: 46.2764, lng: 5.6114 }
+            ];
+
+            var mapEl = document.getElementById('commerces-map');
+            if (!mapEl) return;
+            var map = L.map('commerces-map', { zoomControl: false, attributionControl: false }).setView(CAMPING, 11);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+
+            function pin(className) {
+                return L.divIcon({ className: '', html: '<div class="shop-marker ' + className + '"></div>', iconSize: [24, 24], iconAnchor: [12, 24] });
+            }
+
+            L.marker(CAMPING, { icon: pin('camp-marker') })
+                .addTo(map)
+                .bindPopup('<span class="map-popup-cat">🏕️ Vous êtes ici</span><span class="map-popup-name">Camping Les Gorges du Haut Bugey</span>');
+
+            var bounds = [CAMPING];
+            SHOPS.forEach(function (shop) {
+                var marker = L.marker([shop.lat, shop.lng], { icon: pin(shop.cat + '-marker') })
+                    .addTo(map)
+                    .bindPopup('<span class="map-popup-cat">' + shop.label + '</span><span class="map-popup-name">' + shop.name + '</span><br><a href="#" style="font-size:11px;color:#2E8A9E;font-weight:700;" onclick="event.preventDefault(); showCat(\'' + shop.cat + '\'); setTimeout(function(){ var el=document.getElementById(\'' + shop.id + '\'); if(el) el.scrollIntoView({behavior:\'smooth\',block:\'center\'}); }, 150);">Voir la fiche →</a>');
+                bounds.push([shop.lat, shop.lng]);
+            });
+            map.fitBounds(bounds, { padding: [24, 24] });
+        })();
+    </script>
+
+    <script>
+        // ── Itinéraire depuis le camping, sur chaque fiche ──────────────────
+        (function () {
+            var CAMPING_COORDS = '46.2619,5.5544';
+            document.querySelectorAll('.shop-block[data-address]').forEach(function (block) {
+                var address = block.getAttribute('data-address');
+                var lastRow = block.querySelector('.info-row:last-of-type .info-content');
+                if (!lastRow) return;
+                var link = document.createElement('a');
+                link.className = 'directions-btn';
+                link.href = 'https://www.google.com/maps/dir/?api=1&origin=' + CAMPING_COORDS + '&destination=' + encodeURIComponent(address) + '&travelmode=driving';
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.innerHTML = '🧭 Itinéraire depuis le camping';
+                lastRow.appendChild(link);
+            });
+        })();
+
+        // ── Tri par proximité ────────────────────────────────────────────────
+        function toggleSort(btn) {
+            var targetId = btn.getAttribute('data-sort-target');
+            var container = document.getElementById(targetId);
+            var blocks = Array.prototype.slice.call(container.querySelectorAll('.shop-block[data-km]'));
+            var isActive = btn.classList.toggle('active');
+            btn.textContent = isActive ? '↕️ Trier par proximité ✓' : '↕️ Trier par proximité';
+            if (isActive) {
+                blocks.sort(function (a, b) { return parseFloat(a.getAttribute('data-km')) - parseFloat(b.getAttribute('data-km')); });
+                blocks.forEach(function (b) { container.appendChild(b); });
+            }
+        }
+
+        // ── Alerte "rien n'est ouvert" par catégorie ─────────────────────────
+        (function () {
+            var cats = ['super', 'sante', 'petits'];
+            cats.forEach(function (cat) {
+                var container = document.getElementById('cat-' + cat);
+                var alertEl = document.getElementById('closed-alert-' + cat);
+                if (!container || !alertEl) return;
+                var badges = container.querySelectorAll('.open-badge');
+                if (!badges.length) return;
+                var anyOpen = Array.prototype.some.call(badges, function (b) {
+                    return b.classList.contains('open') || b.classList.contains('always');
+                });
+                alertEl.style.display = anyOpen ? 'none' : 'flex';
+            });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
