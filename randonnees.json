@@ -1,0 +1,59 @@
+{
+  "sentiers": [
+    {
+      "id": "oignin",
+      "nom": "Les gorges de l'Oignin",
+      "distance_km": 15,
+      "duree": "4h15",
+      "denivele_m": 400,
+      "difficulte": "modere",
+      "depart": "Retenue de l'Oignin, à deux pas du camping",
+      "description": "Le sentier qui commence quasiment à la sortie du camping. Il longe l'Oignin jusqu'à ses cascades et ses marmites de géant, avant de rejoindre le hameau de Charmines.",
+      "a_voir": ["Cascades et marmites de géant", "Lac de retenue de l'Oignin"]
+    },
+    {
+      "id": "deux-vallees",
+      "nom": "Les deux vallées",
+      "distance_km": 12,
+      "duree": "3h30",
+      "denivele_m": 350,
+      "difficulte": "modere",
+      "depart": "Bord du lac de retenue de l'Oignin, Matafelon-Granges",
+      "description": "Balisé en jaune. Depuis le lac, montée au col de Matafelon puis descente en forêt jusqu'à Coiselet, sur les rives de l'Ain. Retour par la vallée de l'Oignin.",
+      "a_voir": ["Col de Matafelon", "Village de Coiselet", "Confluence Ain / Oignin"]
+    },
+    {
+      "id": "viaduc",
+      "nom": "Le viaduc de Cize-Bolozon",
+      "distance_km": 13,
+      "duree": "3h30",
+      "denivele_m": 500,
+      "difficulte": "difficile",
+      "depart": "Parking du viaduc de Cize-Bolozon, Bolozon",
+      "description": "La randonnée la plus emblématique des Gorges de l'Ain. Sous-bois, vues panoramiques sur la rivière et traversée à pied du viaduc ferroviaire et routier, unique en France.",
+      "a_voir": ["Viaduc de Cize-Bolozon (280 m)", "Falaises du Jarbonnet", "Chapelle Notre-Dame de l'Étoile"]
+    },
+    {
+      "id": "corveissiat",
+      "nom": "La grotte de Corveissiat",
+      "distance_km": 2.9,
+      "duree": "0h55",
+      "denivele_m": 90,
+      "difficulte": "facile",
+      "depart": "Village de Corveissiat",
+      "description": "Le plus court, idéal en fin de journée ou avec de jeunes enfants. Une boucle facile jusqu'à l'entrée de la grotte, en sous-bois.",
+      "a_voir": ["Entrée de la grotte de Corveissiat"]
+    },
+    {
+      "id": "charmines",
+      "nom": "Le réservoir de Charmines-Moux",
+      "distance_km": 11.9,
+      "duree": "3h10",
+      "denivele_m": 300,
+      "difficulte": "modere",
+      "depart": "Izernore",
+      "description": "Boucle au départ d'Izernore jusqu'au réservoir de Charmines-Moux, entre bois et clairières du Haut-Bugey.",
+      "a_voir": ["Réservoir de Charmines-Moux"]
+    }
+  ]
+}
