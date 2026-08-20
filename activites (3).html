@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activités à faire - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:640px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:25px; margin-top:6px; line-height:1.2; }
+
+        .container { max-width: 640px; margin: 0 auto; padding: 22px 16px 30px; }
+
+        .hero-pick {
+            display: block; position: relative; border-radius: 26px; overflow: hidden;
+            text-decoration: none; color: #fff; height: 340px;
+            background: linear-gradient(150deg, var(--gorge), var(--forest));
+            box-shadow: 0 16px 36px -12px rgba(36,57,44,0.5);
+            margin-bottom: 26px;
+        }
+        .hero-pick-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .hero-pick-scrim {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(20,30,22,0.15) 0%, rgba(20,30,22,0.1) 40%, rgba(20,30,22,0.88) 100%);
+        }
+        .hero-pick-content { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 22px 24px; }
+        .hero-pick-eyebrow {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.16); backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.3); border-radius: 100px;
+            padding: 6px 13px 6px 11px; font-size: 11px; font-weight: 700; margin-bottom: 12px;
+        }
+        .hero-pick-title {
+            font-family: 'Fraunces', Georgia, serif; font-weight: 700; font-size: 30px; line-height: 1.1;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3); margin-bottom: 8px;
+        }
+        .hero-pick-sub { font-size: 13px; color: rgba(255,255,255,0.88); max-width: 32ch; margin-bottom: 16px; }
+        .hero-pick-btn {
+            display: inline-flex; align-items: center; gap: 8px; background: #fff; color: var(--forest);
+            font-weight: 700; font-size: 13.5px; padding: 11px 20px; border-radius: 100px;
+        }
+
+        .section-label { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 15px; color: var(--forest); margin: 4px 4px 12px; }
+        .list-row {
+            display: flex; align-items: center; gap: 14px; background: white; border: 1px solid var(--line);
+            border-radius: 18px; padding: 12px; margin-bottom: 10px; text-decoration: none; color: inherit;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06); transition: transform .15s;
+        }
+        .list-row:active { transform: scale(0.98); }
+        .list-row-thumb {
+            width: 64px; height: 64px; border-radius: 14px; flex-shrink: 0; overflow: hidden;
+            background: linear-gradient(150deg, var(--gorge-light), var(--gorge));
+            display: flex; align-items: center; justify-content: center; font-size: 26px; position: relative;
+        }
+        .list-row-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+        .list-row-text { flex: 1; min-width: 0; }
+        .list-row-title { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 15.5px; color: var(--ink); }
+        .list-row-desc { font-size: 11.5px; color: var(--ink-soft); margin-top: 2px; }
+        .list-row-arrow { color: var(--river); font-size: 18px; flex-shrink: 0; }
+
+        .info-card {
+            background: white; padding: 18px 20px; border-radius: 18px; border:1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-top: 8px;
+        }
+        .info-card h3 {
+            font-family:'Fraunces', Georgia, serif; color: var(--forest); margin-bottom: 12px;
+            font-size: 15px; font-weight: 600;
+        }
+        .info-item { margin-bottom: 11px; display: flex; gap: 11px; align-items: flex-start; }
+        .info-item:last-child { margin-bottom: 0; }
+        .info-item-icon {
+            width:28px; height:28px; border-radius:9px; background:var(--paper-deep); flex-shrink:0;
+            display:flex; align-items:center; justify-content:center; font-size:13px;
+        }
+        .info-item-content { flex: 1; padding-top:1px; }
+        .info-item-label { font-weight: 700; color: var(--ink); margin-bottom: 1px; font-size: 12.5px; }
+        .info-item-value { color: var(--ink-soft); font-size: 11.5px; line-height: 1.5; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center; margin-top: 8px;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🎯 Bouger, jouer, s'amuser</div>
+            <h1>Activités à faire</h1>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <a href="activites-plein-air.html" class="hero-pick" id="hero-pick">
+            <img class="hero-pick-img" id="hero-pick-img" src="images/cat-plein-air.jpg" alt="" onerror="this.style.display='none'">
+            <div class="hero-pick-scrim"></div>
+            <div class="hero-pick-content">
+                <div class="hero-pick-eyebrow" id="hero-pick-eyebrow">🎯 À découvrir</div>
+                <div class="hero-pick-title" id="hero-pick-title">Plein Air</div>
+                <div class="hero-pick-sub" id="hero-pick-sub">Randonnée, sport, balades autour du camping.</div>
+                <div class="hero-pick-btn">Découvrir <span>→</span></div>
+            </div>
+        </a>
+
+        <div class="section-label">Ou bien…</div>
+        <div id="other-list"></div>
+
+        <div class="info-card">
+            <h3>À savoir</h3>
+            <div class="info-item">
+                <div class="info-item-icon">📅</div>
+                <div class="info-item-content">
+                    <div class="info-item-label">Toute l'année</div>
+                    <div class="info-item-value">Activités disponibles selon la saison</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-icon">👨‍👩‍👧‍👦</div>
+                <div class="info-item-content">
+                    <div class="info-item-label">Tous les âges</div>
+                    <div class="info-item-value">Activités familiales et pour enfants</div>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-item-icon">📋</div>
+                <div class="info-item-content">
+                    <div class="info-item-label">Avec ou sans réservation</div>
+                    <div class="info-item-value">Consultez la réception pour les détails</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var CATS = {
+                'plein-air': { href: 'activites-plein-air.html', img: 'images/cat-plein-air.jpg', title: 'Plein Air', desc: 'Randonnée, sport, balades autour du camping.', thumbEmoji: '🏃' },
+                'nautiques': { href: 'nautiques.html', img: 'images/cat-nautiques.jpg', title: 'Nautiques', desc: 'Lac, kayak, baignade.', thumbEmoji: '🚣' },
+                'interieur': { href: 'interieur.html', img: 'images/cat-interieur.jpg', title: 'Intérieur', desc: 'Pour les jours de pluie.', thumbEmoji: '🎳' }
+            };
+
+            function renderOthers(excludeKey) {
+                var listEl = document.getElementById('other-list');
+                listEl.innerHTML = '';
+                Object.keys(CATS).forEach(function (key) {
+                    if (key === excludeKey) return;
+                    var c = CATS[key];
+                    var row = document.createElement('a');
+                    row.className = 'list-row';
+                    row.href = c.href;
+                    row.innerHTML =
+                        '<div class="list-row-thumb"><span>' + c.thumbEmoji + '</span><img src="' + c.img + '" alt="" onerror="this.style.display=\'none\'"></div>' +
+                        '<div class="list-row-text"><div class="list-row-title">' + c.title + '</div><div class="list-row-desc">' + c.desc + '</div></div>' +
+                        '<div class="list-row-arrow">→</div>';
+                    listEl.appendChild(row);
+                });
+            }
+
+            function setHero(key, eyebrow) {
+                var c = CATS[key];
+                document.getElementById('hero-pick').href = c.href;
+                document.getElementById('hero-pick-img').src = c.img;
+                document.getElementById('hero-pick-title').textContent = c.title;
+                document.getElementById('hero-pick-sub').textContent = c.desc;
+                document.getElementById('hero-pick-eyebrow').textContent = eyebrow;
+                renderOthers(key);
+            }
+
+            setHero('plein-air', '🎯 À découvrir');
+
+            var LAT = 46.2619, LNG = 5.5544;
+            fetch('https://api.open-meteo.com/v1/forecast?latitude=' + LAT + '&longitude=' + LNG + '&current=temperature_2m,weather_code&timezone=Europe%2FParis')
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    var code = data.current.weather_code;
+                    var temp = data.current.temperature_2m;
+                    var rainy = code >= 51 && code <= 99;
+                    if (rainy) {
+                        setHero('interieur', '🌧️ Vu la météo, on vous conseille');
+                    } else if (temp >= 24) {
+                        setHero('nautiques', '☀️ ' + Math.round(temp) + '°C aujourd\'hui — on vous conseille');
+                    } else {
+                        setHero('plein-air', '🌤️ Beau temps — on vous conseille');
+                    }
+                })
+                .catch(function () { });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
