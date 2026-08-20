@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visite des Gorges de l'Ain - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:25px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        /* ── Filtres ─────────────────────────────────────────────────── */
+        .filters-wrapper {
+            background: rgba(246,243,233,0.94); backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 99;
+        }
+        .filters { max-width: 900px; margin: 0 auto; padding: 12px 16px; display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; }
+        .filters::-webkit-scrollbar { display: none; }
+        .filter-chip {
+            flex-shrink:0; border:1.5px solid var(--line); background:#fff; color:var(--ink-soft);
+            font-family:'Outfit', sans-serif; font-size:12.5px; font-weight:700; padding:7px 15px;
+            border-radius:100px; cursor:pointer; white-space:nowrap; transition:.15s;
+        }
+        .filter-chip.active { background:var(--forest); border-color:var(--forest); color:#fff; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        /* ── Mini-carte ──────────────────────────────────────────────── */
+        .map-section { margin-bottom: 16px; }
+        .map-head { display:flex; align-items:center; justify-content:space-between; margin: 2px 4px 10px; }
+        .map-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:15px; color:var(--forest); }
+        .map-hint { font-size:11px; color:var(--ink-soft); font-family:'JetBrains Mono', monospace; }
+        #gorges-map { height: 200px; border-radius: 18px; border:1px solid var(--line); box-shadow: 0 3px 14px rgba(36,57,44,0.08); overflow:hidden; }
+        .leaflet-popup-content-wrapper { border-radius: 12px; font-family:'Outfit', sans-serif; }
+        .map-popup-cat { font-size:10px; font-weight:800; text-transform:uppercase; display:block; margin-bottom:2px; color:var(--river); }
+        .map-popup-name { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:13.5px; color:var(--ink); }
+        .spot-marker { width: 24px; height: 24px; border-radius: 50% 50% 50% 0; background: var(--gorge); border: 2px solid #fff; box-shadow: 0 2px 6px rgba(36,57,44,0.4); transform: rotate(-45deg); }
+        .spot-marker.camp-marker { background: var(--clay); }
+
+        .result-count { font-size: 12px; color: var(--ink-soft); margin: 2px 4px 14px; font-family:'JetBrains Mono', monospace; }
+
+        /* ── Cartes accordéon ────────────────────────────────────────── */
+        .spot-card { background: white; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 12px; overflow: hidden; }
+        .spot-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 18px 14px; cursor: pointer; }
+        .spot-head-text { flex: 1; min-width: 0; }
+        .spot-cat { display: inline-block; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; color: var(--river); background: #E7F1F3; border-radius: 100px; padding: 3px 9px; margin-bottom: 8px; }
+        .spot-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 17px; color: var(--ink); line-height: 1.3; }
+        .spot-teaser { font-size: 12px; color: var(--ink-soft); margin-top: 5px; line-height: 1.5; }
+        .spot-chevron { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--paper-deep); display: flex; align-items: center; justify-content: center; color: var(--forest); font-size: 13px; transition: transform .25s ease; margin-top: 2px; }
+        .spot-card.open .spot-chevron { transform: rotate(180deg); }
+        .spot-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .spot-card.open .spot-body { max-height: 900px; }
+        .spot-body-inner { padding: 0 18px 18px; }
+        .spot-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 14px; }
+        .spot-desc p { margin-bottom: 8px; }
+        .spot-desc p:last-child { margin-bottom: 0; }
+        .spot-desc strong { color: var(--ink); }
+
+        .info-block { background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+        .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 30px; height: 30px; background: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.6; }
+        .info-value a { color: var(--river); text-decoration: none; font-weight: 600; }
+        .info-value a:hover { text-decoration: underline; }
+
+        .directions-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--forest); font-weight: 700; font-size: 12.5px; text-decoration: none; margin-top: 10px; }
+        .directions-btn:hover { text-decoration: underline; }
+
+        .warn-note { display: flex; gap: 9px; align-items: flex-start; background: linear-gradient(150deg, #FBF1E4, #F3DFC0); border: 1px solid #E7CBA3; border-radius: 14px; padding: 12px 14px; font-size: 12.5px; color: #6B4F27; margin-bottom: 12px; }
+
+        footer { background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%); color: white; padding: 34px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🏞️ À explorer autour du camping</div>
+            <h1>Les Gorges de l'Ain</h1>
+            <div class="hdr-sub">Points de vue, patrimoine, cascade et baignade — tout sur une seule page.</div>
+        </div>
+    </header>
+
+    <div class="filters-wrapper">
+        <div class="filters" id="filters">
+            <button class="filter-chip active" data-filter="tous">Tout voir</button>
+            <button class="filter-chip" data-filter="vue">👁️ Point de vue</button>
+            <button class="filter-chip" data-filter="patrimoine">🏛️ Patrimoine</button>
+            <button class="filter-chip" data-filter="nature">🌿 Nature</button>
+            <button class="filter-chip" data-filter="restaurant">🍽️ Restaurant</button>
+            <button class="filter-chip" data-filter="baignade">🏊 Baignade</button>
+            <button class="filter-chip" data-filter="sport">🧗 Sport</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- ── Qu'est-ce que "Les Gorges de l'Ain" ? ─────────────────── -->
+        <div class="intro-card" style="background:white; border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 3px 14px rgba(36,57,44,0.07); margin-bottom:18px;">
+            <div style="font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:17px; color:var(--forest); margin-bottom:10px;">🗺️ C'est quoi, "Les Gorges de l'Ain" ?</div>
+            <p style="font-size:13.5px; color:var(--ink-soft); line-height:1.7; margin-bottom:10px;">Ce n'est pas un lieu précis, mais tout un <strong style="color:var(--ink);">canyon naturel</strong> : celui creusé par la rivière d'Ain, qui prend sa source dans le Jura et coule sur près de 200 km avant de rejoindre le Rhône. Sur une cinquantaine de kilomètres, entre Coiselet et Merpuis, elle serpente entre de hautes falaises calcaires — <strong style="color:var(--ink);">votre camping est directement niché dans ce secteur.</strong></p>
+            <p style="font-size:13.5px; color:var(--ink-soft); line-height:1.7;">Le mot "gorges" désigne donc toute cette vallée encaissée : vous pouvez la découvrir depuis un point de vue en hauteur, longer la rivière à pied, ou l'approcher directement en vous baignant ou en kayak. Les 9 lieux ci-dessous sont autant de façons différentes de la vivre.</p>
+        </div>
+
+        <div class="map-section">
+            <div class="map-head">
+                <div class="map-title">📍 Où se trouvent-ils ?</div>
+                <div class="map-hint">Distances approx.</div>
+            </div>
+            <div id="gorges-map"></div>
+        </div>
+
+        <div class="result-count" id="result-count">9 lieux</div>
+        <div id="spot-list">
+
+            <!-- 1. MONT BALVAY -->
+            <div class="spot-card" data-cat="vue" data-address="Mont Balvay, 01450 Leyssard" data-lat="46.20" data-lng="5.60">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">👁️ Point de vue</span>
+                        <div class="spot-name">Mont Balvay</div>
+                        <div class="spot-teaser">Vue imprenable sur les gorges depuis ce belvédère exceptionnel.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Vue imprenable sur les Gorges de l'Ain depuis ce belvédère exceptionnel. Un panorama à couper le souffle sur la rivière qui serpente entre les falaises.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Mont+Balvay+01450+Leyssard" target="_blank" rel="noopener">Mont Balvay, 01450 Leyssard</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">🚗</div>
+                                <div class="info-content">
+                                    <div class="info-label">Trajet</div>
+                                    <div class="info-value">20 minutes du camping en voiture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. VIADUC DE CIZE-BOLOZON -->
+            <div class="spot-card" data-cat="patrimoine" data-address="Viaduc de Cize-Bolozon, 01450 Bolozon" data-lat="46.264" data-lng="5.451">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🏛️ Patrimoine</span>
+                        <div class="spot-name">Viaduc de Cize-Bolozon</div>
+                        <div class="spot-teaser">Pont ferroviaire et routier emblématique, 273 m de long, 73 m de haut.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Pont ferroviaire et routier qui traverse la rivière l'Ain et relie la commune de Bolozon à celle de Corveissiat, toutes deux situées dans le département de l'Ain.</p>
+                            <p><strong>Longueur totale :</strong> 273 m — <strong>Hauteur :</strong> 73 m<br>
+                            <strong>Ouverture :</strong> 1875<br>
+                            Construction 1872-1875, détruit en 1944, reconstruit en 1945-1946, remise en service en 1950.</p>
+                        </div>
+                        <div class="warn-note">💡&nbsp;À 14 km du Mont Balvay — idéal de combiner les deux visites !</div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Viaduc+Cize+Bolozon+01450" target="_blank" rel="noopener">Viaduc de Cize-Bolozon, 01450</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. BARRAGE DE CIZE BOLOZON -->
+            <div class="spot-card" data-cat="patrimoine" data-address="Barrage de Cize Bolozon, 01580 Matafelon-Granges" data-lat="46.258" data-lng="5.548">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🏛️ Patrimoine</span>
+                        <div class="spot-name">Barrage de Cize Bolozon</div>
+                        <div class="spot-teaser">156 m de long, 24 m de haut — juste à côté du camping.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Barrage hydraulique du Département de l'Ain situé sur le territoire de la commune de Matafelon-Granges. D'une longueur de 156 mètres et haut de 24,1 mètres.</p>
+                            <p>Construit en 1931, il retient en travers de la rivière l'Ain un volume d'eau de 14 700 milliers de m³ sur une surface de 260 hectares.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Barrage+Cize+Bolozon+01580" target="_blank" rel="noopener">Barrage de Cize Bolozon, 01580</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. CASCADE DE PISSEVACHE -->
+            <div class="spot-card" data-cat="nature" data-address="Bombois, 01580 Matafelon-Granges" data-lat="46.255" data-lng="5.545">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🌿 Nature</span>
+                        <div class="spot-name">Cascade de Pissevache</div>
+                        <div class="spot-teaser">Accessible à pied depuis le village de Bombois.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Belle cascade naturelle accessible à pied depuis le village de Bombois.</p>
+                            <p><strong>Indications :</strong> mettez "Bombois (01580)" sur le GPS. Une fois arrivé au village, garez-vous au centre — des panneaux indiquent le chemin vers la cascade.</p>
+                        </div>
+                        <div class="warn-note">⚠️&nbsp;Ne pas se fier au GPS pour trouver la cascade elle-même — suivre les panneaux dans le village.</div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse GPS</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Bombois+01580" target="_blank" rel="noopener">Bombois, 01580</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. RESTAURANT LE REGARD'OIR -->
+            <div class="spot-card" data-cat="restaurant" data-address="45 Av de Franche Comté, 39260 Moirans-en-Montagne" data-lat="46.295" data-lng="5.719">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🍽️ Restaurant</span>
+                        <div class="spot-name">Restaurant le Regard'oir</div>
+                        <div class="spot-teaser">Terrasse et vue panoramique sur les gorges.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Restaurant avec terrasse et vue panoramique sur les gorges. Une étape gourmande incontournable lors de la visite des gorges de l'Ain.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=45+Av+de+Franche+Comté+39260+Moirans-en-Montagne" target="_blank" rel="noopener">45 Av. de Franche Comté, 39260 Moirans-en-Montagne</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">🌐</div>
+                                <div class="info-content">
+                                    <div class="info-label">Site web</div>
+                                    <div class="info-value"><a href="https://www.leregardoir.com/" target="_blank" rel="noopener">leregardoir.com</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📞</div>
+                                <div class="info-content">
+                                    <div class="info-label">Téléphone</div>
+                                    <div class="info-value"><a href="tel:0384420115">03 84 42 01 15</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">✉️</div>
+                                <div class="info-content">
+                                    <div class="info-label">Email</div>
+                                    <div class="info-value"><a href="mailto:infos@leregardoir.com">infos@leregardoir.com</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. LAC DE VOUGLANS -->
+            <div class="spot-card" data-cat="baignade" data-address="Lac de Vouglans, 39260" data-lat="46.36" data-lng="5.71">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🏊 Baignade</span>
+                        <div class="spot-name">Baignade au Lac de Vouglans</div>
+                        <div class="spot-teaser">3 plages, sports nautiques, croisière — la journée complète.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Pour se baigner au lac de Vouglans, plusieurs spots sont possibles : la plage de la Mercantine, la plage de Bellecin et la plage de Surchauffant.</p>
+                            <p>Location de pédalos, canoës, kayaks ou stand up paddles depuis les plages de la Mercantine et de Bellecin.</p>
+                            <p>Excursions organisées autour du lac : canyoning, spéléo, tir à l'arc, escalade, VTT via le centre sportif de Bellecin.</p>
+                            <p>À proximité de la plage du Surchauffant : le Port du Meix, avec jet ski et ski nautique. Croisière à bord du Louisiana, avec possibilité de déjeuner à bord.</p>
+                            <p>Location de voiliers habitables et de bateaux électriques sans permis dans les trois ports du lac : Saisse, le Meix et la Mercantine.</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">🏖️</div>
+                                <div class="info-content">
+                                    <div class="info-label">Plages</div>
+                                    <div class="info-value">Mercantine · Bellecin · Surchauffant</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">🚣</div>
+                                <div class="info-content">
+                                    <div class="info-label">Activités nautiques</div>
+                                    <div class="info-value">Pédalo · Canoë · Kayak · Paddle · Jet ski · Ski nautique · Voiliers · Bateaux électriques</div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Lac+de+Vouglans+39260" target="_blank" rel="noopener">Lac de Vouglans, 39260</a></div>
+                                </div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-icon">🚗</div>
+                                <div class="info-content">
+                                    <div class="info-label">Trajet</div>
+                                    <div class="info-value">Environ 45 minutes du camping en voiture</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 7. POINT DE VUE DE CORVEISSIAT -->
+            <div class="spot-card" data-cat="vue" data-address="Corveissiat, 01250" data-lat="46.276" data-lng="5.484">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">👁️ Point de vue</span>
+                        <div class="spot-name">Point de vue de Corveissiat</div>
+                        <div class="spot-teaser">Un belvédère facile, tout près du camping, sur un paysage typique du Jura.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Depuis le village de Corveissiat, un chemin facile mène jusqu'à l'entrée de la grotte, puis se poursuit le long du cours d'eau jusqu'à un point de vue sur les Gorges de l'Ain. Un paysage typique du massif jurassien se dévoile, avec la rivière qui serpente en contrebas.</p>
+                            <p>Accessible en famille, sans grosse difficulté — une bonne façon de comprendre d'un coup d'œil ce que sont "les gorges".</p>
+                        </div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Corveissiat+01250" target="_blank" rel="noopener">Corveissiat, 01250</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. ROCHER DU JARBONNET -->
+            <div class="spot-card" data-cat="sport" data-address="Rocher du Jarbonnet, 01450 Cize" data-lat="46.268" data-lng="5.458">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🧗 Sport</span>
+                        <div class="spot-name">Rocher du Jarbonnet</div>
+                        <div class="spot-teaser">Le plus beau rocher du département — vue à 532 m d'altitude, escalade et via ferrata.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Considéré comme l'un des plus beaux rochers du département de l'Ain. Du haut de ses 532 mètres, il offre un point de vue unique sur les gorges — l'un des spots photo les plus réputés du secteur.</p>
+                            <p>Les amateurs d'escalade et de via ferrata peuvent s'y équiper d'un mousqueton pour partir à l'assaut de la roche calcaire ; pour les autres, la simple balade jusqu'au sommet suffit pour profiter de la vue.</p>
+                        </div>
+                        <div class="warn-note">💡&nbsp;Juste à côté du viaduc de Cize-Bolozon — facile à combiner en une même sortie.</div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Rocher+du+Jarbonnet+01450+Cize" target="_blank" rel="noopener">Rocher du Jarbonnet, 01450 Cize</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 9. ÎLE CHAMBOD -->
+            <div class="spot-card" data-cat="baignade" data-address="Île Chambod, 01450 Poncin" data-lat="46.10" data-lng="5.42">
+                <div class="spot-head">
+                    <div class="spot-head-text">
+                        <span class="spot-cat">🏊 Baignade</span>
+                        <div class="spot-name">Île Chambod</div>
+                        <div class="spot-teaser">Baignade surveillée, plage et ambiance familiale — un peu plus loin, mais très prisé.</div>
+                    </div>
+                    <div class="spot-chevron">▾</div>
+                </div>
+                <div class="spot-body">
+                    <div class="spot-body-inner">
+                        <div class="spot-desc">
+                            <p>Formée lors de la mise en eau du barrage d'Allement en 1960, l'Île Chambod est une parenthèse où le courant ralentit et l'eau s'étale en plage. Baignade surveillée, pédalos, paddle, canoë — le rendez-vous estival des familles de la région.</p>
+                            <p>Sur place : vélo, randonnée et pêche complètent les activités nautiques.</p>
+                        </div>
+                        <div class="warn-note">🚗&nbsp;Plus loin que les autres lieux de cette page (secteur de Poncin) — à prévoir comme sortie à la journée.</div>
+                        <div class="info-block">
+                            <div class="info-row">
+                                <div class="info-icon">📍</div>
+                                <div class="info-content">
+                                    <div class="info-label">Adresse</div>
+                                    <div class="info-value"><a href="https://maps.google.com/?q=Île+Chambod+Poncin+01450" target="_blank" rel="noopener">Île Chambod, secteur de Poncin</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.spot-card'));
+            var chips = Array.prototype.slice.call(document.querySelectorAll('.filter-chip'));
+            var countEl = document.getElementById('result-count');
+
+            cards.forEach(function (card) {
+                card.querySelector('.spot-head').addEventListener('click', function () {
+                    card.classList.toggle('open');
+                });
+            });
+            if (cards[0]) cards[0].classList.add('open');
+
+            chips.forEach(function (chip) {
+                chip.addEventListener('click', function () {
+                    chips.forEach(function (c) { c.classList.remove('active'); });
+                    chip.classList.add('active');
+                    var filter = chip.getAttribute('data-filter');
+                    var visible = 0;
+                    cards.forEach(function (card) {
+                        var show = filter === 'tous' || card.getAttribute('data-cat') === filter;
+                        card.style.display = show ? '' : 'none';
+                        if (show) visible++;
+                    });
+                    countEl.textContent = visible + (visible > 1 ? ' lieux' : ' lieu');
+                });
+            });
+
+            // ── Itinéraire depuis le camping ─────────────────────────────
+            var CAMPING_COORDS = '46.2619,5.5544';
+            cards.forEach(function (card) {
+                var address = card.getAttribute('data-address');
+                var lastRow = card.querySelector('.info-row:last-of-type .info-content');
+                if (!lastRow || !address) return;
+                var link = document.createElement('a');
+                link.className = 'directions-btn';
+                link.href = 'https://www.google.com/maps/dir/?api=1&origin=' + CAMPING_COORDS + '&destination=' + encodeURIComponent(address) + '&travelmode=driving';
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.innerHTML = '🧭 Itinéraire depuis le camping';
+                lastRow.appendChild(link);
+            });
+        })();
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        (function () {
+            var CAMPING = [46.2619, 5.5544];
+            var mapEl = document.getElementById('gorges-map');
+            if (!mapEl) return;
+            var map = L.map('gorges-map', { zoomControl: false, attributionControl: false }).setView(CAMPING, 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+
+            function pin(className) {
+                return L.divIcon({ className: '', html: '<div class="spot-marker ' + className + '"></div>', iconSize: [24, 24], iconAnchor: [12, 24] });
+            }
+
+            L.marker(CAMPING, { icon: pin('camp-marker') }).addTo(map).bindPopup('<span class="map-popup-name">🏕️ Vous êtes ici</span>');
+
+            var bounds = [CAMPING];
+            document.querySelectorAll('.spot-card[data-lat]').forEach(function (card) {
+                var lat = parseFloat(card.getAttribute('data-lat'));
+                var lng = parseFloat(card.getAttribute('data-lng'));
+                var name = card.querySelector('.spot-name').textContent;
+                var cat = card.querySelector('.spot-cat').textContent;
+                if (isNaN(lat) || isNaN(lng)) return;
+                var marker = L.marker([lat, lng], { icon: pin('') })
+                    .addTo(map)
+                    .bindPopup('<span class="map-popup-cat">' + cat + '</span><span class="map-popup-name">' + name + '</span>');
+                bounds.push([lat, lng]);
+                card.addEventListener('click', function () {
+                    map.flyTo([lat, lng], 12, { duration: .6 });
+                });
+            });
+            map.fitBounds(bounds, { padding: [24, 24] });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
