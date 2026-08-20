@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journée sous la pluie - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--river), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+        .list-head { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--forest); margin: 4px 4px 12px; }
+
+        .spot-card { background: white; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 12px; overflow: hidden; }
+        .spot-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 18px 14px; cursor: pointer; }
+        .spot-head-text { flex: 1; min-width: 0; }
+        .spot-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 17px; color: var(--ink); line-height: 1.3; margin-bottom: 6px; }
+        .spot-badge-row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+        .spot-distance { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: var(--river); background: #E7F1F3; padding: 4px 9px; border-radius: 100px; }
+        .spot-chevron { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--paper-deep); display: flex; align-items: center; justify-content: center; color: var(--forest); font-size: 13px; transition: transform .25s ease; margin-top: 2px; }
+        .spot-card.open .spot-chevron { transform: rotate(180deg); }
+        .spot-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .spot-card.open .spot-body { max-height: 900px; }
+        .spot-body-inner { padding: 0 18px 18px; }
+        .spot-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 14px; }
+        .spot-desc p { margin-bottom: 8px; }
+        .spot-desc p:last-child { margin-bottom: 0; }
+        .spot-desc ul { margin: 8px 0 0 4px; list-style: none; }
+        .spot-desc li { margin-bottom: 6px; }
+
+        .cta-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+            background: var(--gorge); color: #fff; text-decoration: none; font-weight: 700; font-size: 13.5px;
+            padding: 12px; border-radius: 100px; margin-bottom: 12px; box-shadow: 0 6px 16px -6px rgba(62,108,82,0.55);
+        }
+
+        .info-block { background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+        .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 30px; height: 30px; background: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.6; }
+        .info-value a { color: var(--river); text-decoration: none; font-weight: 600; }
+        .info-value a:hover { text-decoration: underline; }
+        .closed-day { color: var(--clay); }
+
+        .directions-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--forest); font-weight: 700; font-size: 12.5px; text-decoration: none; margin-top: 10px; }
+        .directions-btn:hover { text-decoration: underline; }
+
+        footer { background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%); color: white; padding: 34px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="index.html">← Retour</a>
+            <div class="hdr-eyebrow">🌧️ Journée type</div>
+            <h1>Sous la pluie</h1>
+            <div class="hdr-sub">7 idées 100% à l'abri, pour ne rien perdre de vos vacances.</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="list-head">Les 7 idées</div>
+
+        <!-- 1. GROTTE DU CERDON -->
+        <div class="spot-card" data-address="01450 Labalme">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Grotte du Cerdon</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 20 min</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Durée de la visite : de 45 minutes à 1h30 — activités préhistoriques.</p></div>
+                    <a class="cta-btn" href="https://www.grottesducerdon.fr" target="_blank" rel="noopener">Découvrir les Grottes du Cerdon →</a>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">💶</div><div class="info-content"><div class="info-label">Prix</div><div class="info-value">Adulte : 10€ (visite) / 17€ (visite + activités)<br>Enfant : 7€ (visite) / 16€ (visite + activités)<br>Moins de 4 ans : gratuit</div></div></div>
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=01450+Labalme+France" target="_blank" rel="noopener">01450 Labalme</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">💡</div><div class="info-content"><div class="info-label">Conseils</div><div class="info-value">Réservation sur le site internet<br>Animaux autorisés en laisse et portés dans la grotte</div></div></div>
+                        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="info-label">Dates</div><div class="info-value">Du 5 avril au 31 octobre 2026</div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0474373679">04 74 37 36 79</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. LE 10.55 -->
+        <div class="spot-card" data-address="152 cours de Verdun, 01100 Oyonnax">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Le 10.55</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 20 min</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc">
+                        <p>Complexe de loisirs et restaurant 7j/7 : bowling, Kid Park géant, parcours gonflable, trampoline park, Virtual Park (VR), Laser Game, jeux d'arcades et billards.</p>
+                        <p>La Brasserie est ouverte midi et soir avec une cuisine de qualité à base de produits frais et locaux.</p>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value">152 cours de Verdun, Oyonnax</div></div></div>
+                        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="info-label">Dates</div><div class="info-value">Tous les jours</div></div></div>
+                        <div class="info-row"><div class="info-icon">🌐</div><div class="info-content"><div class="info-label">Site web</div><div class="info-value"><a href="http://www.1055.fr/oyonnax/" target="_blank" rel="noopener">1055.fr/oyonnax</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0485581055">04 85 58 10 55</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. FORT DES ROUSSES -->
+        <div class="spot-card" data-address="Le Fort des Rousses, 39220 Les Rousses">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Le Fort des Rousses</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 1h</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc">
+                        <p>Envie d'évasion malgré la météo ? Direction le Fort des Rousses, 100% à l'abri, idéal pour une journée pluvieuse ! Ancienne forteresse militaire nichée dans les montagnes du Jura.</p>
+                        <ul>
+                            <li>🧀 Visite guidée passionnante</li>
+                            <li>🧀 Dégustation de comté possible</li>
+                            <li>👨‍👩‍👧 Adapté à toute la famille</li>
+                            <li>☂️ 100% à l'abri : parfait pour les jours de pluie</li>
+                        </ul>
+                    </div>
+                    <a class="cta-btn" href="https://www.fort-des-rousses.com" target="_blank" rel="noopener">Billetterie en ligne →</a>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=Le+Fort+des+Rousses+39220+Les+Rousses" target="_blank" rel="noopener">Le Fort des Rousses, 39220 Les Rousses</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">🕐</div><div class="info-content"><div class="info-label">Durée sur place</div><div class="info-value">Visite de 1h30 à 2h</div></div></div>
+                        <div class="info-row"><div class="info-icon">💡</div><div class="info-content"><div class="info-label">Conseils</div><div class="info-value">Réservation conseillée. Prévoir une petite laine : il fait frais dans les caves !</div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0384600226">03 84 60 02 26</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SPA THERMAL -->
+        <div class="spot-card" data-address="Lons-le-Saunier, France">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Spa Thermal</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 1h10</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Espace bien-être avec piscines thermales, hammam, sauna et soins relaxants. Parfait pour se détendre pendant que la pluie tombe dehors !</p></div>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=Lons-le-Saunier+France" target="_blank" rel="noopener">Lons-le-Saunier</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">🕐</div><div class="info-content"><div class="info-label">Durée sur place</div><div class="info-value">2h à une demi-journée</div></div></div>
+                        <div class="info-row"><div class="info-icon">💡</div><div class="info-content"><div class="info-label">Conseils</div><div class="info-value">Prévoyez maillot de bain et serviette. Accès interdit aux enfants.</div></div></div>
+                        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="info-label">Horaires</div><div class="info-value">Lundi à vendredi : 10h–19h<br>Samedi : 9h–19h<br>Dimanche et jours fériés : 9h–13h</div></div></div>
+                        <div class="info-row"><div class="info-icon">🌐</div><div class="info-content"><div class="info-label">Site web</div><div class="info-value"><a href="https://www.valvital.fr/Nos-stations-thermales/Lons-le-Saunier-Station-thermale-de-Lons-le-Saunier" target="_blank" rel="noopener">valvital.fr</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. CINÉMA ATMOSPHÈRE -->
+        <div class="spot-card" data-address="Parc Jeantet, 01100 Oyonnax">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Cinéma Atmosphère</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 20 min</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Complexe de 3 salles (248, 148 et 80 fauteuils). Des séances en 3D programmées chaque semaine. Salles accessibles aux personnes à mobilité réduite.</p></div>
+                    <a class="cta-btn" href="https://www.cinema-oyonnax.fr" target="_blank" rel="noopener">Découvrir la programmation →</a>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">💶</div><div class="info-content"><div class="info-label">Prix</div><div class="info-value">Adulte : 8,20 €<br>Enfant (- 16 ans) : 4,50 €<br>Tarif réduit : 6,70 €</div></div></div>
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=Parc+Jeantet+01100+Oyonnax" target="_blank" rel="noopener">Parc Jeantet, 01100 Oyonnax</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0474819688">04 74 81 96 88</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. CUIVRERIE DE CERDON -->
+        <div class="spot-card" data-address="Rue de la Cuivrerie, 01450 Cerdon">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">La Cuivrerie de Cerdon</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 35 min</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Ancienne fabrique d'articles de cuivre et maillechort, transformée en musée de découverte économique relatif au travail du cuivre, situé à Cerdon dans le département de l'Ain.</p></div>
+                    <a class="cta-btn" href="http://patrimoines.ain.fr/n/c/cuivrerie-de-cerdon/n" target="_blank" rel="noopener">Billetterie en ligne →</a>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">🕐</div><div class="info-content"><div class="info-label">Ouverture</div><div class="info-value">De 10h à 18h</div></div></div>
+                        <div class="info-row"><div class="info-icon">💶</div><div class="info-content"><div class="info-label">Prix</div><div class="info-value">Adulte : 9€ · Enfant : 6€<br>Pack famille (2 adultes, 2 enfants) : 25€</div></div></div>
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=Rue+de+la+Cuivrerie+01450+Cerdon" target="_blank" rel="noopener">Rue de la Cuivrerie, 01450 Cerdon</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">📅</div><div class="info-content"><div class="info-label">Dates</div><div class="info-value"><span class="closed-day">Fermé le lundi</span> — tous les autres jours</div></div></div>
+                        <div class="info-row"><div class="info-icon">🌐</div><div class="info-content"><div class="info-label">Site web</div><div class="info-value"><a href="http://patrimoines.ain.fr/n/c/cuivrerie-de-cerdon/n" target="_blank" rel="noopener">patrimoines.ain.fr</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0469191150">04 69 19 11 50</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 7. LASER GAME -->
+        <div class="spot-card" data-address="42 Rte de Dortan, 01100 Oyonnax">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Laser Game</div>
+                    <div class="spot-badge-row"><span class="spot-distance">🚗 ≈ 18 min</span></div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>À partir de 7 ans — 1,20 m minimum requis.</p></div>
+                    <div class="info-block">
+                        <div class="info-row"><div class="info-icon">🕐</div><div class="info-content"><div class="info-label">Ouverture</div><div class="info-value"><span class="closed-day">Lundi : fermé</span><br>Mardi à jeudi : 14h–23h<br>Vendredi, samedi : 14h–1h<br>Dimanche : 14h–20h</div></div></div>
+                        <div class="info-row"><div class="info-icon">💶</div><div class="info-content"><div class="info-label">Prix</div><div class="info-value">1ère partie (20 min) : 9€/pers.<br>2ème partie : 6€/pers. · 3ème partie : 5€/pers.<br>45 min non stop : 15€/pers.</div></div></div>
+                        <div class="info-row"><div class="info-icon">📍</div><div class="info-content"><div class="info-label">Adresse</div><div class="info-value"><a href="https://maps.google.com/?q=42+Rte+de+Dortan+01100+Oyonnax" target="_blank" rel="noopener">42 Rte de Dortan, 01100 Oyonnax</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">🌐</div><div class="info-content"><div class="info-label">Site web</div><div class="info-value"><a href="http://oyonnax.laserlander.com/" target="_blank" rel="noopener">oyonnax.laserlander.com</a></div></div></div>
+                        <div class="info-row"><div class="info-icon">📞</div><div class="info-content"><div class="info-label">Téléphone</div><div class="info-value"><a href="tel:0474755179">04 74 75 51 79</a></div></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.spot-card'));
+            cards.forEach(function (card) {
+                card.querySelector('.spot-head').addEventListener('click', function () {
+                    card.classList.toggle('open');
+                });
+            });
+            if (cards[0]) cards[0].classList.add('open');
+
+            var CAMPING_COORDS = '46.2619,5.5544';
+            cards.forEach(function (card) {
+                var address = card.getAttribute('data-address');
+                var lastRow = card.querySelector('.info-row:last-of-type .info-content');
+                if (!lastRow || !address) return;
+                var link = document.createElement('a');
+                link.className = 'directions-btn';
+                link.href = 'https://www.google.com/maps/dir/?api=1&origin=' + CAMPING_COORDS + '&destination=' + encodeURIComponent(address) + '&travelmode=driving';
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.innerHTML = '🧭 Itinéraire depuis le camping';
+                lastRow.appendChild(link);
+            });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
