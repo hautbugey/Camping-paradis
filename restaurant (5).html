@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurants - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+        .map-section { margin-bottom: 16px; }
+        .map-head { display:flex; align-items:center; justify-content:space-between; margin: 2px 4px 10px; }
+        .map-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:15px; color:var(--forest); }
+        .map-hint { font-size:11px; color:var(--ink-soft); font-family:'JetBrains Mono', monospace; }
+        #resto-map {
+            height: 200px; border-radius: 18px; border:1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.08); overflow:hidden;
+        }
+        .leaflet-popup-content-wrapper { border-radius: 12px; font-family:'Outfit', sans-serif; }
+        .map-popup-name { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:13.5px; color:var(--ink); }
+        .resto-marker {
+            width: 24px; height: 24px; border-radius: 50% 50% 50% 0; background: var(--gorge);
+            border: 2px solid #fff; box-shadow: 0 2px 6px rgba(36,57,44,0.4); transform: rotate(-45deg);
+        }
+        .resto-marker.camp-marker { background: var(--clay); }
+        .closed-alert {
+            display: none; gap: 10px; align-items: flex-start; background: #FBEDEB; border: 1px solid #EAC3BE;
+            border-radius: 14px; padding: 13px 15px; font-size: 13px; color: #7A3A30; margin-bottom: 16px;
+        }
+        .closed-alert.show { display: flex; }
+        .list-head { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--forest); margin: 4px 4px 12px; }
+        .resto-card {
+            background: white; border: 1px solid var(--line); border-radius: 18px;
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 12px; overflow: hidden;
+        }
+        .resto-head {
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 12px;
+            padding: 16px 18px 14px; cursor: pointer;
+        }
+        .resto-head-text { flex: 1; min-width: 0; }
+        .resto-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16.5px; color: var(--ink); line-height: 1.3; margin-bottom: 8px; }
+        .resto-badge-row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+        .resto-distance {
+            display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700;
+            color: var(--river); background: #E7F1F3; padding: 4px 9px; border-radius: 100px;
+        }
+        .resto-closest {
+            display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 0.3px; color: var(--clay); background: #FBF1E4;
+            padding: 4px 9px; border-radius: 100px;
+        }
+        .open-badge {
+            display:inline-flex; align-items:center; gap:5px; font-size:11.5px; font-weight: 700;
+            border-radius:100px; padding:4px 9px; font-family:'Outfit', sans-serif;
+        }
+        .open-badge.open { background:#E7F1E9; color:#1E7A3E; }
+        .open-badge.closed { background:#F3E9E5; color:#A24A2E; }
+        .open-badge .dot { width:6px; height:6px; border-radius:50%; background:#2FA35A; flex-shrink:0; }
+        .open-badge.open .dot { animation: openpulse 1.6s ease-in-out infinite; }
+        @keyframes openpulse { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+        .resto-chevron {
+            flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--paper-deep);
+            display: flex; align-items: center; justify-content: center; color: var(--forest);
+            font-size: 13px; transition: transform .25s ease; margin-top: 2px;
+        }
+        .resto-card.open .resto-chevron { transform: rotate(180deg); }
+        .resto-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .resto-card.open .resto-body { max-height: 700px; }
+        .resto-body-inner { padding: 0 18px 18px; }
+        .info-block { background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+        .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon {
+            width: 30px; height: 30px; background: #fff; border-radius: 9px; display: flex;
+            align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.65; }
+        .info-value a { color: var(--river); text-decoration: none; font-weight: 600; }
+        .info-value a:hover { text-decoration: underline; }
+        .closed-day { color: var(--clay); }
+        .call-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+            background: var(--gorge); color: #fff; text-decoration: none; font-weight: 700; font-size: 13.5px;
+            padding: 12px; border-radius: 100px; margin-bottom: 12px; box-shadow: 0 6px 16px -6px rgba(62,108,82,0.55);
+        }
+        .directions-btn {
+            display: inline-flex; align-items: center; gap: 6px; color: var(--forest); font-weight: 700;
+            font-size: 12.5px; text-decoration: none; margin-top: 10px;
+        }
+        .directions-btn:hover { text-decoration: underline; }
+        .no-hours-note {
+            display: flex; gap: 9px; align-items: flex-start; background: var(--paper);
+            border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; font-size: 12.5px;
+            color: var(--ink-soft); margin-top: 12px;
+        }
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🍽️ Sortir se régaler</div>
+            <h1>Restaurants</h1>
+            <div class="hdr-sub">Nos adresses préférées, du plus proche au plus loin. Tapez sur une fiche pour la déplier.</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="map-section">
+            <div class="map-head">
+                <div class="map-title">📍 Où se trouvent-ils ?</div>
+                <div class="map-hint">Distances approx.</div>
+            </div>
+            <div id="resto-map"></div>
+        </div>
+
+        <div class="closed-alert" id="closed-alert">🕐&nbsp;Tous les restaurants avec horaires connus sont fermés en ce moment.</div>
+
+        <div class="list-head">Les 7 adresses</div>
+
+        <div class="resto-card" id="resto-0" data-address="1 Grande Rue, 39240 Thoirette-Coisia" data-schedule='{"week":{"0":[["09:00","23:00"]],"1":[["09:00","17:00"]],"2":[],"3":[],"4":[["09:00","23:00"]],"5":[["09:00","23:00"]],"6":[["09:00","23:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Le Pont</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 4,6 km · 5 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <a class="call-btn" href="tel:0474752366">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">9h–23h du jeudi au dimanche<br>Lundi : 9h–17h<br><span class="closed-day">Fermé le mardi et mercredi</span></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=1+Grande+Rue+39240+Thoirette-Coisia" target="_blank" rel="noopener">1 Grande Rue, 39240 Thoirette-Coisia</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web</div>
+                                <div class="info-value"><a href="https://lepontthoirette.eatbu.com/" target="_blank" rel="noopener">lepontthoirette.eatbu.com</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474752366">04 74 75 23 66</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-1" data-address="1 Rue Jean Mermoz, 01100 Oyonnax" data-schedule='{"week":{"0":[["12:00","15:00"]],"1":[],"2":[["12:00","14:30"],["19:00","22:30"]],"3":[["12:00","14:30"],["19:00","22:30"]],"4":[["12:00","14:30"],["19:00","22:30"]],"5":[["12:00","14:30"],["19:00","23:00"]],"6":[["19:00","23:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Le Chalet Gourmand</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 14,8 km · 20 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <a class="call-btn" href="tel:0474492191">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Dimanche : 12h–15h<br><span class="closed-day">Lundi : Fermé</span><br>Mardi : 12h–14h30 · 19h–22h30<br>Mercredi : 12h–14h30 · 19h–22h30<br>Jeudi : 12h–14h30 · 19h–22h30<br>Vendredi : 12h–14h30 · 19h–23h<br>Samedi : 19h–23h</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=1+Rue+Jean+Mermoz+01100+Oyonnax" target="_blank" rel="noopener">1 Rue Jean Mermoz, 01100 Oyonnax</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web</div>
+                                <div class="info-value"><a href="http://www.lechaletgourmand-oyonnax.fr/" target="_blank" rel="noopener">lechaletgourmand-oyonnax.fr</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474492191">04 74 49 21 91</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-2" data-address="23 Rte de la Cluse, 01130 Nantua" data-schedule='{"week":{"0":[["12:00","14:00"]],"1":[["12:00","14:00"]],"2":[],"3":[],"4":[["12:00","14:00"],["19:30","21:15"]],"5":[["12:00","14:00"],["19:30","21:15"]],"6":[["12:00","14:00"],["19:30","21:15"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Restaurant Belle-Rive</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 15,1 km · 19 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <a class="call-btn" href="tel:0474751660">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Dimanche : 12h–14h<br>Lundi : 12h–14h<br><span class="closed-day">Mardi : Fermé</span><br><span class="closed-day">Mercredi : Fermé</span><br>Jeudi : 12h–14h · 19h30–21h15<br>Vendredi : 12h–14h · 19h30–21h15<br>Samedi : 12h–14h · 19h30–21h15</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=23+Rte+de+la+Cluse+01130+Nantua" target="_blank" rel="noopener">23 Rte de la Cluse, 01130 Nantua</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web</div>
+                                <div class="info-value"><a href="https://www.bellerive-nantua.com/fr/" target="_blank" rel="noopener">bellerive-nantua.com</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474751660">04 74 75 16 60</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-3" data-address="325 Av Jean Couty, 01100 Arbent" data-schedule='{"week":{"0":[],"1":[["12:00","14:00"],["19:00","22:00"]],"2":[["12:00","14:00"],["19:00","22:00"]],"3":[["12:00","14:00"],["19:00","22:00"]],"4":[["12:00","14:00"],["19:00","22:00"]],"5":[["12:00","14:00"],["19:00","22:00"]],"6":[["12:00","14:00"],["19:00","22:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Restaurant L'avenue</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 14,8 km · 20 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <a class="call-btn" href="tel:0970358168">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Lundi au samedi : 12h–14h · 19h–22h<br><span class="closed-day">Dimanche : Fermé</span></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=325+Av+Jean+Couty+01100+Arbent" target="_blank" rel="noopener">325 Av. Jean Couty, 01100 Arbent</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web</div>
+                                <div class="info-value"><a href="https://www.lavenue-restaurant.fr/" target="_blank" rel="noopener">lavenue-restaurant.fr</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0970358168">09 70 35 81 68</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-4" data-address="25 Rue de l'Hôtel de Ville, 01130 Nantua" data-schedule='{"week":{"0":[],"1":[["08:00","23:59"]],"2":[["08:00","23:59"]],"3":[["08:00","23:59"]],"4":[["08:00","23:59"]],"5":[["08:00","23:59"]],"6":[["08:00","23:59"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">No Limit</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 ≈ 15 km · 18 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <div class="info-block" style="margin-bottom:12px;">
+                        <div class="info-row">
+                            <div class="info-icon">🍕</div>
+                            <div class="info-content">
+                                <div class="info-label">L'adresse</div>
+                                <div class="info-value">Pizzeria-restaurant traditionnel au cadre bois et pierre, four à bois apparent. Spécialités régionales : quenelle de brochet sauce Nantua gratinée, cuisses de grenouilles, filet de perche — en plus des pizzas.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="call-btn" href="tel:0474750287">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Du lundi au samedi : 8h – minuit<br><span class="closed-day">Fermé le dimanche</span><br>Le bar propose parfois des soirées prolongées jusqu'à 3h le week-end.</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">💶</div>
+                            <div class="info-content">
+                                <div class="info-label">Tarifs</div>
+                                <div class="info-value">Menu adulte : 13,50 à 35 €<br>Menu enfant (jusqu'à 10 ans) : 10 €<br>Plat du jour : 11,50 € (avec dessert) · Menu du jour : 13,50 €</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=25+Rue+de+l'Hôtel+de+Ville+01130+Nantua" target="_blank" rel="noopener">25 Rue de l'Hôtel de Ville, 01130 Nantua</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474750287">04 74 75 02 87</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-5" data-address="18 Rte du Lac Genin, 01130 Charix" data-schedule='{"week":{"0":[["08:00","17:30"]],"1":[],"2":[["08:00","22:30"]],"3":[["08:00","22:30"]],"4":[["08:00","22:30"]],"5":[["08:00","22:30"]],"6":[["08:00","22:30"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Auberge du Lac Génin</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 23,3 km · 31 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <a class="call-btn" href="tel:0474755250">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">
+                                    <span class="closed-day">Lundi : fermé</span><br>
+                                    Mardi : 8h – 22h30 (service à table le midi)<br>
+                                    Mercredi au samedi : 8h – 22h30<br>
+                                    Dimanche : 8h – 17h30 (fermé le soir)<br>
+                                    Fermé les soirs de jours fériés
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📆</div>
+                            <div class="info-content">
+                                <div class="info-label">Fermeture annuelle</div>
+                                <div class="info-value">De la mi-octobre au début décembre (en 2026 : du 11 octobre après-midi au 4 décembre matin)</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=18+Rte+du+Lac+Genin+01130+Charix" target="_blank" rel="noopener">18 Rte du Lac Génin, 01130 Charix</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web</div>
+                                <div class="info-value"><a href="https://www.lacgenin.fr/le-restaurant-2/" target="_blank" rel="noopener">lacgenin.fr</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474755250">04 74 75 52 50</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">✉️</div>
+                            <div class="info-content">
+                                <div class="info-label">Email</div>
+                                <div class="info-value"><a href="mailto:contact@lacgenin.fr">contact@lacgenin.fr</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-6" data-address="45 Av de Franche Comté, 39260 Moirans-en-Montagne" data-schedule='{"week":{"0":[["10:30","22:00"]],"1":[["10:30","22:00"]],"2":[["10:30","22:00"]],"3":[["10:30","22:00"]],"4":[["10:30","22:00"]],"5":[["10:30","22:00"]],"6":[["10:30","22:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Restaurant Le Regardoir</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 33,4 km · 34 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <div class="info-block" style="margin-bottom:12px;">
+                        <div class="info-row">
+                            <div class="info-icon">🏔️</div>
+                            <div class="info-content">
+                                <div class="info-label">L'adresse</div>
+                                <div class="info-value">Perché sur une montagne, ce restaurant offre des plats régionaux créatifs et de la fondue, avec une vue sur le lac de Vouglans. Réservation obligatoire, terrasse, excellents cocktails. Note moyenne 4,2/5 (3 534 avis) · 30-40 € le repas.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="call-btn" href="tel:0384420115">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Tous les jours : 10h30 – 22h00</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=45+Av+de+Franche+Comté+39260+Moirans-en-Montagne" target="_blank" rel="noopener">45 Av. de Franche Comté, 39260 Moirans-en-Montagne</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">🌐</div>
+                            <div class="info-content">
+                                <div class="info-label">Site web / Menu</div>
+                                <div class="info-value"><a href="https://www.leregardoir.com/" target="_blank" rel="noopener">leregardoir.com</a> · <a href="https://carte.leregardoir.com" target="_blank" rel="noopener">carte.leregardoir.com</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0384420115">03 84 42 01 15</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">✉️</div>
+                            <div class="info-content">
+                                <div class="info-label">Email</div>
+                                <div class="info-value"><a href="mailto:infos@leregardoir.com">infos@leregardoir.com</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-7" data-address="1 Pl. du Berbois, 01460 Béard-Géovreissiat" data-schedule='{"week":{"0":[],"1":[["08:00","15:00"]],"2":[["08:00","15:00"]],"3":[["08:00","15:00"]],"4":[],"5":[],"6":[]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Fred et Vic — bar restaurant</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 ≈ 15 min</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <div class="info-block" style="margin-bottom:12px;">
+                        <div class="info-row">
+                            <div class="info-icon">⭐</div>
+                            <div class="info-content">
+                                <div class="info-label">L'adresse</div>
+                                <div class="info-value">Bar-restaurant convivial, terrasse, adapté aux végétariens. Note 4,7/5 (55 avis) · 10-20 € le repas.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="call-btn" href="tel:0474751738">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">Lundi à mercredi : 8h – 15h<br><span class="closed-day">Fermé jeudi, vendredi, samedi et dimanche</span></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=1+Pl.+du+Berbois+01460+Béard-Géovreissiat" target="_blank" rel="noopener">1 Pl. du Berbois, 01460 Béard-Géovreissiat</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0474751738">04 74 75 17 38</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-8" data-address="55 Grande Rue, 39240 Thoirette-Coisia" data-schedule='{"week":{"0":[["09:00","16:00"]],"1":[],"2":[],"3":[["09:30","23:00"]],"4":[["09:30","23:00"]],"5":[["09:30","23:00"]],"6":[["09:00","23:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">La Belle Vie</div>
+                    <div class="resto-badge-row">
+                        <span class="resto-distance">🚗 ≈ 4 min</span>
+                        <span class="resto-closest">📍 Le plus proche</span>
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <div class="info-block" style="margin-bottom:12px;">
+                        <div class="info-row">
+                            <div class="info-icon">🇫🇷</div>
+                            <div class="info-content">
+                                <div class="info-label">L'adresse</div>
+                                <div class="info-value">Restaurant français, terrasse, chiens autorisés à l'intérieur. Note 4,7/5 (185 avis) · 30-40 € le repas.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="call-btn" href="tel:0615985216">📞 Appeler pour réserver</a>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">
+                                    <span class="closed-day">Lundi et mardi : fermé</span><br>
+                                    Mercredi, jeudi, vendredi : 9h30 – 23h<br>
+                                    Samedi : 9h – 23h<br>
+                                    Dimanche : 9h – 16h
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=55+Grande+Rue+39240+Thoirette-Coisia" target="_blank" rel="noopener">55 Grande Rue, 39240 Thoirette-Coisia</a></div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📞</div>
+                            <div class="info-content">
+                                <div class="info-label">Téléphone</div>
+                                <div class="info-value"><a href="tel:0615985216">06 15 98 52 16</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="resto-card" id="resto-9" data-schedule='{"week":{"0":[["11:30","14:00"]],"1":[],"2":[],"3":[["11:30","14:00"],["19:00","21:00"]],"4":[["11:30","14:00"],["19:00","21:00"]],"5":[["11:30","14:00"],["19:00","21:00"]],"6":[["11:30","14:00"]]}}'>
+            <div class="resto-head">
+                <div class="resto-head-text">
+                    <div class="resto-name">Restaurant Le Mornay</div>
+                    <div class="resto-badge-row">
+                        <span class="open-badge" data-badge></span>
+                    </div>
+                </div>
+                <div class="resto-chevron">▾</div>
+            </div>
+            <div class="resto-body">
+                <div class="resto-body-inner">
+                    <div class="info-block" style="margin-bottom:12px;">
+                        <div class="info-row">
+                            <div class="info-icon">⭐</div>
+                            <div class="info-content">
+                                <div class="info-label">L'adresse</div>
+                                <div class="info-value">Note 4,5/5 (359 avis).</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">🕐</div>
+                            <div class="info-content">
+                                <div class="info-label">Ouverture</div>
+                                <div class="info-value">
+                                    <span class="closed-day">Lundi et mardi : fermé</span><br>
+                                    Mercredi, jeudi, vendredi : 11h30 – 14h · 19h – 21h<br>
+                                    Samedi, dimanche : 11h30 – 14h (pas de service le soir)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-hours-note">🆕&nbsp;Adresse et téléphone non communiqués — retrouvez-les via le site du restaurant avant d'y envoyer vos clients.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.resto-card'));
+            cards.forEach(function (card) {
+                card.querySelector('.resto-head').addEventListener('click', function () {
+                    card.classList.toggle('open');
+                });
+            });
+            if (cards[0]) cards[0].classList.add('open');
+
+            function toMinutes(hhmm) {
+                var p = hhmm.split(':');
+                return parseInt(p[0], 10) * 60 + parseInt(p[1], 10);
+            }
+            function computeStatus(schedule) {
+                var now = new Date();
+                var nowMin = now.getHours() * 60 + now.getMinutes();
+                var day = now.getDay();
+                var ranges = schedule.week ? schedule.week[String(day)] : null;
+                if (!ranges || !ranges.length) return { state: 'closed', label: 'Fermé aujourd\'hui' };
+                for (var i = 0; i < ranges.length; i++) {
+                    var start = toMinutes(ranges[i][0]);
+                    var end = toMinutes(ranges[i][1]);
+                    if (nowMin >= start && nowMin < end) {
+                        return { state: 'open', label: 'Ouvert · ferme à ' + ranges[i][1].replace(':', 'h').replace(/h00$/, 'h') };
+                    }
+                }
+                for (var j = 0; j < ranges.length; j++) {
+                    if (nowMin < toMinutes(ranges[j][0])) {
+                        return { state: 'closed', label: 'Ouvre à ' + ranges[j][0].replace(':', 'h').replace(/h00$/, 'h') };
+                    }
+                }
+                return { state: 'closed', label: 'Fermé pour aujourd\'hui' };
+            }
+
+            document.querySelectorAll('.resto-card[data-schedule]').forEach(function (block) {
+                var badge = block.querySelector('[data-badge]');
+                if (!badge) return;
+                try {
+                    var schedule = JSON.parse(block.getAttribute('data-schedule'));
+                    var status = computeStatus(schedule);
+                    badge.className = 'open-badge ' + status.state;
+                    badge.innerHTML = (status.state === 'open' ? '<span class="dot"></span>' : '') + status.label;
+                } catch (e) { }
+            });
+
+            var scheduledBadges = document.querySelectorAll('.resto-card[data-schedule] .open-badge');
+            var anyOpen = Array.prototype.some.call(scheduledBadges, function (b) { return b.classList.contains('open'); });
+            var alertEl = document.getElementById('closed-alert');
+            if (alertEl && scheduledBadges.length) alertEl.classList.toggle('show', !anyOpen);
+
+            var CAMPING_COORDS = '46.2619,5.5544';
+            document.querySelectorAll('.resto-card[data-address]').forEach(function (block) {
+                var address = block.getAttribute('data-address');
+                var lastRow = block.querySelector('.info-row:last-of-type .info-content');
+                if (!lastRow) return;
+                var link = document.createElement('a');
+                link.className = 'directions-btn';
+                link.href = 'https://www.google.com/maps/dir/?api=1&origin=' + CAMPING_COORDS + '&destination=' + encodeURIComponent(address) + '&travelmode=driving';
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.innerHTML = '🧭 Itinéraire depuis le camping';
+                lastRow.appendChild(link);
+            });
+        })();
+    </script>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script>
+        (function () {
+            var CAMPING = [46.2619, 5.5544];
+            var RESTOS = [
+                { id: 'resto-0', name: 'Le Pont', lat: 46.3197, lng: 5.6119 },
+                { id: 'resto-1', name: 'Le Chalet Gourmand', lat: 46.2564, lng: 5.6553 },
+                { id: 'resto-2', name: 'Restaurant Belle-Rive', lat: 46.1517, lng: 5.6067 },
+                { id: 'resto-3', name: "Restaurant L'avenue", lat: 46.2519, lng: 5.6664 },
+                { id: 'resto-4', name: 'No Limit', lat: 46.1517, lng: 5.6067 },
+                { id: 'resto-5', name: 'Auberge du Lac Génin', lat: 46.29, lng: 5.68 },
+                { id: 'resto-6', name: 'Restaurant Le Regardoir', lat: 46.295, lng: 5.719 },
+                { id: 'resto-7', name: 'Fred et Vic — bar restaurant', lat: 46.2489, lng: 5.6611 },
+                { id: 'resto-8', name: 'La Belle Vie', lat: 46.3197, lng: 5.6119 }
+            ];
+            var mapEl = document.getElementById('resto-map');
+            if (!mapEl) return;
+            var map = L.map('resto-map', { zoomControl: false, attributionControl: false }).setView(CAMPING, 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 17 }).addTo(map);
+            function pin(className) {
+                return L.divIcon({ className: '', html: '<div class="resto-marker ' + className + '"></div>', iconSize: [24, 24], iconAnchor: [12, 24] });
+            }
+            L.marker(CAMPING, { icon: pin('camp-marker') }).addTo(map).bindPopup('<span class="map-popup-name">🏕️ Vous êtes ici</span>');
+            var bounds = [CAMPING];
+            RESTOS.forEach(function (r) {
+                L.marker([r.lat, r.lng], { icon: pin('') })
+                    .addTo(map)
+                    .bindPopup('<span class="map-popup-name">' + r.name + '</span><br><a href="#" style="font-size:11px;color:#2E8A9E;font-weight:700;" onclick="event.preventDefault(); var el=document.getElementById(\'' + r.id + '\'); if(el){ el.classList.add(\'open\'); el.scrollIntoView({behavior:\'smooth\',block:\'center\'}); }">Voir la fiche →</a>');
+                bounds.push([r.lat, r.lng]);
+            });
+            map.fitBounds(bounds, { padding: [24, 24] });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
