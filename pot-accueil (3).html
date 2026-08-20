@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pot d'accueil - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:640px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        .container { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        /* ── Bandeau prochain pot d'accueil ──────────────────────────── */
+        .next-banner {
+            border-radius: 20px; padding: 18px 20px; margin-bottom: 18px; position: relative; overflow: hidden;
+            box-shadow: 0 8px 22px -8px rgba(36,57,44,0.4);
+        }
+        .next-banner.today { background: linear-gradient(150deg, var(--clay), #8F4E27); color: #fff; }
+        .next-banner.upcoming { background: white; border: 1px solid var(--line); color: var(--ink); }
+        .next-banner.off-season { background: var(--paper-deep); border: 1px solid var(--line); color: var(--ink-soft); }
+        .next-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700; letter-spacing:0.6px;
+            text-transform:uppercase; opacity:.85; margin-bottom:6px; display:flex; align-items:center; gap:6px;
+        }
+        .next-eyebrow .dot { width:6px; height:6px; border-radius:50%; background:currentColor; animation:pulseDot 1.6s infinite; }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+        .next-title { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 19px; line-height:1.3; }
+        .next-sub { font-size: 12.5px; margin-top: 5px; opacity:.85; }
+
+        .text-block { background: white; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); padding: 20px; margin-bottom: 16px; }
+        .text-block p { color: var(--ink-soft); font-size: 14px; line-height: 1.75; }
+
+        .highlight-box {
+            background: linear-gradient(150deg, #FBF1E4, #F3DFC0); border: 1px solid #E7CBA3; border-radius: 18px;
+            padding: 20px; margin-bottom: 16px;
+        }
+        .highlight-box-title { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 15px; color: #4A3418; margin-bottom: 12px; }
+        .program-list { display: flex; flex-direction: column; gap: 10px; }
+        .program-item { display: flex; align-items: center; gap: 10px; font-size: 13.5px; color: #6B4F27; }
+        .program-item-icon { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.7); display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+
+        .info-block { background: white; border-radius: 18px; border:1px solid var(--line); overflow: hidden; box-shadow: 0 3px 14px rgba(36,57,44,0.07); }
+        .info-row { display: flex; gap: 14px; align-items: flex-start; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 34px; height: 34px; background: var(--paper-deep); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+
+        footer { background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%); color: white; padding: 34px 20px; text-align: center; margin-top: 8px; }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+            <div class="hdr-eyebrow">🥂 Faisons connaissance</div>
+            <h1>Pot d'accueil</h1>
+            <div class="hdr-sub">Tous les dimanches à 19h, en juillet et août.</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="next-banner" id="next-banner">
+            <div class="next-eyebrow" id="next-eyebrow"><span class="dot"></span>Chargement…</div>
+            <div class="next-title" id="next-title"></div>
+            <div class="next-sub" id="next-sub"></div>
+        </div>
+
+        <div class="text-block">
+            <p>Nous sommes ravis de vous inviter à un pot d'accueil le dimanche à 19h (en juillet/août). Ce sera l'occasion de faire connaissance, de vous présenter l'équipe, le planning d'animation et les informations touristiques de la région.</p>
+        </div>
+
+        <div class="highlight-box">
+            <div class="highlight-box-title">🎉 Au programme</div>
+            <div class="program-list">
+                <div class="program-item"><span class="program-item-icon">👋</span>Présentation de l'équipe du camping</div>
+                <div class="program-item"><span class="program-item-icon">📅</span>Planning des animations de la semaine</div>
+                <div class="program-item"><span class="program-item-icon">🗺️</span>Bons plans et informations touristiques de la région</div>
+                <div class="program-item"><span class="program-item-icon">🥂</span>Verre de bienvenue offert</div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <div class="info-row">
+                <div class="info-icon">🕖</div>
+                <div>
+                    <div class="info-label">Horaire</div>
+                    <div class="info-value">Les dimanches à 19h</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📅</div>
+                <div>
+                    <div class="info-label">Période</div>
+                    <div class="info-value">Juillet et août uniquement</div>
+                </div>
+            </div>
+            <div class="info-row">
+                <div class="info-icon">📍</div>
+                <div>
+                    <div class="info-label">Lieu</div>
+                    <div class="info-value">Espace animation du camping</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // ── Prochain pot d'accueil, calculé en direct ────────────────────────
+        (function () {
+            var now = new Date();
+            var month = now.getMonth() + 1; // 7 = juillet, 8 = août
+            var day = now.getDay(); // 0 = dimanche
+            var nowMin = now.getHours() * 60 + now.getMinutes();
+            var inSeason = month === 7 || month === 8;
+
+            var banner = document.getElementById('next-banner');
+            var eyebrow = document.getElementById('next-eyebrow');
+            var titleEl = document.getElementById('next-title');
+            var subEl = document.getElementById('next-sub');
+
+            function setBanner(cls, eyebrowText, title, sub) {
+                banner.className = 'next-banner ' + cls;
+                eyebrow.innerHTML = '<span class="dot"></span>' + eyebrowText;
+                titleEl.textContent = title;
+                subEl.textContent = sub;
+            }
+
+            if (!inSeason) {
+                setBanner('off-season', 'Hors saison', 'Rendez-vous en juillet ou août', 'Le pot d\'accueil reprend chaque été.');
+                return;
+            }
+
+            if (day === 0 && nowMin < 19 * 60 + 60) {
+                // Dimanche, avant 20h : le pot a lieu aujourd'hui (ou vient de commencer)
+                var toStart = 19 * 60 - nowMin;
+                var sub = toStart > 0 ? ('Dans ' + toStart + ' min, à l\'espace animation') : 'En cours maintenant, à l\'espace animation';
+                setBanner('today', 'Aujourd\'hui', 'Pot d\'accueil à 19h', sub);
+            } else {
+                var daysUntilSunday = (7 - day) % 7 || 7;
+                setBanner('upcoming', 'Prochain rendez-vous', 'Dimanche à 19h', 'Dans ' + daysUntilSunday + ' jour' + (daysUntilSunday > 1 ? 's' : '') + ', à l\'espace animation');
+            }
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
