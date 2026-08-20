@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journée avec bébé - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--river), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+        .list-head { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--forest); margin: 4px 4px 12px; }
+
+        .spot-card { background: white; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 12px; overflow: hidden; }
+        .spot-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 16px 18px 14px; cursor: pointer; }
+        .spot-head-text { flex: 1; min-width: 0; }
+        .spot-name { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 17px; color: var(--ink); line-height: 1.3; margin-bottom: 6px; }
+        .spot-badge-row { display: flex; flex-wrap: wrap; gap: 7px; align-items: center; }
+        .spot-distance { display: inline-flex; align-items: center; gap: 5px; font-size: 11.5px; font-weight: 700; color: var(--river); background: #E7F1F3; padding: 4px 9px; border-radius: 100px; }
+        .spot-tag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.3px; color: var(--gorge); background: #E7EFE7; padding: 4px 9px; border-radius: 100px; }
+        .spot-chevron { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--paper-deep); display: flex; align-items: center; justify-content: center; color: var(--forest); font-size: 13px; transition: transform .25s ease; margin-top: 2px; }
+        .spot-card.open .spot-chevron { transform: rotate(180deg); }
+        .spot-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+        .spot-card.open .spot-body { max-height: 900px; }
+        .spot-body-inner { padding: 0 18px 18px; }
+        .spot-desc { font-size: 13.5px; color: var(--ink-soft); line-height: 1.65; margin-bottom: 14px; }
+        .spot-desc p { margin-bottom: 8px; }
+        .spot-desc p:last-child { margin-bottom: 0; }
+
+        .cta-btn {
+            display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+            background: var(--gorge); color: #fff; text-decoration: none; font-weight: 700; font-size: 13.5px;
+            padding: 12px; border-radius: 100px; margin-bottom: 12px; box-shadow: 0 6px 16px -6px rgba(62,108,82,0.55);
+        }
+
+        .info-block { background: var(--paper); border-radius: 14px; overflow: hidden; border: 1px solid var(--line); }
+        .info-row { display: flex; gap: 12px; align-items: flex-start; padding: 13px 15px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon { width: 30px; height: 30px; background: #fff; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13px; color: var(--ink); line-height: 1.6; }
+
+        .directions-btn { display: inline-flex; align-items: center; gap: 6px; color: var(--forest); font-weight: 700; font-size: 12.5px; text-decoration: none; margin-top: 10px; }
+        .directions-btn:hover { text-decoration: underline; }
+
+        .warn-note { display: flex; gap: 9px; align-items: flex-start; background: linear-gradient(150deg, #FBF1E4, #F3DFC0); border: 1px solid #E7CBA3; border-radius: 14px; padding: 12px 14px; font-size: 12.5px; color: #6B4F27; margin-bottom: 12px; }
+
+        footer { background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%); color: white; padding: 34px 20px; text-align: center; }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a class="back-button" href="index.html">← Retour</a>
+            <div class="hdr-eyebrow">🍼 Journée type</div>
+            <h1>Avec bébé & tout-petits</h1>
+            <div class="hdr-sub">Rien de fatigant, tout en douceur.</div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <div class="list-head">Sur place, au camping</div>
+
+        <!-- 1. PATAUGEOIRE -->
+        <div class="spot-card">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">La pataugeoire de la piscine</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-distance">🏊 Sur place</span>
+                        <span class="spot-tag">Dès la naissance</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>En plus du grand bassin, la piscine du camping dispose d'une pataugeoire dédiée aux tout-petits — peu profonde, en plein soleil, pour barboter en toute tranquillité juste à côté de votre hébergement.</p></div>
+                    <a class="cta-btn" href="horaires.html">Voir les horaires de la piscine →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. KIT BÉBÉ -->
+        <div class="spot-card">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Le kit bébé, à la réception</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-distance">🍼 Sur place</span>
+                        <span class="spot-tag">5 €/jour</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Chaise haute, lit parapluie et matelas à langer, disponibles à la location directement à la réception. Pas besoin de tout emporter en vacances.</p></div>
+                    <a class="cta-btn" href="locations.html">Voir la location de matériel →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="list-head" style="margin-top: 22px;">À proximité, en douceur</div>
+
+        <!-- 3. FERME MARIE'ÂNES -->
+        <div class="spot-card">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Ferme Marie'ânes — GAEC Massonnet</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-tag">Rencontre animaux</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Ânes, lapins, vaches et volailles à découvrir de tout près, en fin d'après-midi — le rythme lent d'une ferme se prête bien aux tout-petits, qui peuvent observer sans se presser.</p></div>
+                    <a class="cta-btn" href="fermes-a-visiter.html">En savoir plus →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FROMAGERIE DE BRÉNOD -->
+        <div class="spot-card">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Fromagerie de Brénod</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-tag">Gratuit · à l'abri</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Visite libre et gratuite, à l'intérieur, avec une galerie d'observation et même un petit film pensé pour les enfants. Le rythme est libre : on reste le temps qu'on veut, on repart quand bébé fatigue.</p></div>
+                    <a class="cta-btn" href="fermes-a-visiter.html">En savoir plus →</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. LAC GENIN -->
+        <div class="spot-card" data-address="Lac Genin, 01130 Charix">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Lac Genin</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-distance">🚗 ≈ 30 min</span>
+                        <span class="spot-tag">Baignade calme</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc"><p>Surnommé le "Petit Canada du Haut-Bugey" — un lac de montagne calme, entouré de sapins, avec une plage en pente douce et une baignade surveillée l'été. Le cadre paisible se prête bien à une sortie avec un tout-petit.</p></div>
+                    <div class="warn-note">💡&nbsp;Prévoyez une couverture et de l'ombre — pas d'infrastructure spécifique bébé sur place.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 6. OYOXYGÈNE (accessible dès 2 ans) -->
+        <div class="spot-card" data-address="D13 Route d'Echallon, 01100 Oyonnax">
+            <div class="spot-head">
+                <div class="spot-head-text">
+                    <div class="spot-name">Oyoxygène — parcours "Découverte"</div>
+                    <div class="spot-badge-row">
+                        <span class="spot-distance">🚗 ≈ 30 min</span>
+                        <span class="spot-tag">Accessible dès 2 ans</span>
+                    </div>
+                </div>
+                <div class="spot-chevron">▾</div>
+            </div>
+            <div class="spot-body">
+                <div class="spot-body-inner">
+                    <div class="spot-desc">
+                        <p>Le parc accrobranche accueille aussi les tout-petits (dès 2 ans environ) sur son parcours le plus facile, le "Pass Découverte" (moins de 1,05 m) — accompagné d'un parent, en toute sécurité, avec ligne de vie continue.</p>
+                    </div>
+                    <div class="warn-note">👨‍👩‍👧&nbsp;Un adulte accompagne gratuitement son enfant sur les petits parcours.</div>
+                    <div class="info-block">
+                        <div class="info-row">
+                            <div class="info-icon">💶</div>
+                            <div class="info-content">
+                                <div class="info-label">Prix</div>
+                                <div class="info-value">Pass Découverte (- de 1,05 m) : 10 €</div>
+                            </div>
+                        </div>
+                        <div class="info-row">
+                            <div class="info-icon">📍</div>
+                            <div class="info-content">
+                                <div class="info-label">Adresse</div>
+                                <div class="info-value"><a href="https://maps.google.com/?q=D13+Route+d%27Echallon+01100+Oyonnax" target="_blank" rel="noopener">D13 Route d'Echallon, 01100 Oyonnax</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+        <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+        <p style="margin-top: 12px; opacity: 0.75; font-size: 11.5px;">&copy; 2026 Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        (function () {
+            var cards = Array.prototype.slice.call(document.querySelectorAll('.spot-card'));
+            cards.forEach(function (card) {
+                card.querySelector('.spot-head').addEventListener('click', function () {
+                    card.classList.toggle('open');
+                });
+            });
+            if (cards[0]) cards[0].classList.add('open');
+
+            var CAMPING_COORDS = '46.2619,5.5544';
+            cards.forEach(function (card) {
+                var address = card.getAttribute('data-address');
+                var lastRow = card.querySelector('.info-row:last-of-type .info-content') || card.querySelector('.spot-body-inner');
+                if (!lastRow || !address) return;
+                var link = document.createElement('a');
+                link.className = 'directions-btn';
+                link.href = 'https://www.google.com/maps/dir/?api=1&origin=' + CAMPING_COORDS + '&destination=' + encodeURIComponent(address) + '&travelmode=driving';
+                link.target = '_blank';
+                link.rel = 'noopener';
+                link.innerHTML = '🧭 Itinéraire depuis le camping';
+                lastRow.appendChild(link);
+            });
+        })();
+    </script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
