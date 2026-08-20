@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon carnet de séjour - Camping Paradis</title>
+<meta name="theme-color" content="#2F4B3C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+        --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+        --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+        --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+    }
+    body {
+        font-family:'Outfit', sans-serif; background:var(--paper); color:var(--ink);
+        padding-bottom:76px; line-height:1.5;
+        background-image:
+            radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+            repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+    }
+
+    header {
+        background: linear-gradient(155deg, var(--gorge), var(--forest));
+        padding: 20px 20px 24px; color:#fff; position:relative; overflow:hidden;
+    }
+    header::after {
+        content:''; position:absolute; inset:0;
+        background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+        pointer-events:none;
+    }
+    .back-link { display:inline-flex; align-items:center; gap:6px; color:rgba(255,255,255,0.85); text-decoration:none; font-size:13px; font-weight:600; margin-bottom:14px; }
+    .hdr-eyebrow { font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700; letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.7); }
+    .hdr-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.25; }
+    .hdr-sub { font-size:13px; color:rgba(255,255,255,0.82); margin-top:8px; max-width:36ch; }
+
+    /* ── Score global ────────────────────────────────────────────── */
+    .global-score {
+        position:relative; margin-top:20px; background:rgba(255,255,255,0.14);
+        border:1px solid rgba(255,255,255,0.22); border-radius:16px; padding:16px 18px;
+    }
+    .global-score-top { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:10px; }
+    .global-score-label { font-size:12.5px; font-weight:700; }
+    .global-score-count { font-family:'JetBrains Mono', monospace; font-weight:700; font-size:17px; }
+    .global-score-bar-track { height:6px; background:rgba(255,255,255,0.2); border-radius:100px; overflow:hidden; }
+    .global-score-bar { height:100%; background:#fff; border-radius:100px; transition:width .5s ease; }
+    .global-score-msg { font-size:11.5px; color:rgba(255,255,255,0.85); margin-top:9px; }
+
+    .container { max-width:600px; margin:0 auto; padding:22px 16px 8px; }
+    .section-label { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:16px; color:var(--forest); margin:6px 4px 12px; }
+
+    /* ── Cartes carnet ───────────────────────────────────────────── */
+    .carnet-card {
+        display:block; background:#fff; border:1px solid var(--line); border-radius:18px;
+        padding:18px; margin-bottom:14px; text-decoration:none; color:inherit;
+        box-shadow:0 3px 14px rgba(36,57,44,0.07); transition:transform .15s, box-shadow .15s;
+    }
+    .carnet-card:active { transform:scale(0.98); }
+    .carnet-card-top { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+    .carnet-card-icon {
+        width:44px; height:44px; border-radius:13px; display:flex; align-items:center; justify-content:center;
+        font-size:22px; flex-shrink:0;
+    }
+    .carnet-card-icon.rando { background:#E7EFE7; }
+    .carnet-card-icon.sites { background:#FBF1E4; }
+    .carnet-card-title { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:16px; color:var(--ink); }
+    .carnet-card-count { font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--ink-soft); margin-top:2px; }
+    .carnet-card-arrow { margin-left:auto; color:var(--river); font-size:18px; }
+
+    .carnet-bar-track { height:8px; background:var(--paper-deep); border-radius:100px; overflow:hidden; margin-bottom:10px; }
+    .carnet-bar { height:100%; border-radius:100px; transition:width .5s ease; }
+    .carnet-bar.rando { background:var(--gorge); }
+    .carnet-bar.sites { background:var(--clay); }
+
+    .carnet-chips { display:flex; flex-wrap:wrap; gap:6px; }
+    .carnet-chip {
+        width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+        font-size:12px; border:1.5px dashed var(--line); color:var(--line); background:var(--paper);
+        flex-shrink:0;
+    }
+    .carnet-chip.done.rando { border:1.5px solid var(--gorge); background:var(--gorge); color:#fff; }
+    .carnet-chip.done.sites { border:1.5px solid var(--clay); background:var(--clay); color:#fff; }
+
+    .empty-note { text-align:center; padding:24px 16px; color:var(--ink-soft); font-size:12.5px; }
+
+    .bottom-nav {
+        position:fixed; bottom:0; left:0; right:0; z-index:999;
+        display:flex; justify-content:space-around; align-items:center;
+        background:rgba(246,243,233,0.94); backdrop-filter:blur(10px);
+        border-top:1px solid var(--line); box-shadow:0 -4px 18px rgba(36,57,44,0.08);
+        padding:8px 4px calc(8px + env(safe-area-inset-bottom));
+    }
+    .bottom-nav-item { display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:#8A9789; flex:1; padding:4px 2px; }
+    .bottom-nav-item .bn-ico { width:22px; height:22px; }
+    .bottom-nav-item .bn-ico svg { width:100%; height:100%; display:block; }
+    .bottom-nav-item .bn-label { font-size:10px; font-weight:700; }
+    .bottom-nav-item.active { color:var(--forest); }
+</style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="back-link">← Retour à l'accueil</a>
+    <div class="hdr-eyebrow">🎒 Votre séjour, résumé</div>
+    <div class="hdr-title">Mon carnet de séjour</div>
+    <div class="hdr-sub">Toute votre progression réunie en un seul endroit.</div>
+
+    <div class="global-score">
+        <div class="global-score-top">
+            <div class="global-score-label">Progression totale</div>
+            <div class="global-score-count" id="global-count">0 / 15</div>
+        </div>
+        <div class="global-score-bar-track"><div class="global-score-bar" id="global-bar" style="width:0%;"></div></div>
+        <div class="global-score-msg" id="global-msg">Vous n'avez encore rien coché — c'est le moment de vous lancer !</div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="section-label">Vos carnets</div>
+
+    <a href="carnet-rando.html" class="carnet-card">
+        <div class="carnet-card-top">
+            <div class="carnet-card-icon rando">🥾</div>
+            <div>
+                <div class="carnet-card-title">Carnet de randonnées</div>
+                <div class="carnet-card-count" id="rando-count">0 / 5 sentiers</div>
+            </div>
+            <div class="carnet-card-arrow">→</div>
+        </div>
+        <div class="carnet-bar-track"><div class="carnet-bar rando" id="rando-bar" style="width:0%;"></div></div>
+        <div class="carnet-chips" id="rando-chips"></div>
+    </a>
+
+    <a href="parcours-embleme.html" class="carnet-card">
+        <div class="carnet-card-top">
+            <div class="carnet-card-icon sites">🧭</div>
+            <div>
+                <div class="carnet-card-title">Les 10 plus beaux sites</div>
+                <div class="carnet-card-count" id="sites-count">0 / 10 sites</div>
+            </div>
+            <div class="carnet-card-arrow">→</div>
+        </div>
+        <div class="carnet-bar-track"><div class="carnet-bar sites" id="sites-bar" style="width:0%;"></div></div>
+        <div class="carnet-chips" id="sites-chips"></div>
+    </a>
+
+    <div class="empty-note" id="empty-note" style="display:none;">D'autres carnets pourront s'ajouter au fil des saisons 🌿</div>
+</div>
+
+<nav class="bottom-nav" aria-label="Navigation principale">
+    <a href="programme.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="3"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg></span>
+        <span class="bn-label">Programme</span>
+    </a>
+    <a href="plan.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+        <span class="bn-label">Plan</span>
+    </a>
+    <a href="club-enfants.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+        <span class="bn-label">Mini club</span>
+    </a>
+    <a href="horaires.html" class="bottom-nav-item">
+        <span class="bn-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg></span>
+        <span class="bn-label">Horaires</span>
+    </a>
+</nav>
+
+<script>
+(function () {
+    var RANDO_KEY = 'campingparadis_carnet_rando';
+    var SITES_KEY = 'campingparadis_parcours_embleme';
+    var RANDO_TOTAL = 5;
+    var SITES_TOTAL = 10;
+
+    function getList(key) {
+        try { return JSON.parse(localStorage.getItem(key)) || []; }
+        catch (e) { return []; }
+    }
+
+    function renderChips(containerId, count, total, cls) {
+        var el = document.getElementById(containerId);
+        el.innerHTML = '';
+        for (var i = 0; i < total; i++) {
+            var chip = document.createElement('div');
+            chip.className = 'carnet-chip' + (i < count ? ' done ' + cls : '');
+            chip.textContent = i < count ? '✓' : '';
+            el.appendChild(chip);
+        }
+    }
+
+    var randoDone = getList(RANDO_KEY).length;
+    var sitesDone = getList(SITES_KEY).length;
+
+    document.getElementById('rando-count').textContent = randoDone + ' / ' + RANDO_TOTAL + ' sentiers';
+    document.getElementById('rando-bar').style.width = (randoDone / RANDO_TOTAL * 100) + '%';
+    renderChips('rando-chips', randoDone, RANDO_TOTAL, 'rando');
+
+    document.getElementById('sites-count').textContent = sitesDone + ' / ' + SITES_TOTAL + ' sites';
+    document.getElementById('sites-bar').style.width = (sitesDone / SITES_TOTAL * 100) + '%';
+    renderChips('sites-chips', sitesDone, SITES_TOTAL, 'sites');
+
+    var totalDone = randoDone + sitesDone;
+    var totalAll = RANDO_TOTAL + SITES_TOTAL;
+    document.getElementById('global-count').textContent = totalDone + ' / ' + totalAll;
+    document.getElementById('global-bar').style.width = (totalDone / totalAll * 100) + '%';
+
+    var msgEl = document.getElementById('global-msg');
+    if (totalDone === 0) {
+        msgEl.textContent = "Vous n'avez encore rien coché — c'est le moment de vous lancer !";
+    } else if (totalDone === totalAll) {
+        msgEl.textContent = '🏆 Complet ! Vous connaissez le camping et ses environs comme personne.';
+    } else {
+        msgEl.textContent = 'Encore ' + (totalAll - totalDone) + ' étape' + (totalAll - totalDone > 1 ? 's' : '') + ' à découvrir.';
+    }
+})();
+</script>
+</body>
+</html>
