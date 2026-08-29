@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club enfants - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6;
+            background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 22px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:27px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13.5px; color:rgba(255,255,255,0.85); margin-top:8px; max-width:38ch; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 8px; }
+
+        /* ── Intro ───────────────────────────────────────────────────── */
+        .intro-block { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-bottom: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); }
+        .intro-block h2 { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 18px; color: var(--forest); margin-bottom: 10px; }
+        .intro-block p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
+
+        .section-label { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 16px; color: var(--forest); margin: 4px 4px 12px; }
+
+        /* ── Programme complet de la semaine ──────────────────────────── */
+        .schedule-card {
+            background: white; border: 1px solid var(--line); border-radius: 20px;
+            padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 16px rgba(36,57,44,0.08);
+        }
+        .week-switch { display: flex; gap: 8px; margin-bottom: 14px; }
+        .week-switch-btn {
+            flex: 1; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink-soft);
+            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 12.5px; padding: 10px 8px;
+            border-radius: 100px; cursor: pointer; transition: .2s; text-align: center;
+        }
+        .week-switch-btn.active.pirate { background: var(--forest); border-color: var(--forest); color: #fff; }
+        .week-switch-btn.active.atlas { background: var(--river); border-color: var(--river); color: #fff; }
+
+        .day-switch { display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto; scrollbar-width: none; }
+        .day-switch::-webkit-scrollbar { display: none; }
+        .day-btn {
+            flex: 1; min-width: 52px; border: 1.5px solid var(--line); background: #fff; color: var(--ink-soft);
+            font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 11px; padding: 9px 4px;
+            border-radius: 12px; cursor: pointer; transition: .2s; text-align: center; text-transform: uppercase;
+        }
+        .day-btn.active { background: var(--clay); border-color: var(--clay); color: #fff; }
+
+        .day-panel { animation: fadeInDay .25s ease; }
+        @keyframes fadeInDay { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        .slot-card {
+            display: flex; gap: 12px; align-items: flex-start; background: var(--paper-deep);
+            border-radius: 14px; padding: 13px 14px; margin-bottom: 10px;
+        }
+        .slot-icon {
+            width: 38px; height: 38px; border-radius: 11px; background: #fff; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 18px;
+            box-shadow: 0 2px 6px rgba(36,57,44,0.1);
+        }
+        .slot-time {
+            font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 700;
+            color: var(--gorge); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px;
+        }
+        .slot-title { font-family: 'Fraunces', Georgia, serif; font-weight: 600; font-size: 14.5px; color: var(--ink); line-height: 1.3; }
+
+        .evening-badge {
+            display: flex; align-items: center; gap: 10px; background: linear-gradient(135deg, var(--clay), #A85B34);
+            color: #fff; border-radius: 14px; padding: 12px 14px; margin-top: 4px;
+        }
+        .evening-badge-icon { font-size: 18px; }
+        .evening-badge-text { font-size: 12.5px; font-weight: 700; }
+        .evening-badge-time { font-family: 'JetBrains Mono', monospace; font-size: 11px; opacity: .9; margin-left: auto; }
+
+        /* ── Visionneuse zoomable (photo du programme papier) ─────────── */
+        .paper-viewer {
+            position: relative; background: white; border-radius: 20px; border: 1px solid var(--line);
+            box-shadow: 0 6px 22px rgba(36,57,44,0.12); overflow: hidden; margin-bottom: 14px;
+            height: 60vh; min-height: 320px; touch-action: none;
+        }
+        .paper-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: grab; overflow: hidden; background: var(--paper-deep); }
+        .paper-stage:active { cursor: grabbing; }
+        .paper-stage img { max-width: 100%; max-height: 100%; user-select: none; -webkit-user-drag: none; transform-origin: center center; will-change: transform; }
+        .paper-zoom-controls { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
+        .paper-zoom-btn {
+            width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--forest); color: white;
+            font-size: 20px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(36,57,44,0.35);
+            transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center;
+        }
+        .paper-zoom-btn:hover { background: var(--gorge); }
+        .paper-zoom-btn:active { transform: scale(0.92); }
+        .paper-zoom-btn.reset { font-size: 15px; }
+        .paper-zoom-hint {
+            position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+            background: rgba(36,57,44,0.82); backdrop-filter: blur(4px); color: white; font-size: 11.5px;
+            font-family: 'JetBrains Mono', monospace; padding: 7px 15px; border-radius: 100px; z-index: 10;
+            pointer-events: none; transition: opacity 0.6s; white-space: nowrap;
+        }
+        .paper-zoom-hint.hidden { opacity: 0; }
+        .paper-download-bar {
+            background: white; border: 1px solid var(--line); border-radius: 18px; padding: 15px 18px;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .paper-download-bar span { font-size: 12.5px; color: var(--ink-soft); }
+        .paper-download-btn {
+            display: inline-flex; align-items: center; gap: 6px; background: var(--clay); color: white;
+            padding: 10px 18px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 700;
+            white-space: nowrap; transition: opacity .2s;
+        }
+        .paper-download-btn:hover { opacity: 0.85; }
+
+        /* ── Semaines à thème ────────────────────────────────────────── */
+        .theme-weeks { display: flex; flex-direction: row; gap: 12px; margin-bottom: 18px; }
+        .theme-week {
+            flex: 1; min-width: 0; border-radius: 18px; overflow: hidden;
+            box-shadow: 0 6px 18px rgba(36,57,44,0.14); position: relative; display: flex; flex-direction: column;
+            background: white; border: 1px solid var(--line); transition: transform .2s;
+        }
+        .theme-week-photo { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block; }
+        .theme-week-badge {
+            position: absolute; top: 8px; left: 8px; font-size: 9.5px; font-weight: 800;
+            padding: 4px 10px; border-radius: 100px; z-index: 2; white-space: nowrap;
+            font-family: 'Outfit', sans-serif;
+        }
+        .theme-week-badge.live { background: #E4483A; color: white; display: flex; align-items: center; gap: 4px; }
+        .theme-week-badge.live .dot { width: 5px; height: 5px; border-radius: 50%; background: white; animation: pulseDot 1.5s infinite; }
+        @keyframes pulseDot { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+        .theme-week-content { padding: 12px 12px 14px; flex: 1; display: flex; flex-direction: column; }
+        .theme-week-content h3 { font-family:'Fraunces', Georgia, serif; font-size: 14.5px; font-weight: 600; color: var(--ink); margin-bottom: 5px; line-height: 1.25; }
+        .theme-week-content p { font-size: 11.5px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 10px; }
+
+        .theme-week-avatar {
+            position: absolute; bottom: 8px; right: 8px; width: 52px; height: 52px; border-radius: 50%;
+            overflow: hidden; border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.3); z-index: 2;
+        }
+        .theme-week-avatar img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+
+        .voice-btn {
+            display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
+            border: none; border-radius: 100px; background: var(--river); color: white;
+            font-size: 11.5px; font-weight: 700; padding: 9px 10px; cursor: pointer;
+            transition: background .25s, transform .15s; margin-top: auto; font-family:'Outfit', sans-serif;
+        }
+        .voice-btn:active { transform: scale(0.97); }
+        .voice-btn.playing { background: #E4483A; }
+
+        /* ── Info pratique ───────────────────────────────────────────── */
+        .info-block {
+            background: white; border-radius: 18px; border:1px solid var(--line); overflow: hidden;
+            margin: 4px 0 20px; box-shadow: 0 3px 14px rgba(36,57,44,0.07);
+        }
+        .info-row { display: flex; gap: 14px; align-items: flex-start; padding: 15px 18px; border-bottom: 1px solid var(--line); }
+        .info-row:last-child { border-bottom: none; }
+        .info-icon {
+            width: 34px; height: 34px; background: var(--paper-deep); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0;
+        }
+        .info-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.6px; color: var(--gorge); margin-bottom: 3px; }
+        .info-value { font-size: 13.5px; color: var(--ink); line-height: 1.55; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center; margin-top: 8px;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+        <div class="hdr-eyebrow">🏴‍☠️🗺️ Piki Club — 6-12 ans</div>
+        <h1>Le club enfants</h1>
+        <div class="hdr-sub">Une nouvelle aventure chaque semaine, animée par un personnage différent.</div>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="intro-block">
+        <h2>Un mini-club pour vos enfants</h2>
+        <p>Les enfants ne s'ennuieront pas : jeux, animations, mini-disco, activités… les journées sont bien remplies. Ils prendront plaisir à participer aux nombreuses activités du Piki Club (6-12 ans).</p>
+    </div>
+
+    <div class="intro-block">
+        <h2>Nos semaines à thème 🎭</h2>
+        <p>Chaque semaine, le Piki Club se transforme pour vivre une nouvelle aventure autour d'un personnage ! Écoutez un extrait pour donner un avant-goût à vos enfants.</p>
+    </div>
+
+    <div class="theme-weeks" id="theme-weeks">
+        <div class="theme-week" data-stamp="pirate">
+            <img class="theme-week-photo" src="images/club-pirate.jpg" alt="Semaine Pirate - Capitaine de la Perle Noire" loading="eager" decoding="async" fetchpriority="high">
+            <div class="theme-week-avatar">
+                <img src="images/club-pirate.jpg" alt="Capitaine de la Perle Noire">
+            </div>
+            <div class="theme-week-content">
+                <h3>🏴‍☠️ Le Capitaine de la Perle Noire</h3>
+                <p>Cap sur l'aventure ! Chasses au trésor, énigmes de navigation et jeux de pirates toute la semaine.</p>
+                <button class="voice-btn" onclick="toggleVoice(this, 'pirate')">
+                    <span class="label">Écouter le Capitaine</span>
+                </button>
+                <audio id="audio-pirate" src="audio/capitaine-perle-noire.mp3" preload="none"></audio>
+            </div>
+        </div>
+        <div class="theme-week" data-stamp="atlas">
+            <img class="theme-week-photo" src="images/club-atlas.jpg" alt="Semaine Professeur Atlas - Voyage autour du monde" loading="eager" decoding="async">
+            <div class="theme-week-avatar">
+                <img src="images/club-atlas.jpg" alt="Professeur Atlas">
+            </div>
+            <div class="theme-week-content">
+                <h3>🗺️ Le Professeur Atlas</h3>
+                <p>Un tour du monde en une semaine ! On voyage de pays en pays à travers jeux, cultures et découvertes.</p>
+                <button class="voice-btn" onclick="toggleVoice(this, 'atlas')">
+                    <span class="label">Écouter le Professeur</span>
+                </button>
+                <audio id="audio-atlas" src="audio/professeur-atlas.mp3" preload="none"></audio>
+            </div>
+        </div>
+    </div>
+
+    <!-- SAISON_TERMINEE : le bloc ci-dessous remplace le programme jour par jour + l'affiche papier.
+         L'an prochain, remettre en place le contenu original (week-switch, day-switch/day-panel,
+         paper-viewer et paper-download-bar) pour réactiver le programme du Piki Club. -->
+    <div class="section-label">📅 Le programme complet</div>
+    <div class="intro-block">
+        <h2>🍂 Saison terminée</h2>
+        <p>Les animations du Piki Club sont terminées pour cette saison. Merci à tous les enfants pour ces belles aventures, et à l'année prochaine pour de nouvelles histoires !</p>
+    </div>
+
+    <div class="section-label">Infos pratiques</div>
+    <div class="info-block">
+        <div class="info-row">
+            <div class="info-icon">🕐</div>
+            <div>
+                <div class="info-label">Ouverture</div>
+                <div class="info-value">De 10h00 à 12h et de 15h30 à 17h30, du 6 juillet au 28 août</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-icon">💳</div>
+            <div>
+                <div class="info-label">Prix</div>
+                <div class="info-value">Gratuit, inclus dans la réservation</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-icon">💡</div>
+            <div>
+                <div class="info-label">Conseil</div>
+                <div class="info-value">Inscription obligatoire auprès de l'équipe d'animation lors du pot d'accueil, le dimanche à 19h00</div>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-icon">📅</div>
+            <div>
+                <div class="info-label">Dates</div>
+                <div class="info-value">Juillet et août</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+    <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script src="i18n.js" defer></script>
+<script>
+    // ── Lecture audio des personnages ──────────────────────────────────
+    function toggleVoice(btn, key) {
+        const audio = document.getElementById('audio-' + key);
+        const label = btn.querySelector('.label');
+        const defaultLabel = key === 'pirate' ? 'Écouter le Capitaine' : 'Écouter le Professeur';
+
+        document.querySelectorAll('audio').forEach(a => {
+            if (a !== audio && !a.paused) {
+                a.pause();
+                a.currentTime = 0;
+                const otherKey = a.id.replace('audio-', '');
+                const otherBtn = document.querySelector('.theme-week[data-stamp="' + otherKey + '"] .voice-btn');
+                if (otherBtn) {
+                    otherBtn.classList.remove('playing');
+                    otherBtn.querySelector('.label').textContent = otherBtn.querySelector('.label').dataset.default;
+                }
+            }
+        });
+
+        if (!label.dataset.default) label.dataset.default = defaultLabel;
+
+        if (audio.paused) {
+            audio.play();
+            btn.classList.add('playing');
+            label.textContent = 'Pause';
+        } else {
+            audio.pause();
+            btn.classList.remove('playing');
+            label.textContent = defaultLabel;
+        }
+
+        audio.onended = () => {
+            btn.classList.remove('playing');
+            label.textContent = defaultLabel;
+        };
+    }
+
+    // ── Programme complet de la semaine ─────────────────────────────────
+    // SAISON_TERMINEE : ce bloc ne s'exécute que si le markup day-switch/day-panel est présent
+    // (retiré du HTML tant que la saison est terminée — voir plus haut). Rien à changer ici
+    // l'an prochain : remettre le HTML du programme suffit à le réactiver.
+    (function () {
+        if (!document.getElementById('day-switch')) return;
+        var PROGRAMS = {
+            pirate: [
+                { day: 'Lun', matin: { time: '10h-12h', title: 'Bienvenue à bord Mousaillons !', icon: '🚢' },
+                  apresmidi: { time: '15h30-17h30', title: 'Bataille navale des pirates', icon: '⚔️' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Mar', matin: { time: '10h-12h', title: "Les trésors de l'équipage", icon: '💰' },
+                  apresmidi: { time: '15h30-17h30', title: 'La grande chasse au trésor', icon: '🗺️' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Mer', matin: { time: '10h-12h', title: 'Emblème Pirate', icon: '🏴‍☠️' },
+                  apresmidi: { time: '15h30-17h30', title: 'Le jeu des sept mers', icon: '🐙' },
+                  soir: { label: 'Maquillage', time: '18h30', icon: '🎨' } },
+                { day: 'Jeu', matin: { time: '10h-12h', title: 'La carte du capitaine', icon: '🗺️' },
+                  apresmidi: { time: '15h-17h30', title: 'Les Olympiades des pirates', icon: '🏆' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Ven', matin: { time: '10h-12h', title: 'Préparation du spectacle', icon: '🎭' },
+                  apresmidi: { time: '15h30-17h30', title: 'Préparation du spectacle', icon: '🎭' },
+                  soir: { label: 'Spectacle', time: '18h30', icon: '🎬' } }
+            ],
+            atlas: [
+                { day: 'Lun', matin: { time: '10h-12h', title: "Bienvenue dans l'expédition Atlas", icon: '🧭' },
+                  apresmidi: { time: '15h30-17h30', title: 'Le relais des guerriers', icon: '🛡️' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Mar', matin: { time: '10h-12h', title: 'Carnaval de Rio', icon: '🎭' },
+                  apresmidi: { time: '15h30-17h30', title: "Défi de l'Amazonie", icon: '🦜' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Mer', matin: { time: '10h-12h', title: "L'atelier du Samouraï", icon: '⛩️' },
+                  apresmidi: { time: '15h30-17h30', title: 'Ninja VS Samouraï', icon: '🥷' },
+                  soir: { label: 'Maquillage', time: '18h30', icon: '🎨' } },
+                { day: 'Jeu', matin: { time: '10h-12h', title: 'Les explorateurs polaires', icon: '🧊' },
+                  apresmidi: { time: '15h-17h30', title: 'Escape Game', icon: '🔐' },
+                  soir: { label: 'Piki Disco', time: '18h30', icon: '🪩' } },
+                { day: 'Ven', matin: { time: '10h-12h', title: 'Préparation du spectacle', icon: '🎭' },
+                  apresmidi: { time: '15h30-17h30', title: 'Préparation du spectacle', icon: '🎭' },
+                  soir: { label: 'Spectacle', time: '18h30', icon: '🎬' } }
+            ]
+        };
+
+        var daySwitchEl = document.getElementById('day-switch');
+        var dayPanelEl = document.getElementById('day-panel');
+        var currentWeek = 'pirate';
+        var currentDay = 0;
+
+        function renderDaySwitch() {
+            daySwitchEl.innerHTML = '';
+            PROGRAMS[currentWeek].forEach(function (d, i) {
+                var btn = document.createElement('button');
+                btn.className = 'day-btn' + (i === currentDay ? ' active' : '');
+                btn.textContent = d.day;
+                btn.onclick = function () { currentDay = i; renderAll(); };
+                daySwitchEl.appendChild(btn);
+            });
+        }
+
+        function renderDayPanel() {
+            var d = PROGRAMS[currentWeek][currentDay];
+            dayPanelEl.innerHTML =
+                '<div class="day-panel">' +
+                    '<div class="slot-card">' +
+                        '<div class="slot-icon">' + d.matin.icon + '</div>' +
+                        '<div><div class="slot-time">Matin · ' + d.matin.time + '</div><div class="slot-title">' + d.matin.title + '</div></div>' +
+                    '</div>' +
+                    '<div class="slot-card">' +
+                        '<div class="slot-icon">' + d.apresmidi.icon + '</div>' +
+                        '<div><div class="slot-time">Après-midi · ' + d.apresmidi.time + '</div><div class="slot-title">' + d.apresmidi.title + '</div></div>' +
+                    '</div>' +
+                    '<div class="evening-badge">' +
+                        '<span class="evening-badge-icon">' + d.soir.icon + '</span>' +
+                        '<span class="evening-badge-text">' + d.soir.label + '</span>' +
+                        '<span class="evening-badge-time">' + d.soir.time + '</span>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function renderAll() {
+            renderDaySwitch();
+            renderDayPanel();
+        }
+
+        window.selectWeek = function (week) {
+            currentWeek = week;
+            currentDay = 0;
+            document.getElementById('switch-pirate').classList.toggle('active', week === 'pirate');
+            document.getElementById('switch-atlas').classList.toggle('active', week === 'atlas');
+            renderAll();
+        };
+
+        renderAll();
+    })();
+</script>
+
+<script>
+    // ── Visionneuse zoomable du programme papier Piki Club ──────────────
+    (function () {
+        const img = document.getElementById('img-piki');
+        const stage = document.getElementById('stage-piki');
+        const hint = document.getElementById('hint-piki');
+        if (!img || !stage) return;
+
+        let scale = 1, posX = 0, posY = 0;
+        const MIN = 1, MAX = 6;
+
+        function apply() {
+            img.style.transform = 'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+        }
+        function clampPos() {
+            const limX = (img.clientWidth * (scale - 1)) / 2;
+            const limY = (img.clientHeight * (scale - 1)) / 2;
+            posX = Math.max(-limX, Math.min(limX, posX));
+            posY = Math.max(-limY, Math.min(limY, posY));
+        }
+        function setScale(s) {
+            scale = Math.max(MIN, Math.min(MAX, s));
+            if (scale === 1) { posX = 0; posY = 0; }
+            clampPos();
+            apply();
+        }
+        function hideHint() { hint.classList.add('hidden'); }
+        setTimeout(hideHint, 4000);
+
+        document.querySelectorAll('.paper-zoom-btn').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const action = btn.getAttribute('data-action');
+                if (action === 'in') { setScale(scale * 1.5); hideHint(); }
+                else if (action === 'out') { setScale(scale / 1.5); hideHint(); }
+                else { setScale(1); }
+            });
+        });
+
+        stage.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            setScale(scale * (e.deltaY < 0 ? 1.15 : 0.87));
+            hideHint();
+        }, { passive: false });
+
+        let dragging = false, lastX = 0, lastY = 0;
+        stage.addEventListener('mousedown', (e) => {
+            if (scale <= 1) return;
+            dragging = true; lastX = e.clientX; lastY = e.clientY;
+            e.preventDefault();
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!dragging) return;
+            posX += e.clientX - lastX;
+            posY += e.clientY - lastY;
+            lastX = e.clientX; lastY = e.clientY;
+            clampPos(); apply();
+        });
+        window.addEventListener('mouseup', () => { dragging = false; });
+
+        let startDist = 0, startScale = 1, lastTap = 0;
+        function dist(t1, t2) { return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY); }
+
+        stage.addEventListener('touchstart', (e) => {
+            hideHint();
+            if (e.touches.length === 2) {
+                startDist = dist(e.touches[0], e.touches[1]);
+                startScale = scale;
+            } else if (e.touches.length === 1) {
+                lastX = e.touches[0].clientX;
+                lastY = e.touches[0].clientY;
+                const now = Date.now();
+                if (now - lastTap < 300) setScale(scale > 1 ? 1 : 2.5);
+                lastTap = now;
+            }
+        }, { passive: true });
+
+        stage.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const d = dist(e.touches[0], e.touches[1]);
+                setScale(startScale * (d / startDist));
+            } else if (e.touches.length === 1 && scale > 1) {
+                e.preventDefault();
+                posX += e.touches[0].clientX - lastX;
+                posY += e.touches[0].clientY - lastY;
+                lastX = e.touches[0].clientX;
+                lastY = e.touches[0].clientY;
+                clampPos(); apply();
+            }
+        }, { passive: false });
+    })();
+</script>
+</body>
+</html>

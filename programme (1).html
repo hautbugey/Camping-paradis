@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programme de la semaine - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:25px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        .programme-panel { display: none; }
+        .programme-panel.active { display: block; }
+
+        /* ── Visionneuse zoomable ────────────────────────────────────── */
+        .programme-viewer {
+            position: relative; background: white; border-radius: 20px; border: 1px solid var(--line);
+            box-shadow: 0 6px 22px rgba(36,57,44,0.12); overflow: hidden; margin-bottom: 14px;
+            height: 65vh; min-height: 340px; touch-action: none;
+        }
+        .programme-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: grab; overflow: hidden; background: var(--paper-deep); }
+        .programme-stage:active { cursor: grabbing; }
+        .programme-stage img { max-width: 100%; max-height: 100%; user-select: none; -webkit-user-drag: none; transform-origin: center center; will-change: transform; }
+
+        .zoom-controls { position: absolute; bottom: 16px; right: 16px; display: flex; flex-direction: column; gap: 8px; z-index: 10; }
+        .zoom-btn {
+            width: 44px; height: 44px; border: none; border-radius: 50%; background: var(--forest); color: white;
+            font-size: 20px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 12px rgba(36,57,44,0.35);
+            transition: background 0.2s, transform 0.1s; display: flex; align-items: center; justify-content: center;
+        }
+        .zoom-btn:hover { background: var(--gorge); }
+        .zoom-btn:active { transform: scale(0.92); }
+        .zoom-btn.reset { font-size: 15px; }
+
+        .zoom-hint {
+            position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+            background: rgba(36,57,44,0.82); backdrop-filter: blur(4px); color: white; font-size: 11.5px;
+            font-family: 'JetBrains Mono', monospace; padding: 7px 15px; border-radius: 100px; z-index: 10;
+            pointer-events: none; transition: opacity 0.6s; white-space: nowrap;
+        }
+        .zoom-hint.hidden { opacity: 0; }
+
+        .download-bar {
+            background: white; border: 1px solid var(--line); border-radius: 18px; padding: 15px 18px;
+            display: flex; align-items: center; justify-content: space-between; gap: 12px;
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .download-bar span { font-size: 12.5px; color: var(--ink-soft); }
+        .download-btn {
+            display: inline-flex; align-items: center; gap: 6px; background: var(--clay); color: white;
+            padding: 10px 18px; border-radius: 100px; text-decoration: none; font-size: 13px; font-weight: 700;
+            white-space: nowrap; transition: opacity .2s;
+        }
+        .download-btn:hover { opacity: 0.85; }
+
+        /* ── Badge "En ce moment / Prochaine activité" ────────────────── */
+        .now-banner {
+            border-radius: 20px; padding: 16px 18px; margin-bottom: 18px; position: relative; overflow: hidden;
+            box-shadow: 0 8px 20px -8px rgba(36,57,44,0.4);
+        }
+        .now-banner.live { background: linear-gradient(150deg, var(--clay), #8F4E27); color: #fff; }
+        .now-banner.upcoming { background: white; border: 1px solid var(--line); color: var(--ink); }
+        .now-banner.done { background: var(--paper-deep); border: 1px solid var(--line); color: var(--ink-soft); }
+        .now-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700; letter-spacing:0.6px;
+            text-transform:uppercase; opacity:.85; margin-bottom:6px; display:flex; align-items:center; gap:6px;
+        }
+        .now-eyebrow .dot { width:6px; height:6px; border-radius:50%; background:currentColor; animation:pulseDot 1.6s infinite; }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:.3; } }
+        .now-title { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 17px; line-height:1.3; margin-bottom: 10px; }
+        .now-cal-btn {
+            display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700;
+            padding: 8px 14px; border-radius: 100px; text-decoration: none; cursor: pointer; border: none; font-family: 'Outfit', sans-serif;
+        }
+        .now-banner.live .now-cal-btn { background: rgba(255,255,255,0.2); color: #fff; }
+        .now-banner.upcoming .now-cal-btn { background: var(--paper-deep); color: var(--forest); }
+        .now-banner.done .now-cal-btn { display: none; }
+
+        /* ── Sélecteur de jour + liste texte ──────────────────────────── */
+        .day-switch { display: flex; gap: 6px; margin-bottom: 14px; overflow-x: auto; scrollbar-width: none; }
+        .day-switch::-webkit-scrollbar { display: none; }
+        .day-btn {
+            flex: 1; min-width: 46px; border: 1.5px solid var(--line); background: #fff; color: var(--ink-soft);
+            font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 11px; padding: 9px 4px;
+            border-radius: 12px; cursor: pointer; text-align: center; text-transform: uppercase; transition: .2s;
+        }
+        .day-btn.active { background: var(--forest); border-color: var(--forest); color: #fff; }
+        .day-list { background: white; border: 1px solid var(--line); border-radius: 18px; box-shadow: 0 3px 14px rgba(36,57,44,0.07); padding: 6px 16px; margin-bottom: 18px; }
+        .day-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+        .day-item:last-child { border-bottom: none; }
+        .day-item-time { font-family: 'JetBrains Mono', monospace; font-weight: 700; font-size: 12.5px; color: var(--gorge); flex-shrink: 0; width: 44px; }
+        .day-item-title { font-size: 13.5px; color: var(--ink); }
+        .day-empty { padding: 16px 0; text-align: center; color: var(--ink-soft); font-size: 12.5px; }
+
+        .section-label { font-family:'Fraunces', Georgia, serif; font-weight: 600; font-size: 15px; color: var(--forest); margin: 4px 4px 12px; }
+
+        footer { background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%); color: white; padding: 34px 20px; text-align: center; margin-top: 20px; }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+        <div class="hdr-eyebrow">📅 Toute la semaine</div>
+        <h1>Programme de la semaine</h1>
+        <div class="hdr-sub">Zoomez pour lire les détails.</div>
+    </div>
+</header>
+
+<div class="container">
+
+    <div class="now-banner" id="now-banner">
+        <div class="now-eyebrow" id="now-eyebrow"><span class="dot"></span>Chargement…</div>
+        <div class="now-title" id="now-title"></div>
+        <button class="now-cal-btn" id="now-cal-btn" style="display:none;">📅 Ajouter à mon calendrier</button>
+    </div>
+
+    <div class="section-label">Le programme, jour par jour</div>
+    <div class="day-switch" id="day-switch"></div>
+    <div class="day-list" id="day-list"></div>
+
+    <div class="section-label">L'affiche complète</div>
+    <div id="panel-general" class="programme-panel active">
+        <div class="programme-viewer" id="viewer-general">
+            <div class="zoom-hint" id="hint-general">🔍 Pincez ou utilisez les boutons pour zoomer</div>
+            <div class="programme-stage" id="stage-general">
+                <img src="images/programme-general.jpg" alt="Programme d'animations de la semaine - Camping Paradis" id="img-general">
+            </div>
+            <div class="zoom-controls">
+                <button class="zoom-btn" data-viewer="general" data-action="in" aria-label="Zoomer">+</button>
+                <button class="zoom-btn" data-viewer="general" data-action="out" aria-label="Dézoomer">−</button>
+                <button class="zoom-btn reset" data-viewer="general" data-action="reset" aria-label="Réinitialiser">⟲</button>
+            </div>
+        </div>
+        <div class="download-bar">
+            <span>📄 Sauvegarder le programme général</span>
+            <a class="download-btn" href="images/programme-general.jpg" download="programme-general-semaine.jpg">⬇ Télécharger</a>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+    <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script>
+    // ── Visionneuse zoomable (pincement, molette, glisser, double-tap) ──
+    // Instanciée pour chaque programme (général + Piki Club).
+    function createZoomViewer(key) {
+        const img = document.getElementById('img-' + key);
+        const stage = document.getElementById('stage-' + key);
+        const hint = document.getElementById('hint-' + key);
+
+        let scale = 1, posX = 0, posY = 0;
+        const MIN = 1, MAX = 6;
+
+        function apply() {
+            img.style.transform = 'translate(' + posX + 'px,' + posY + 'px) scale(' + scale + ')';
+        }
+        function clampPos() {
+            const limX = (img.clientWidth * (scale - 1)) / 2;
+            const limY = (img.clientHeight * (scale - 1)) / 2;
+            posX = Math.max(-limX, Math.min(limX, posX));
+            posY = Math.max(-limY, Math.min(limY, posY));
+        }
+        function setScale(s) {
+            scale = Math.max(MIN, Math.min(MAX, s));
+            if (scale === 1) { posX = 0; posY = 0; }
+            clampPos();
+            apply();
+        }
+        function hideHint() { hint.classList.add('hidden'); }
+        setTimeout(hideHint, 4000);
+
+        document.querySelectorAll('.zoom-btn[data-viewer="' + key + '"]').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                const action = btn.getAttribute('data-action');
+                if (action === 'in') { setScale(scale * 1.5); hideHint(); }
+                else if (action === 'out') { setScale(scale / 1.5); hideHint(); }
+                else { setScale(1); }
+            });
+        });
+
+        stage.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            setScale(scale * (e.deltaY < 0 ? 1.15 : 0.87));
+            hideHint();
+        }, { passive: false });
+
+        let dragging = false, lastX = 0, lastY = 0;
+        stage.addEventListener('mousedown', (e) => {
+            if (scale <= 1) return;
+            dragging = true; lastX = e.clientX; lastY = e.clientY;
+            e.preventDefault();
+        });
+        window.addEventListener('mousemove', (e) => {
+            if (!dragging) return;
+            posX += e.clientX - lastX;
+            posY += e.clientY - lastY;
+            lastX = e.clientX; lastY = e.clientY;
+            clampPos(); apply();
+        });
+        window.addEventListener('mouseup', () => { dragging = false; });
+
+        let startDist = 0, startScale = 1, lastTap = 0;
+        function dist(t1, t2) { return Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY); }
+
+        stage.addEventListener('touchstart', (e) => {
+            hideHint();
+            if (e.touches.length === 2) {
+                startDist = dist(e.touches[0], e.touches[1]);
+                startScale = scale;
+            } else if (e.touches.length === 1) {
+                lastX = e.touches[0].clientX;
+                lastY = e.touches[0].clientY;
+                const now = Date.now();
+                if (now - lastTap < 300) setScale(scale > 1 ? 1 : 2.5);
+                lastTap = now;
+            }
+        }, { passive: true });
+
+        stage.addEventListener('touchmove', (e) => {
+            if (e.touches.length === 2) {
+                e.preventDefault();
+                const d = dist(e.touches[0], e.touches[1]);
+                setScale(startScale * (d / startDist));
+            } else if (e.touches.length === 1 && scale > 1) {
+                e.preventDefault();
+                posX += e.touches[0].clientX - lastX;
+                posY += e.touches[0].clientY - lastY;
+                lastX = e.touches[0].clientX;
+                lastY = e.touches[0].clientY;
+                clampPos(); apply();
+            }
+        }, { passive: false });
+    }
+
+    createZoomViewer('general');
+</script>
+
+<script>
+    // ── Programme texte jour par jour + badge "en ce moment" + calendrier ──
+    (function () {
+        // SAISON_TERMINEE : mettre à false l'an prochain pour réactiver le programme jour par jour
+        var SAISON_TERMINEE = true;
+        var JOURS = ['dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'];
+        var JOURS_COURT = ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'];
+        var now = new Date();
+        var todayIndex = now.getDay();
+        var currentDayIndex = todayIndex;
+        var PROGRAMME = {};
+
+        function toMin(h) {
+            var m = String(h).match(/(\d{1,2})h(\d{0,2})/);
+            return m ? parseInt(m[1], 10) * 60 + (m[2] ? parseInt(m[2], 10) : 0) : 0;
+        }
+
+        function getDayList(jour) {
+            var d = PROGRAMME.jours && PROGRAMME.jours[jour];
+            if (!d) d = PROGRAMME[jour];
+            var liste = [];
+            if (Array.isArray(d)) liste = d;
+            else if (d && Array.isArray(d.activites)) liste = d.activites;
+            return liste.slice().sort(function (a, b) { return toMin(a.heure) - toMin(b.heure); });
+        }
+
+        function renderDaySwitch() {
+            var el = document.getElementById('day-switch');
+            el.innerHTML = '';
+            JOURS_COURT.forEach(function (label, i) {
+                var btn = document.createElement('button');
+                btn.className = 'day-btn' + (i === currentDayIndex ? ' active' : '');
+                btn.textContent = label;
+                btn.onclick = function () { currentDayIndex = i; renderAll(); };
+                el.appendChild(btn);
+            });
+        }
+
+        function renderDayList() {
+            var listEl = document.getElementById('day-list');
+            var liste = getDayList(JOURS[currentDayIndex]);
+            listEl.innerHTML = '';
+            if (!liste.length) {
+                listEl.innerHTML = '<div class="day-empty">Rien de prévu ce jour-là.</div>';
+                return;
+            }
+            liste.forEach(function (a) {
+                var item = document.createElement('div');
+                item.className = 'day-item';
+                item.innerHTML = '<div class="day-item-time">' + a.heure + '</div><div class="day-item-title">' + a.titre + '</div>';
+                listEl.appendChild(item);
+            });
+        }
+
+        function pad(n) { return (n < 10 ? '0' : '') + n; }
+
+        function makeICS(titre, dateObj, startMin) {
+            var start = new Date(dateObj);
+            start.setHours(Math.floor(startMin / 60), startMin % 60, 0, 0);
+            var end = new Date(start.getTime() + 60 * 60000);
+            function fmt(d) {
+                return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + 'T' + pad(d.getHours()) + pad(d.getMinutes()) + '00';
+            }
+            var ics = 'BEGIN:VCALENDAR\nVERSION:2.0\nBEGIN:VEVENT\nSUMMARY:' + titre +
+                '\nDTSTART:' + fmt(start) + '\nDTEND:' + fmt(end) +
+                '\nLOCATION:Camping Les Gorges du Haut Bugey\nEND:VEVENT\nEND:VCALENDAR';
+            return 'data:text/calendar;charset=utf8,' + encodeURIComponent(ics);
+        }
+
+        function renderNowBanner() {
+            var banner = document.getElementById('now-banner');
+            var eyebrow = document.getElementById('now-eyebrow');
+            var titleEl = document.getElementById('now-title');
+            var calBtn = document.getElementById('now-cal-btn');
+            var nowMin = now.getHours() * 60 + now.getMinutes();
+            var todayList = getDayList(JOURS[todayIndex]);
+
+            var current = null, next = null;
+            todayList.forEach(function (a) {
+                var t = toMin(a.heure);
+                if (t <= nowMin) current = a;
+                if (t > nowMin && !next) next = a;
+            });
+
+            if (current && (nowMin - toMin(current.heure)) <= 90) {
+                banner.className = 'now-banner live';
+                eyebrow.innerHTML = '<span class="dot"></span>En ce moment';
+                titleEl.textContent = current.heure + ' · ' + current.titre;
+                calBtn.style.display = 'inline-flex';
+                calBtn.href = makeICS(current.titre, now, toMin(current.heure));
+                calBtn.setAttribute('download', 'activite.ics');
+            } else if (next) {
+                banner.className = 'now-banner upcoming';
+                eyebrow.innerHTML = '<span class="dot"></span>Prochaine activité';
+                titleEl.textContent = next.heure + ' · ' + next.titre;
+                calBtn.style.display = 'inline-flex';
+                calBtn.href = makeICS(next.titre, now, toMin(next.heure));
+                calBtn.setAttribute('download', 'activite.ics');
+            } else {
+                banner.className = 'now-banner done';
+                eyebrow.innerHTML = '<span class="dot"></span>Aujourd\'hui';
+                titleEl.textContent = todayList.length ? 'Programme terminé pour aujourd\'hui' : 'Voir l\'affiche complète ci-dessous';
+                calBtn.style.display = 'none';
+            }
+        }
+
+        function renderAll() {
+            renderDaySwitch();
+            renderDayList();
+        }
+
+        // Remplace le <button> par un vrai <a> pour permettre le téléchargement du fichier .ics
+        (function () {
+            var btn = document.getElementById('now-cal-btn');
+            var a = document.createElement('a');
+            a.className = btn.className; a.id = btn.id; a.innerHTML = btn.innerHTML; a.style.cssText = btn.style.cssText;
+            btn.parentNode.replaceChild(a, btn);
+        })();
+
+        if (SAISON_TERMINEE) {
+            document.getElementById('now-banner').className = 'now-banner done';
+            document.getElementById('now-eyebrow').innerHTML = '🍂 Saison terminée';
+            document.getElementById('now-title').textContent = 'Les animations sont terminées pour cette saison';
+            document.getElementById('day-switch').style.display = 'none';
+            document.getElementById('day-list').innerHTML = '<div class="day-empty">Merci à tous les vacanciers pour cette belle saison ! Rendez-vous l\'an prochain pour un nouveau programme d\'animations 🎉</div>';
+            document.querySelectorAll('.section-label')[1].style.display = 'none';
+            document.getElementById('panel-general').style.display = 'none';
+        } else {
+            fetch('programme.json?t=' + Date.now())
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    PROGRAMME = data;
+                    renderAll();
+                    renderNowBanner();
+                })
+                .catch(function () {
+                    document.getElementById('day-list').innerHTML = '<div class="day-empty">Programme indisponible pour le moment — consultez l\'affiche ci-dessous.</div>';
+                    document.getElementById('now-banner').className = 'now-banner done';
+                    document.getElementById('now-eyebrow').innerHTML = '📅';
+                    document.getElementById('now-title').textContent = 'Voir l\'affiche complète ci-dessous';
+                });
+        }
+    })();
+</script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
