@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horaires - Camping Paradis</title>
+    <meta name="theme-color" content="#2F4B3C">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest:#24392C; --gorge:#3E6C52; --gorge-light:#6B9B7C;
+            --river:#2E8A9E; --clay:#C0703C; --paper:#F6F3E9; --paper-deep:#EFEADA;
+            --ink:#26302A; --ink-soft:#5C6B5F; --line:#DED6C1;
+        }
+        body {
+            font-family: 'Outfit', sans-serif; color: var(--ink); line-height: 1.6; background: var(--paper);
+            background-image:
+                radial-gradient(circle at 15% 8%, rgba(62,108,82,0.05), transparent 40%),
+                repeating-radial-gradient(circle at 50% 0%, transparent 0, transparent 38px, rgba(36,57,44,0.035) 39px, transparent 40px);
+        }
+
+        /* ── En-tête ─────────────────────────────────────────────────── */
+        header {
+            background: linear-gradient(155deg, var(--gorge), var(--forest));
+            padding: 20px 20px 18px; color:#fff; position:relative; overflow:hidden;
+        }
+        header::after {
+            content:''; position:absolute; inset:0;
+            background: repeating-linear-gradient(transparent 0 34px, rgba(255,255,255,0.05) 34px 35px);
+            pointer-events:none;
+        }
+        .header-container { position:relative; max-width:900px; margin:0 auto; }
+        .back-button {
+            display:inline-flex; align-items:center; gap:6px; background:rgba(255,255,255,0.14);
+            border:1px solid rgba(255,255,255,0.25); color:#fff; text-decoration:none;
+            font-size:13px; font-weight:600; padding:8px 14px 8px 10px; border-radius:100px;
+            cursor:pointer; margin-bottom:14px;
+        }
+        .hdr-eyebrow {
+            font-family:'JetBrains Mono', monospace; font-size:10.5px; font-weight:700;
+            letter-spacing:0.6px; text-transform:uppercase; color:rgba(255,255,255,0.72);
+        }
+        header h1 { font-family:'Fraunces', Georgia, serif; font-weight:600; font-size:26px; margin-top:6px; line-height:1.2; }
+        .hdr-sub { font-size:13px; color:rgba(255,255,255,0.85); margin-top:7px; }
+        .hdr-date {
+            display:inline-flex; align-items:center; gap:6px; margin-top:12px; font-size:12px; font-weight:700;
+            background:rgba(255,255,255,0.14); border:1px solid rgba(255,255,255,0.26); border-radius:100px;
+            padding:6px 13px; font-family:'JetBrains Mono', monospace; text-transform:capitalize;
+        }
+
+        /* ── Vue d'ensemble des 4 services ──────────────────────────── */
+        .overview-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 16px; }
+        .overview-pill {
+            display: flex; align-items: center; gap: 8px; background: white; border: 1px solid var(--line);
+            border-radius: 14px; padding: 11px 13px; cursor: pointer; text-align: left; font-family: inherit;
+            box-shadow: 0 3px 10px rgba(36,57,44,0.05); transition: .15s;
+        }
+        .overview-pill:hover { transform: translateY(-2px); box-shadow: 0 8px 16px rgba(36,57,44,0.1); }
+        .overview-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; background: var(--line); }
+        .overview-dot.open { background: #2FA35A; animation: pulseDot 1.6s infinite; }
+        .overview-dot.closed { background: #C0433A; }
+        .overview-dot.season-only { background: var(--gorge-light); }
+        .overview-text { min-width: 0; }
+        .overview-name { font-size: 12px; font-weight: 700; color: var(--ink); }
+        .overview-label { font-size: 10.5px; color: var(--ink-soft); margin-top: 1px; }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 20px 16px 40px; }
+
+        /* ── Onglets segmentés ───────────────────────────────────────── */
+        .horaire-tabs {
+            display: flex; gap: 8px; margin-bottom: 18px; flex-wrap: wrap;
+            background: white; padding: 10px; border-radius: 16px; border: 1px solid var(--line);
+            box-shadow: 0 3px 12px rgba(36,57,44,0.06);
+        }
+        .horaire-tab {
+            flex: 1; min-width: 100px; padding: 9px 14px; background: none; border: 1.5px solid var(--line);
+            color: var(--ink-soft); border-radius: 100px; cursor: pointer; font-weight: 700; font-size: 12.5px;
+            transition: all .2s; font-family: 'Outfit', sans-serif;
+        }
+        .horaire-tab.active { background: var(--forest); border-color: var(--forest); color: white; }
+
+        .horaire-content { display: none; }
+        .horaire-content.active { display: block; animation: fadeIn .25s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* ── Bandeau statut en direct ────────────────────────────────── */
+        .status-banner {
+            display: flex; align-items: center; gap: 10px; border-radius: 16px; padding: 13px 16px;
+            margin-bottom: 16px; font-size: 13px; font-weight: 700;
+        }
+        .status-banner.open { background: #E7F1E9; color: #1E7A3E; }
+        .status-banner.closed { background: #F3E9E5; color: #A24A2E; }
+        .status-banner.season-only { background: var(--paper-deep); color: var(--ink-soft); }
+        .status-banner .dot { width: 8px; height: 8px; border-radius: 50%; background: #2FA35A; flex-shrink: 0; }
+        .status-banner.open .dot { animation: pulseDot 1.6s infinite; }
+        @keyframes pulseDot { 0%,100% { opacity:1; } 50% { opacity:.35; } }
+
+        /* ── Carte info ──────────────────────────────────────────────── */
+        .info-box {
+            background: white; padding: 20px; border-radius: 18px; border: 1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 16px;
+        }
+        .info-box h3 { font-family:'Fraunces', Georgia, serif; color: var(--forest); margin-bottom: 10px; font-size: 17px; font-weight: 600; }
+        .info-box p { color: var(--ink-soft); font-size: 13.5px; line-height: 1.7; margin-bottom: 10px; }
+        .info-box p:last-child { margin-bottom: 0; }
+        .info-box strong { color: var(--ink); }
+        .info-box .highlight { color: var(--gorge); font-weight: 700; }
+
+        /* ── Table horaires ──────────────────────────────────────────── */
+        .horaire-table {
+            background: white; border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+            box-shadow: 0 3px 14px rgba(36,57,44,0.07); margin-bottom: 16px;
+        }
+        .horaire-header {
+            background: linear-gradient(135deg, var(--gorge), var(--forest)); color: white;
+            padding: 13px 18px; font-weight: 700; font-size: 13px; font-family: 'Fraunces', Georgia, serif;
+        }
+        .horaire-row {
+            display: flex; justify-content: space-between; align-items: center; gap: 14px;
+            padding: 13px 18px; border-bottom: 1px solid var(--line);
+        }
+        .horaire-row:last-child { border-bottom: none; }
+        .horaire-day { font-weight: 700; color: var(--ink); font-size: 13px; }
+        .horaire-time { color: var(--ink-soft); font-size: 12.5px; font-family: 'JetBrains Mono', monospace; text-align: right; }
+
+        /* ── Règles d'accès (aquatique) ──────────────────────────────── */
+        .rules-list { display: flex; flex-direction: column; gap: 8px; margin-top: 4px; }
+        .rule-item { display: flex; gap: 9px; align-items: flex-start; font-size: 13px; color: var(--ink-soft); }
+        .rule-icon { flex-shrink: 0; }
+
+        footer {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--gorge) 100%);
+            color: white; padding: 34px 20px; text-align: center; margin-top: 8px;
+        }
+        footer p { margin-bottom: 8px; font-size: 13px; }
+        footer a { color: white; text-decoration: none; }
+        footer a:hover { opacity: 0.8; }
+
+        a:focus-visible, button:focus-visible { outline: 2px solid var(--river); outline-offset: 2px; }
+    </style>
+    <!-- ── Google Analytics G-9X0YBNRWMD ── -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9X0YBNRWMD"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9X0YBNRWMD');
+    </script>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <a class="back-button" href="#" onclick="history.back(); return false;">← Retour</a>
+        <h1>Horaires</h1>
+        <div class="hdr-sub">Réception, snack, bar et piscine.</div>
+        <div class="hdr-date" id="hdr-date"></div>
+    </div>
+</header>
+
+<div class="container">
+    <div class="overview-grid" id="overview-grid">
+        <button class="overview-pill" data-tab="reception">
+            <span class="overview-dot" id="overview-dot-reception"></span>
+            <span class="overview-text"><span class="overview-name">Réception</span><br><span class="overview-label" id="overview-label-reception">…</span></span>
+        </button>
+        <button class="overview-pill" data-tab="snack">
+            <span class="overview-dot" id="overview-dot-snack"></span>
+            <span class="overview-text"><span class="overview-name">Snack</span><br><span class="overview-label" id="overview-label-snack">…</span></span>
+        </button>
+        <button class="overview-pill" data-tab="bar">
+            <span class="overview-dot" id="overview-dot-bar"></span>
+            <span class="overview-text"><span class="overview-name">Bar</span><br><span class="overview-label" id="overview-label-bar">…</span></span>
+        </button>
+        <button class="overview-pill" data-tab="aquatique">
+            <span class="overview-dot" id="overview-dot-aquatique"></span>
+            <span class="overview-text"><span class="overview-name">Piscine</span><br><span class="overview-label" id="overview-label-aquatique">…</span></span>
+        </button>
+    </div>
+
+    <div class="horaire-tabs">
+        <button class="horaire-tab active" data-tab="reception">Réception</button>
+        <button class="horaire-tab" data-tab="snack">Snack</button>
+        <button class="horaire-tab" data-tab="bar">Bar</button>
+        <button class="horaire-tab" data-tab="aquatique">Piscine</button>
+    </div>
+
+    <!-- RÉCEPTION -->
+    <div id="tab-reception" class="horaire-content active">
+        <div class="status-banner" id="status-reception"></div>
+        <div class="info-box">
+            <h3>Réception</h3>
+            <p>Notre équipe est à votre disposition à l'accueil pour répondre à toutes vos questions !</p>
+        </div>
+        <div class="horaire-table">
+            <div class="horaire-header">Basse saison (mai, juin, septembre)</div>
+            <div class="horaire-row">
+                <div class="horaire-day">Dimanche au vendredi</div>
+                <div class="horaire-time">9h–12h · 15h–18h</div>
+            </div>
+            <div class="horaire-row">
+                <div class="horaire-day">Samedi</div>
+                <div class="horaire-time">9h–12h · 14h–18h</div>
+            </div>
+        </div>
+        <div class="horaire-table">
+            <div class="horaire-header">Haute saison (juillet – août)</div>
+            <div class="horaire-row">
+                <div class="horaire-day">Dimanche au vendredi</div>
+                <div class="horaire-time">9h–12h · 15h–19h</div>
+            </div>
+            <div class="horaire-row">
+                <div class="horaire-day">Samedi</div>
+                <div class="horaire-time">8h–12h · 14h–19h</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SNACK -->
+    <div id="tab-snack" class="horaire-content">
+        <a href="snack.html" class="status-banner" id="status-snack" style="text-decoration:none;"></a>
+        <div class="info-box">
+            <h3>Snack</h3>
+            <p><strong>Services :</strong> planche de charcuteries et fromages locales, commande à la carte sans réservation, soirée à thème sur réservation (uniquement en juillet/août).</p>
+            <p class="highlight">Du 15 mai au 31 août 2026</p>
+        </div>
+        <div class="horaire-table">
+            <div class="horaire-header">Horaires d'ouverture</div>
+            <div class="horaire-row"><div class="horaire-day">Lundi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Mardi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Mercredi</div><div class="horaire-time">8h–10h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Jeudi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Vendredi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Samedi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Dimanche</div><div class="horaire-time">8h–22h</div></div>
+        </div>
+        <div class="info-box">
+            <p>🍽️&nbsp;<strong>Pas de snack le midi</strong> — restauration non assurée sur le service de midi, tous les jours.</p>
+        </div>
+    </div>
+
+    <!-- BAR -->
+    <div id="tab-bar" class="horaire-content">
+        <div class="status-banner" id="status-bar"></div>
+        <div class="info-box">
+            <h3>Bar</h3>
+            <p><strong>Services :</strong> cocktails à la carte, boissons alcoolisées, softs, bières, vins, vente de glaces, dépôt de pain à partir de 8h00.</p>
+            <p><strong>Pain &amp; viennoiseries :</strong> commande au plus tard la veille avant 18h pour le lendemain.</p>
+            <p class="highlight">Du 15 mai au 31 août 2026</p>
+        </div>
+        <div class="horaire-table">
+            <div class="horaire-header">Horaires d'ouverture</div>
+            <div class="horaire-row"><div class="horaire-day">Lundi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Mardi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Mercredi</div><div class="horaire-time">8h–10h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Jeudi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Vendredi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Samedi</div><div class="horaire-time">8h–22h</div></div>
+            <div class="horaire-row"><div class="horaire-day">Dimanche</div><div class="horaire-time">8h–22h</div></div>
+        </div>
+        <div class="info-box">
+            <p>🍽️&nbsp;<strong>Pas de snack le midi</strong> — le bar reste ouvert toute la journée, mais la restauration (snack) n'est pas assurée sur le service de midi.</p>
+        </div>
+    </div>
+
+    <!-- ESPACE AQUATIQUE -->
+    <div id="tab-aquatique" class="horaire-content">
+        <div class="status-banner" id="status-aquatique"></div>
+        <div class="info-box">
+            <h3>Piscine</h3>
+            <p>Baignade surveillée l'après-midi uniquement, en haute saison.</p>
+        </div>
+        <div class="horaire-table">
+            <div class="horaire-header">Horaires</div>
+            <div class="horaire-row">
+                <div class="horaire-day">Tous les jours</div>
+                <div class="horaire-time">10h–19h</div>
+            </div>
+        </div>
+        <div class="info-box">
+            <p><strong>Prix :</strong> gratuit pour la clientèle du camping</p>
+            <p style="margin-top:12px;"><strong>Règles d'accès :</strong></p>
+            <div class="rules-list">
+                <div class="rule-item"><span class="rule-icon">🎫</span>Bracelets obligatoires</div>
+                <div class="rule-item"><span class="rule-icon">🚫</span>Short de bain interdit</div>
+                <div class="rule-item"><span class="rule-icon">👟</span>Chaussures à laisser à l'entrée avant le pédiluve</div>
+                <div class="rule-item"><span class="rule-icon">🩴</span>Tongs autorisées</div>
+            </div>
+            <p style="margin-top:12px;"><strong>Info :</strong> messieurs, vous avez oublié votre maillot de bain ? On en vend à la réception à 15€.</p>
+            <p class="highlight">Du 23 mai au 15 septembre 2026</p>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p><strong>Camping Les Gorges du Haut Bugey</strong></p>
+    <p>Ouverture : 30/04/2026 au 28/09/2026</p>
+    <p><a href="tel:+33474768097">04 74 76 80 97</a> · <a href="mailto:info@camping-lesgorgesduhautbugey.fr">info@camping-lesgorgesduhautbugey.fr</a></p>
+    <p style="margin-top:12px; opacity:0.75; font-size:11.5px;">&copy; 2026 Tous droits réservés.</p>
+</footer>
+
+<script>
+    document.querySelectorAll('.horaire-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const tabName = tab.getAttribute('data-tab');
+            document.querySelectorAll('.horaire-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.horaire-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabName).classList.add('active');
+            tab.classList.add('active');
+        });
+    });
+</script>
+
+<script>
+    // ── Date du jour ─────────────────────────────────────────────────────
+    (function () {
+        var el = document.getElementById('hdr-date');
+        if (!el) return;
+        var options = { weekday: 'long', day: 'numeric', month: 'long' };
+        el.textContent = '📅 Aujourd\'hui, ' + new Date().toLocaleDateString('fr-FR', options);
+    })();
+
+    // ── Statuts "ouvert maintenant" calculés en direct ──────────────────
+    (function () {
+        var now = new Date();
+        var month = now.getMonth() + 1; // 1-12
+        var day = now.getDay(); // 0=dim...6=sam
+        var nowMin = now.getHours() * 60 + now.getMinutes();
+
+        function fmtTime(mins) {
+            var h = Math.floor(mins / 60), m = mins % 60;
+            return String(h).padStart(2, '0') + 'h' + (m ? String(m).padStart(2, '0') : '');
+        }
+
+        function computeOpenClosed(ranges) {
+            var current = ranges.find(function (r) { return nowMin >= r[0] && nowMin < r[1]; });
+            if (current) {
+                var toClose = current[1] - nowMin;
+                var label = 'Ouvert maintenant';
+                if (toClose <= 60) label += ' — ferme dans ' + toClose + ' min';
+                return { state: 'open', label: label };
+            }
+            var next = ranges.find(function (r) { return nowMin < r[0]; });
+            return { state: 'closed', label: next ? 'Fermé — réouvre à ' + fmtTime(next[0]) : 'Fermé pour aujourd\'hui' };
+        }
+
+        // ── Réception ──
+        var receptionStatus = (function () {
+            var inSeason = month >= 5 && month <= 9;
+            if (!inSeason) return { state: 'closed', label: 'Fermé hors saison' };
+            var isHighSeason = month === 7 || month === 8;
+            var isSaturday = day === 6;
+            var ranges;
+            if (isHighSeason) {
+                ranges = isSaturday ? [[8*60, 12*60], [14*60, 19*60]] : [[9*60, 12*60], [15*60, 19*60]];
+            } else {
+                ranges = isSaturday ? [[9*60, 12*60], [14*60, 18*60]] : [[9*60, 12*60], [15*60, 18*60]];
+            }
+            return computeOpenClosed(ranges);
+        })();
+
+        // ── Bar & Snack (même établissement, mêmes horaires réels) ──
+        var barSnackStatus = (function () {
+            var start = new Date(now.getFullYear(), 4, 15);  // 15 mai
+            var end = new Date(now.getFullYear(), 7, 31, 23, 59, 59);    // 31 août
+            var inSeason = now >= start && now <= end;
+            if (!inSeason) return { state: 'closed', label: 'Fermé hors saison (15 mai – 31 août)' };
+            var isWednesday = day === 3;
+            var ranges = isWednesday ? [[8*60, 10*60]] : [[8*60, 22*60]];
+            return computeOpenClosed(ranges);
+        })();
+
+        // ── Espace aquatique ──
+        var aquatiqueStatus = (function () {
+            var start = new Date(now.getFullYear(), 4, 23);  // 23 mai
+            var end = new Date(now.getFullYear(), 8, 15);    // 15 septembre
+            var inSeason = now >= start && now <= end;
+            if (!inSeason) return { state: 'closed', label: 'Fermé hors saison' };
+            return computeOpenClosed([[10*60, 19*60]]);
+        })();
+
+        var STATUSES = {
+            reception: receptionStatus,
+            snack: barSnackStatus,
+            bar: barSnackStatus,
+            aquatique: aquatiqueStatus
+        };
+
+        // Bandeaux détaillés par onglet
+        Object.keys(STATUSES).forEach(function (key) {
+            var el = document.getElementById('status-' + key);
+            if (!el) return;
+            var s = STATUSES[key];
+            el.className = 'status-banner ' + s.state + (key === 'snack' ? '' : '');
+            el.innerHTML = (s.state !== 'season-only' ? '<span class="dot"></span>' : '') + s.label +
+                (key === 'snack' ? ' <span style="margin-left:auto;">→</span>' : '');
+            if (key === 'snack') el.style.display = 'flex';
+        });
+
+        // Vue d'ensemble
+        var SHORT_LABEL = {
+            open: 'Ouvert', closed: 'Fermé', 'season-only': 'En saison'
+        };
+        Object.keys(STATUSES).forEach(function (key) {
+            var dot = document.getElementById('overview-dot-' + key);
+            var label = document.getElementById('overview-label-' + key);
+            if (!dot || !label) return;
+            var s = STATUSES[key];
+            dot.className = 'overview-dot ' + s.state;
+            label.textContent = SHORT_LABEL[s.state] || s.state;
+        });
+    })();
+
+    // ── Clic sur une pastille de la vue d'ensemble → ouvre l'onglet ────
+    document.querySelectorAll('.overview-pill').forEach(function (pill) {
+        pill.addEventListener('click', function () {
+            var tabName = pill.getAttribute('data-tab');
+            var targetTab = document.querySelector('.horaire-tab[data-tab="' + tabName + '"]');
+            if (targetTab) targetTab.click();
+            document.querySelector('.horaire-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+</script>
+
+    <script src="i18n.js" defer></script>
+</body>
+</html>
